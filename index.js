@@ -26,18 +26,23 @@ log('');
 
 function helpFast() {
   log(c.blue(c.bold(('Available commands:'))));
-  log(c.bold(['npm run react-rapide help', ...commandsToDisplay].join('\n')));
+  log(c.bold([
+    'npm run react-rapide help',
+    'npm run react-rapide undo',
+    ...commandsToDisplay
+  ].join('\n')));
   log();
   log(c.bold(c.green('For more info run ') + 'npm run react-rapide help'));
 }
 
 async function help() {
   log(c.blue(c.bold(('Available commands explained:'))));
-  let readMes = {};
   let disp = [...commandsToDisplay];
   log('');
   log(c.bold('npm run react-rapide help'));
-  log('  This command displays info about other commands.');
+  log('  Displays info about other commands.');
+  log(c.bold('npm run react-rapide undo'));
+  log('  Resets files, folders and installed npm modules to their state before the changes made by the latests react-rapide command.');
   for (let branch of commandBranches) {
     log('');
     log(c.bold(disp.shift()));
@@ -49,6 +54,7 @@ async function runCommand(command) {
   log(c.green(c.bold(('REACT RAPIDE: ' + (command === 'helpFast' ? '' : command)))));
   if (command === 'helpFast') { helpFast(); return; }
   if (command === 'help') { await help(); return; }
+  if (command === 'undo') { undo(); return; }
   let index = commands.indexOf(command);
   if (index < 0) {
     log(c.red(c.bold('No such command: ' + command)));
@@ -143,4 +149,18 @@ function compareVersion(targetV, orgV) {
   if (orgV[1] > targetV[1]) { return true; }
   if (orgV[2] > targetV[2]) { return true; }
   return false;
+}
+
+function undo() {
+  if (!fs.existsSync(undoFolder)) {
+    console.log(c.red(c.bold('Nothing to undo...')));
+    return;
+  }
+  else {
+    let toRestore = fs.readdirSync(undoFolder).map(x => ({
+      path: path.join(undoFolder, x),
+      isDir: fs.statSync(path.join(undoFolder, x)).isDirectory()
+    }));
+    console.log({ toRestore });
+  }
 }
