@@ -115,8 +115,10 @@ function patchPackage(target, org, patch) {
     for (let key in toAdd) {
       pTargetJson[type][key] = toAdd[key];
       console.log("MEEEN", type, key, toAdd[key]);
-      log(c.bold('npm install ' + c.blue(key + '@' +
-        toAdd[key]) + type === 'dependencies' ? '' : ' --save-dev'));
+      let mess = c.bold('npm install ');
+      mess += c.bold(c.blue(key + '@' + toAdd[key]));
+      mess += type === 'dependencies' ? '' : c.bold(' --save-dev');
+      log(mess);
     }
     pTargetJson[type] = { ...pTargetJson[type], ...patch[type] };
   }
