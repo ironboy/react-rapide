@@ -84,6 +84,11 @@ function replaceFile(...args) {
   return replaceFolder(...args, true);
 }
 
-function patchPackage(targe, org, todo) {
-
+function patchPackage(target, org, todo) {
+  let pTarget = path.join(target, 'package.json');
+  let pOrg = path.join(org, 'package.json');
+  if (!fs.existsSync(pTarget) || !fs.existsSync(pOrg)) { return; }
+  let pTargetJson = JSON.parse(fs.readFileSync(pTarget, 'utf-8'));
+  let pOrgJson = JSON.parse(fs.readFileSync(pOrg, 'utf-8'));
+  console.log({ pTargetJson, pOrgJson });
 }
