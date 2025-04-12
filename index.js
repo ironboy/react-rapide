@@ -9,7 +9,7 @@ const dirname = import.meta.dirname;
 const tempDir = path.join(dirname, '..');
 const arg = process.argv.slice(2)[0];
 const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.startsWith('command-'));
-cosnt commands = commandBranches.map(x => 'npm run react-rapide ' + x.split('command - ')[1]);
+const commands = commandBranches.map(x => 'npm run react-rapide ' + x.split('command - ')[1]);
 
 log('');
 log(chalk.green("REACT RAPIDE"));
