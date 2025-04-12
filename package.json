@@ -3,17 +3,34 @@
   "type": "module",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
   "author": "ironboy",
   "license": "MIT",
-  "description": "",
+  "description": "Fast scaffolding for Vite-based React projects with TypeScript.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ironboy/react-rapide.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ironboy/react-rapide/issues"
+  },
+  "keywords": [
+    "React",
+    "Vite",
+    "TypeScript",
+    "tools",
+    "scaffolding"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node postinstall"
+  },
   "dependencies": {
     "adm-zip": "^0.5.16",
     "cheerio": "^1.0.0",
     "chalk": "^5.4.1"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": ">=20.11.0"
+  }
 }
