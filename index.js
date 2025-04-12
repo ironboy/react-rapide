@@ -97,7 +97,7 @@ function patchPackage(target, org, todo) {
     let od = pOrgJson[type] = pOrgJson[type] || {};
     for (let key in od) {
       if (!td[key]) {
-        console.log(key, td);
+        console.log("HALLO", key, td);
         // non-existant
         patch[type][key] = od[key];
       }
