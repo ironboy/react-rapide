@@ -7,6 +7,5 @@ export default function LoremIpsum() {
     paragraphLowerBound: 2,
     paragraphUpperBound: 4
   }).split('\n');
-  console.log(ipsum);
   return <>{ipsum.map((para, i) => <p key={i}>{para}</p>)}</>;
 }
