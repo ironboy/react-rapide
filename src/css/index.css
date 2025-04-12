@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Chewy&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -6,8 +8,76 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --headerFooterBgColor: #0d1050;
+  --headerFooterTextColor: #fff;
+  --navLinkColor: #bbb;
+  --navLinkColorActive: #fff;
 }
 
+/* Box sizing */
+html {
+  box-sizing: border-box;
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+}
+
+
+/* Sticky footer */
+#root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  main {
+    flex: 1;
+  }
+}
+
+/* Some styling */
+
 body {
-  margin: 20px;
+  margin: 0;
+  font-size: 18px;
+}
+
+header,
+footer {
+  background-color: var(--headerFooterBgColor);
+  color: var(--headerFooterTextColor);
+  padding: 20px;
+}
+
+header {
+  h1 {
+    margin: 0;
+    font-family: 'Chewy';
+  }
+
+  nav a {
+    display: inline-block;
+    color: var(--navLinkColor);
+    text-decoration: none;
+    padding: 5px 10px;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &.active {
+      color: var(--navLinkColorActive);
+    }
+  }
+}
+
+footer {
+  text-align: center;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 700px;
 }

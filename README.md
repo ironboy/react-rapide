@@ -1,1 +1,1 @@
-Creates an almost empty src folder. (Removes the initial counter example 'app' installed by Vite.)
+Installs React Router and an simple routing example.
