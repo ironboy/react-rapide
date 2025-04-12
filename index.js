@@ -85,7 +85,6 @@ function replaceFile(...args) {
 }
 
 function patchPackage(target, org, todo) {
-  console.log("TJOHO");
   let pTarget = path.join(target, 'package.json');
   let pOrg = path.join(org, 'package.json');
   if (!fs.existsSync(pTarget) || !fs.existsSync(pOrg)) { return; }
@@ -98,11 +97,11 @@ function patchPackage(target, org, todo) {
     let od = pOrgJson[type] = pOrgJson[type] || {};
     for (let key in od) {
       if (!td[key]) {
-        console.log("HALLO", key, td);
         // non-existant
         patch[type][key] = od[key];
       }
       else if (compareVersion(td[key], od[key])) {
+        console.log("HALLO", key, td[key], od[key]);
         // older in target
         patch[type][key] = od[key];
       }
