@@ -47,5 +47,6 @@ async function runCommand(command) {
   }
   let branch = commandBranches[index];
   let ok = await getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', branch);
-  await import(path.join(tempDir, 'react-rapide-' + branch, 'z-rapide.js'));
+  let func = (await import(path.join(tempDir, 'react-rapide-' + branch, 'z-rapide.js'))).default;
+  let postDo = func() || {};
 }
