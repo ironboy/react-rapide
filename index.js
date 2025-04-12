@@ -18,7 +18,7 @@ log('');
 
 function helpFast() {
   log(c.blue(c.bold(('Available commands:'))));
-  log(c.bold(['npm run react-rapide-help', ...commandsToDisplay].join('\n')));
+  log(c.bold(['npm run react-rapide help', ...commandsToDisplay].join('\n')));
   log();
   log(c.bold(c.green('For more info run ') + 'npm run react-rapide help'));
 }
@@ -27,9 +27,11 @@ async function help() {
   log(c.blue(c.bold(('Available commands explained:'))));
   let readMes = {};
   let disp = [...commandsToDisplay];
+  log('');
   log(c.bold('npm run react-rapide help'));
-  log('  This command displays help about other commands.');
+  log('  This command displays info about other commands.');
   for (let branch of commandBranches) {
+    log('');
     log(c.bold(disp.shift()));
     log('  ' + (await getReadMeOfBranch('ironboy', 'react-rapide', branch)));
   }
