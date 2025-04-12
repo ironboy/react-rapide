@@ -165,11 +165,11 @@ function undo() {
     isDir: fs.statSync(path.join(undoFolder, x)).isDirectory()
   }));
   for (let { name, path } of toRestore.filter(x => x.isDir)) {
-    replaceFolder(baseDir, undoFolder, path);
+    replaceFolder(baseDir, undoFolder, name.replace(baseDir, ''));
     log(c.bold('Restoring the ' + c.blue(name) + '-folder'));
   }
   for (let { name, path } of toRestore.filter(x => !x.isDir)) {
-    replaceFile(baseDir, undoFolder, path);
+    replaceFile(baseDir, undoFolder, name.replace(baseDir, ''));
     log(c.bold('Restoring the file ' + c.blue(name)));
   }
 }
