@@ -76,7 +76,12 @@ async function runCommand(command) {
   for (let file of ((postDo.replace || {}).files || [])) {
     replaceFile(baseDir, remoteBaseDir, file);
   }
-  postDo.patchPackages && patchPackage(baseDir, remoteBaseDir, postDo.patchPackages);
+  if (postDo.patchPackages) {
+    let result = patchPackage(baseDir, remoteBaseDir, postDo.patchPackages);
+    if (result) {
+      fs.writeFileSync(path.join(undoFolder, 'package.json', result.originalPackageContent));
+    }
+  }
   log(c.green(c.bold(postDo.message)));
 };
 
@@ -103,7 +108,8 @@ function patchPackage(target, org, patch) {
   let pTarget = path.join(target, 'package.json');
   let pOrg = path.join(org, 'package.json');
   if (!fs.existsSync(pTarget) || !fs.existsSync(pOrg)) { return; }
-  let pTargetJson = JSON.parse(fs.readFileSync(pTarget, 'utf-8'));
+  let originalPackageContent = fs.readFileSync(pTarget, 'utf-8');
+  let pTargetJson = JSON.parse(originalPackageContent);
   let pOrgJson = JSON.parse(fs.readFileSync(pOrg, 'utf-8'));
   if (patch === 'auto') {
     patch = {};
@@ -123,10 +129,12 @@ function patchPackage(target, org, patch) {
       }
     }
   }
+  let anythingChanged = false;
   for (let type of ['dependencies', 'devDependencies']) {
     pTargetJson[type] = pTargetJson[type] || {};
     let toAdd = patch[type];
     for (let key in toAdd) {
+      anythingChanged = true;
       pTargetJson[type][key] = toAdd[key];
       let mess = c.bold('npm install ');
       mess += c.bold(c.blue(key + '@' + toAdd[key]));
@@ -135,8 +143,10 @@ function patchPackage(target, org, patch) {
     }
     pTargetJson[type] = { ...pTargetJson[type], ...patch[type] };
   }
+  if (!anythingChanged) { return false; }
   fs.writeFileSync(pTarget, JSON.stringify(pTargetJson, null, '  '), 'utf-8');
   execSync('cd "' + target + '" && npm install');
+  return { patched: true, originalPackageContent };
 }
 
 function compareVersion(targetV, orgV) {
@@ -172,5 +182,13 @@ function undo() {
     replaceFile(baseDir, undoFolder, name.replace(baseDir, ''));
     log(c.bold('Restoring the file ' + c.blue(name)));
   }
+  if (toRestore.find(x => x.name === 'package.json')) {
+    let packageLockPath = path.join(baseDir, 'package.lock.json');
+    let nodModulesPath = path.join(baseDir, 'node_modules');
+    fs.existsSync(packageLockPath) && fs.rmSync(packageLockPath);
+    fs.existsSync(nodModulesPath) && fs.rmSync(packageLockPath, { recursive: true, force: true });
+
+  }
+  execSync('cd "' + baseDir + '" && npm install');
   fs.rmSync(undoFolder, { recursive: true, force: true });
 }
