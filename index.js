@@ -79,6 +79,7 @@ async function runCommand(command) {
   if (postDo.patchPackages) {
     let result = patchPackage(baseDir, remoteBaseDir, postDo.patchPackages);
     if (result) {
+      console.log(result);
       fs.writeFileSync(path.join(undoFolder, 'package.json'), result.originalPackageContent, 'utf-8');
     }
   }
