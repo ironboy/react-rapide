@@ -85,6 +85,7 @@ function replaceFile(...args) {
 }
 
 function patchPackage(target, org, todo) {
+  console.log("TJOHO");
   let pTarget = path.join(target, 'package.json');
   let pOrg = path.join(org, 'package.json');
   if (!fs.existsSync(pTarget) || !fs.existsSync(pOrg)) { return; }
