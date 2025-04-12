@@ -12,6 +12,7 @@
   --headerFooterTextColor: #fff;
   --navLinkColor: #bbb;
   --navLinkColorActive: #fff;
+  --logoColor: #fff;
 }
 
 /* Box sizing */
@@ -53,11 +54,12 @@ footer {
 
 header {
   h1 {
-    margin: 0;
+    margin: -5px 0 0;
     font-family: 'Chewy';
+    color: var(--logoColor);
   }
 
-  nav a {
+  a {
     display: inline-block;
     color: var(--navLinkColor);
     text-decoration: none;
@@ -79,7 +81,8 @@ footer {
 }
 
 main {
-  margin: 10px auto 30px;
+  padding: 0 20px;
+  margin: -5px auto 20px;
   max-width: 700px;
 
   h2 {
