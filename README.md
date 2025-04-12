@@ -1,1 +1,1 @@
-Installs React Router and an simple routing example.
+The initial example you get when you install React with Vite - a simple counter.
