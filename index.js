@@ -8,8 +8,9 @@ const log = (...x) => console.log(...x);
 const dirname = import.meta.dirname;
 const tempDir = path.join(dirname, '..');
 const arg = process.argv.slice(2)[0];
+const commands = await getBranches('ironboy', 'react-rapide', (x) => x.startsWith('command-'));
 
 log('');
 log(chalk.green("REACT RAPIDE"));
 log(chalk.blue('Available commands:'));
-log('');
+log(commands.join('\n'));
