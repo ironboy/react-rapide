@@ -68,7 +68,7 @@ async function runCommand(command) {
   let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
   let result = func() || {};
   let postDo = { ...defaultPostDo, ...result };
-  fs.existsSync(undoFolder) && fs.rmSync(undoFolder, { resursive: true, force: true });
+  fs.existsSync(undoFolder) && fs.rmSync(undoFolder, { recursive: true, force: true });
   fs.mkdirSync(undoFolder);
   for (let folder of ((postDo.replace || {}).folders || [])) {
     replaceFolder(baseDir, remoteBaseDir, folder);
@@ -172,5 +172,5 @@ function undo() {
     replaceFile(baseDir, undoFolder, name.replace(baseDir, ''));
     log(c.bold('Restoring the file ' + c.blue(name)));
   }
-  fs.rmSync(undoFolder, { resursive: true, force: true });
+  fs.rmSync(undoFolder, { recursive: true, force: true });
 }
