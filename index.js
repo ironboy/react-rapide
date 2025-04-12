@@ -7,7 +7,7 @@ const tempDir = path.join(dirname, 'temp');
 
 async function start() {
   let ok = await getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', 'app');
-  ok && await import(path.join(tempDir, 'index.js'));
+  ok && await import(path.join(tempDir, 'react-rapide-app', 'index.js'));
 }
 
 process.on('exit', () => {
