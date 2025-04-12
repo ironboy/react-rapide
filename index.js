@@ -96,15 +96,7 @@ function patchPackage(target, org, todo) {
     let td = pTargetJson[type] = pTargetJson[type] || {};
     let od = pOrgJson[type] = pOrgJson[type] || {};
     for (let key in od) {
-      if (!td[key]) {
-        // non-existant
-        patch[type][key] = od[key];
-      }
-      else if (compareVersion(td[key], od[key])) {
-        console.log("HALLO", key, td[key], od[key]);
-        // older in target
-        patch[type][key] = od[key];
-      }
+
     }
   }
   console.log(patch);
