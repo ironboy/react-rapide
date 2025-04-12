@@ -11,6 +11,13 @@ const arg = process.argv.slice(2)[0] || 'helpFast';
 const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.startsWith('command-'));
 const commands = commandBranches.map(x => x.split('command-')[1]);
 const commandsToDisplay = commands.map(x => 'npm run react-rapide ' + x);
+const defaultPostDo = {
+  patchPackage: 'auto',
+  replaceSrc: true,
+  replaceMain: true,
+  replacePublic: false,
+  replaceIndex: true
+};
 
 log('');
 await runCommand(arg);
@@ -48,5 +55,7 @@ async function runCommand(command) {
   let branch = commandBranches[index];
   let ok = await getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', branch);
   let func = (await import(path.join(tempDir, 'react-rapide-' + branch, 'z-rapide.js'))).default;
-  let postDo = func() || {};
-}
+  let result = func() || {};
+  let postDo = { ...defaultPostDo, ...result };
+  console.log(postDo, postDo);
+};
