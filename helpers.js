@@ -32,23 +32,7 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
   try {
     const data = Buffer.from(await (await fetch(url)).arrayBuffer());
     new AdmZip(data).extractAllTo(folderPath, true);
-    packageDiffPatch(path.join(folderPath, repository + '-' + branch));
   }
   catch (_e) { console.log(_e); return false; }
   return true;
-}
-
-function packageDiffPatch(packageJsonFolder) {
-  // Note: Patchning our package json!
-  let ourPackageJsonPath = path.join(import.meta.dirname, 'package.json');
-  let one = JSON.parse(fs.readFileSync(ourPackageJsonPath, 'utf-8'));
-  let two = JSON.parse(fs.readFileSync(path.join(packageJsonFolder, 'package.json'), 'utf-8'));
-  let oldOneDeps = JSON.stringify(one.dependencies);
-  let oldOneDevDeps = JSON.stringify(one.devDependencies);
-  one.dependencies = { ...(one.dependencies || {}), ...(two.dependencies || {}) };
-  one.devDependencies = { ...(one.devDependencies || {}), ...(two.devdDependencies || {}) };
-  fs.writeFileSync(ourPackageJsonPath, JSON.stringify(one, null, '  '));
-  let changes = oldOneDeps !== JSON.stringify(one.dependencies)
-    || oldOneDevDeps !== JSON.stringify(one.devDependencies);
-  changes && execSync('npm install');
 }
