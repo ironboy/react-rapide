@@ -24,9 +24,11 @@ function helpFast() {
 }
 
 async function help() {
-  log(c.blue(c.bold(('Available commands:'))));
+  log(c.blue(c.bold(('Available commands explained:'))));
   let readMes = {};
   let disp = [...commandsToDisplay];
+  log(c.bold('npm run react-rapide help'));
+  log('  This command displays help about other commands.');
   for (let branch of commandBranches) {
     log(c.bold(disp.shift()));
     log('  ' + (await getReadMeOfBranch('ironboy', 'react-rapide', branch)));
@@ -34,7 +36,7 @@ async function help() {
 }
 
 async function runCommand(command) {
-  log(c.green(c.bold(("REACT RAPIDE"))));
+  log(c.green(c.bold(('REACT RAPIDE: ' + (command === 'helpFast' ? '' : command)))));
   if (command === 'helpFast') { helpFast(); return; }
   if (command === 'help') { await help(); return; }
   let index = commands.indexOf(command);
