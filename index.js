@@ -157,11 +157,17 @@ function undo() {
     console.log(c.red(c.bold('Nothing to undo...')));
     return;
   }
-  else {
-    let toRestore = fs.readdirSync(undoFolder).map(x => ({
-      path: path.join(undoFolder, x),
-      isDir: fs.statSync(path.join(undoFolder, x)).isDirectory()
-    }));
-    console.log({ toRestore });
+  let toRestore = fs.readdirSync(undoFolder).map(x => ({
+    name: x,
+    path: path.join(undoFolder, x),
+    isDir: fs.statSync(path.join(undoFolder, x)).isDirectory()
+  }));
+  for (let { name, path } of toRestore.filter(x => x.isDir)) {
+    replaceFolder(baseDir, undoFolder, path);
+    log(c.bold('Restoring the ' + c.blue(name) + '-folder'));
+  }
+  for (let { name, path } of toRestore.filter(x => !x.isDir)) {
+    replaceFile(baseDir, undoFolder, path);
+    log(c.bold('Restoring the file ' + c.blue(name)));
   }
 }
