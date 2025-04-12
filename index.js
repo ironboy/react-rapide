@@ -71,17 +71,17 @@ async function runCommand(command) {
   let postDo = { ...defaultPostDo, ...result };
   fs.existsSync(undoFolder) && fs.rmSync(undoFolder, { recursive: true, force: true });
   fs.mkdirSync(undoFolder);
-  for (let folder of ((postDo.replace || {}).folders || [])) {
-    replaceFolder(baseDir, remoteBaseDir, folder);
-  }
-  for (let file of ((postDo.replace || {}).files || [])) {
-    replaceFile(baseDir, remoteBaseDir, file);
-  }
   if (postDo.patchPackages) {
     let result = patchPackage(baseDir, remoteBaseDir, postDo.patchPackages);
     if (result) {
       fs.writeFileSync(path.join(undoFolder, 'package.json'), result.originalPackageContent, 'utf-8');
     }
+  }
+  for (let folder of ((postDo.replace || {}).folders || [])) {
+    replaceFolder(baseDir, remoteBaseDir, folder);
+  }
+  for (let file of ((postDo.replace || {}).files || [])) {
+    replaceFile(baseDir, remoteBaseDir, file);
   }
   log(c.green(c.bold(postDo.message)));
 };
