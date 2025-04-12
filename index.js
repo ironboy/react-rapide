@@ -13,7 +13,7 @@ const undoFolder = path.join(rapideBaseDir, 'undoFiles');
 const arg = process.argv.slice(2)[0] || 'helpFast';
 const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.startsWith('command-'));
 const commands = commandBranches.map(x => x.split('command-')[1]);
-const commandsToDisplay = commands.map(x => 'npm run react-rapide ' + x);
+const commandsToDisplay = commands.map(x => 'npm run rr ' + x);
 const defaultPostDo = {
   patchPackages: 'auto',
   replace: { files: ['index.html'], folders: ['public', 'src'] },
@@ -27,12 +27,12 @@ log('');
 function helpFast() {
   log(c.blue(c.bold(('Available commands:'))));
   log(c.bold([
-    'npm run react-rapide help',
-    'npm run react-rapide undo',
+    'npm run rr help',
+    'npm run rr undo',
     ...commandsToDisplay
   ].join('\n')));
   log();
-  log(c.bold(c.green('For more info run ') + 'npm run react-rapide help'));
+  log(c.bold(c.green('For more info run ') + 'npm run rr help'));
 }
 
 async function help() {
@@ -40,10 +40,10 @@ async function help() {
   log(c.blue(c.bold(('Available commands explained:'))));
   let disp = [...commandsToDisplay];
   log('');
-  log(c.bold('npm run react-rapide help'));
+  log(c.bold('npm run rr help'));
   log('Displays info about other commands.');
   log('');
-  log(c.bold('npm run react-rapide undo'));
+  log(c.bold('npm run rr undo'));
   log('Resets files, folders and installed npm modules to their state before the changes made by the latests react-rapide command.');
   for (let branch of commandBranches) {
     log('');
