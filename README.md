@@ -5,7 +5,7 @@ Fast scaffolding for Vite-based React projects with TypeScript.
 Run
 
 ```
-npm install react-rapide
+npm install react-rapide --save-dev
 ```
 
 Then read the help:
