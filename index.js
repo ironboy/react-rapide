@@ -14,7 +14,6 @@ const commandsToDisplay = commands.map(x => 'npm run react-rapide ' + x);
 const defaultPostDo = {
   patchPackage: 'auto',
   replaceSrc: true,
-  replaceMain: true,
   replacePublic: false,
   replaceIndex: true
 };
@@ -63,5 +62,28 @@ async function runCommand(command) {
   let postDo = { ...defaultPostDo, ...result };
   console.log('baseDir', baseDir);
   console.log('removeBaseDir', remoteBaseDir);
-  //postDo.replaceSrc && c
+  postDo.replaceSrc && replaceFolder(baseDir, remoteBaseDir, 'src');
+  postDo.replacePublic && replaceFolder(baseDir, remoteBaseDir, 'public');
+  postDo.replaceIndex && replaceFile(baseDir, remoteBaseDir, 'index');
+  postDo.patchPackage && postDo.patchPackage(baseDir, remoteBaseDir, postDo.patchPackage);
 };
+
+function replaceFolder(target, org, ...folderName) {
+  let file = folderName[folderName.length - 1] === true;
+  file && folderName.pop();
+  target = path.join(target, ...folderName);
+  org = path.join('target', ...folderName);
+  if (!fs.existsSync(org)) { return; }
+  fs.existsSync(target) && fs.rmSync(target, file ? {} : { recursive: true, force: true });
+  fs.cp(org, target, file ? {} : { recursive: true });
+  !file && log('Replacing the ' + c.bold(folderName[folderName.length - 1]) + ' -folder');
+  file && log('Replacing the file ' + c.bold(folderName[folderName.length - 1]));
+}
+
+function replaceFile(...args) {
+  return replaceFolder(...args, true);
+}
+
+function patchPackage(targe, org, todo) {
+
+}
