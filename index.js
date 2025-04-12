@@ -47,7 +47,7 @@ async function help() {
   for (let branch of commandBranches) {
     log('');
     log(c.bold(disp.shift()));
-    log('  ' + (await getReadMeOfBranch('ironboy', 'react-rapide', branch)));
+    log(await getReadMeOfBranch('ironboy', 'react-rapide', branch));
   }
 }
 
