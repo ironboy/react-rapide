@@ -87,7 +87,7 @@ function replaceFolder(target, org, ...folderName) {
   target = path.join(target, ...folderName);
   let undoFolderTarget = path.join(undoFolder, ...folderName);
   org = path.join(org, ...folderName);
-  if (!fs.existsSync(org)) { console.log("SHIT", org) return; }
+  if (!fs.existsSync(org)) { console.log("SHIT", org); return; }
   !undo && fs.existsSync(target) && fs.cpSync(target, undoFolderTarget, file ? {} : { recursive: true });
   fs.existsSync(target) && fs.rmSync(target, file ? {} : { recursive: true, force: true });
   fs.cpSync(org, target, file ? {} : { recursive: true });
