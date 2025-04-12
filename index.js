@@ -17,5 +17,4 @@ process.on('exit', () => {
     'This is a temp dir neeeded by the app.', 'utf-8');
 });
 
-
 start();
