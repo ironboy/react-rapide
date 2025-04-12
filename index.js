@@ -29,6 +29,7 @@ async function runCommand(command) {
     console.log(c.red(c.bold('No such command: ' + command)));
   }
   let branch = commandBranches[index];
-  getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', branch);
+  let ok = getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', branch);
+  console.log('ok', ok);
   await import(path.join(tempDir, 'react-rapide-' + branch, 'z-rapide.js'));
 }
