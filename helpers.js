@@ -26,6 +26,10 @@ export async function getReadMeOfBranch(gitHubUser, repository, branch, shortenT
 export async function getFolderOfBranch(folderPath, gitHubUser, repository, branch) {
   const url = `https://github.com/${gitHubUser}/${repository}`
     + `/archive/${branch}.zip`;
-  const data = Buffer.from(await (await fetch(url)).arrayBuffer());
-  new AdmZip(data).extractAllTo(folderPath, true);
+  try {
+    const data = Buffer.from(await (await fetch(url)).arrayBuffer());
+    new AdmZip(data).extractAllTo(folderPath, true);
+  }
+  catch (_e) { return false; }
+  return true;
 }
