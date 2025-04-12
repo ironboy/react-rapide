@@ -4,5 +4,6 @@ import path from 'path';
 import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js';
 const dirname = import.meta.dirname;
 const tempDir = path.join(dirname, '..');
+const arg = process.argv.slice(2)[0];
 
-console.log("HELLO THERE", tempDir);
+console.log(chalk.green("HELLO THERE"), tempDir);
