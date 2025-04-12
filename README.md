@@ -1,1 +1,1 @@
-Creates an almost empty src folder. (Removes the initial counter example 'app' installed by Vite).
+Creates an almost empty src folder. (Removes the initial counter example 'app' installed by Vite.)
