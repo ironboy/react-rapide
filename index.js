@@ -71,6 +71,7 @@ function replaceFolder(target, org, ...folderName) {
   file && folderName.pop();
   target = path.join(target, ...folderName);
   org = path.join('target', ...folderName);
+  console.log({ target, org });
   if (!fs.existsSync(org)) { return; }
   fs.existsSync(target) && fs.rmSync(target, file ? {} : { recursive: true, force: true });
   fs.cp(org, target, file ? {} : { recursive: true });
