@@ -14,7 +14,7 @@ const commands = commandBranches.map(x => x.split('command-')[1]);
 const commandsToDisplay = commands.map(x => 'npm run react-rapide ' + x);
 const defaultPostDo = {
   patchPackages: 'auto',
-  replace: { files: ['index.html'], folder: ['src'] },
+  replace: { files: ['index.html'], folders: ['src'] },
   message: 'All done!'
 };
 
