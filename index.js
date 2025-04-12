@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import c from 'chalk';
+import { execSync } from 'child_process';
 import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js';
 
 const log = (...x) => console.log(...x);
@@ -12,7 +13,7 @@ const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.st
 const commands = commandBranches.map(x => x.split('command-')[1]);
 const commandsToDisplay = commands.map(x => 'npm run react-rapide ' + x);
 const defaultPostDo = {
-  patchPackage: 'auto',
+  patchPackages: 'auto',
   replaceSrc: true,
   replaceIndex: true,
   replacePublic: false,
@@ -64,7 +65,7 @@ async function runCommand(command) {
   postDo.replaceSrc && replaceFolder(baseDir, remoteBaseDir, 'src');
   postDo.replacePublic && replaceFolder(baseDir, remoteBaseDir, 'public');
   postDo.replaceIndex && replaceFile(baseDir, remoteBaseDir, 'index.html');
-  postDo.patchPackage && patchPackage(baseDir, remoteBaseDir, postDo.patchPackage);
+  postDo.patchPackages && patchPackage(baseDir, remoteBaseDir, postDo.patchPackages);
   log(c.green(c.bold(postDo.message)));
 };
 
@@ -84,29 +85,42 @@ function replaceFile(...args) {
   return replaceFolder(...args, true);
 }
 
-function patchPackage(target, org, todo) {
+function patchPackage(target, org, patch) {
   let pTarget = path.join(target, 'package.json');
   let pOrg = path.join(org, 'package.json');
   if (!fs.existsSync(pTarget) || !fs.existsSync(pOrg)) { return; }
   let pTargetJson = JSON.parse(fs.readFileSync(pTarget, 'utf-8'));
   let pOrgJson = JSON.parse(fs.readFileSync(pOrg, 'utf-8'));
-  let patch = {};
-  for (let type of ['dependencies', 'devDependencies']) {
-    patch[type] = {};
-    let td = pTargetJson[type] = pTargetJson[type] || {};
-    let od = pOrgJson[type] = pOrgJson[type] || {};
-    for (let key in od) {
-      if (!td[key]) {
-        // non-existant
-        patch[type][key] = od[key];
-      }
-      else if (compareVersion(td[key], od[key])) {
-        // older in target
-        patch[type][key] = od[key];
+  if (patch === 'auto') {
+    patch = {};
+    for (let type of ['dependencies', 'devDependencies']) {
+      patch[type] = {};
+      let td = pTargetJson[type] = pTargetJson[type] || {};
+      let od = pOrgJson[type] = pOrgJson[type] || {};
+      for (let key in od) {
+        if (!td[key]) {
+          // non-existant
+          patch[type][key] = od[key];
+        }
+        else if (compareVersion(td[key], od[key])) {
+          // older in target
+          patch[type][key] = od[key];
+        }
       }
     }
   }
-  console.log(patch);
+  for (let type of ['dependencies', 'devDependencies']) {
+    pTargetJson[type] = pTargetJson[type] || {};
+    let toAdd = patch[type];
+    for (let key in toAdd) {
+      pTargetJson[type][key] = toAdd[key];
+      log(c.bold('npm install ' + c.blue(key + '@' +
+        toAdd[key]) + type === 'dependencies' ? '' : ' --save-dev'));
+    }
+    pTargetJson[type] = { ...pTargetJson[type], ...patch[type] };
+  }
+  fs.writeFileSync(pTarget, JSON.stringify(pTargetJson, null, '  '), 'utf-8');
+  execSync('cd "' + target + '" && npm install');
 }
 
 function compareVersion(targetV, orgV) {
