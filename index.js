@@ -8,6 +8,8 @@ import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js'
 const log = (...x) => console.log(...x);
 const dirname = import.meta.dirname;
 const tempDir = path.join(dirname, '..');
+const rapideBaseDir = path.join(dirname, '..', '..');
+console.log({ rapideBaseDir });
 const arg = process.argv.slice(2)[0] || 'helpFast';
 const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.startsWith('command-'));
 const commands = commandBranches.map(x => x.split('command-')[1]);
@@ -56,10 +58,10 @@ async function runCommand(command) {
   let baseDir = dirname.slice(0, dirname.lastIndexOf('node_modules'));
   while (baseDir.endsWith('/') || baseDir.endsWith('\\')) { baseDir = baseDir.slice(0, -1); }
   let remoteBaseDir = path.join(tempDir, 'react-rapide-' + branch);
-
   let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
   let result = func() || {};
   let postDo = { ...defaultPostDo, ...result };
+  let;
   for (let folder of ((postDo.replace || {}).folders || [])) {
     replaceFolder(baseDir, remoteBaseDir, folder);
   }
