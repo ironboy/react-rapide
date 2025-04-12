@@ -60,8 +60,6 @@ async function runCommand(command) {
   let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
   let result = func() || {};
   let postDo = { ...defaultPostDo, ...result };
-  console.log('baseDir', baseDir);
-  console.log('removeBaseDir', remoteBaseDir);
   postDo.replaceSrc && replaceFolder(baseDir, remoteBaseDir, 'src');
   postDo.replacePublic && replaceFolder(baseDir, remoteBaseDir, 'public');
   postDo.replaceIndex && replaceFile(baseDir, remoteBaseDir, 'index');
