@@ -53,7 +53,7 @@ async function help() {
 }
 
 async function runCommand(command) {
-  log(c.green(c.bold(('REACT RAPIDE' + (command === 'helpFast' ? ': ' : command)))));
+  log(c.green(c.bold(('REACT RAPIDE' + (command === 'helpFast' ? '' : ': ' + command)))));
   if (command === 'helpFast') { helpFast(); return; }
   if (command === 'help') { await help(); return; }
   if (command === 'undo') { undo(); return; }
