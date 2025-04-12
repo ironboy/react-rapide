@@ -188,7 +188,7 @@ function undo() {
     fs.existsSync(packageLockPath) && fs.rmSync(packageLockPath);
     fs.existsSync(nodModulesPath) && fs.rmSync(packageLockPath, { recursive: true, force: true });
     execSync('cd "' + baseDir + '" && npm install');
-    log(c.bold('Reinstalling npm modules...'));
+    log(c.bold('Sync of npm modules to match restored package.json'));
   }
   fs.rmSync(undoFolder, { recursive: true, force: true });
 }
