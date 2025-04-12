@@ -9,5 +9,7 @@ const dirname = import.meta.dirname;
 const tempDir = path.join(dirname, '..');
 const arg = process.argv.slice(2)[0];
 
-log(chalk.green("REACT RAPIDE"), tempDir);
+log('');
+log(chalk.green("REACT RAPIDE"));
 log(chalk.blue('Available commands:'));
+log('');
