@@ -153,8 +153,9 @@ function compareVersion(targetV, orgV) {
 }
 
 function undo() {
+  let baseDir = dirname.slice(0, dirname.lastIndexOf('node_modules'));
   if (!fs.existsSync(undoFolder)) {
-    console.log(c.red(c.bold('Nothing to undo...')));
+    log(c.red(c.bold('Nothing to undo...')));
     return;
   }
   let toRestore = fs.readdirSync(undoFolder).map(x => ({
