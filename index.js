@@ -15,7 +15,8 @@ const defaultPostDo = {
   patchPackage: 'auto',
   replaceSrc: true,
   replaceIndex: true,
-  replacePublic: false
+  replacePublic: false,
+  message: 'All done!'
 };
 
 log('');
@@ -64,6 +65,7 @@ async function runCommand(command) {
   postDo.replacePublic && replaceFolder(baseDir, remoteBaseDir, 'public');
   postDo.replaceIndex && replaceFile(baseDir, remoteBaseDir, 'index.html');
   postDo.patchPackage && patchPackage(baseDir, remoteBaseDir, postDo.patchPackage);
+  log(postDo.message);
 };
 
 function replaceFolder(target, org, ...folderName) {
