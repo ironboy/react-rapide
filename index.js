@@ -9,7 +9,7 @@ const log = (...x) => console.log(...x);
 const dirname = import.meta.dirname;
 const tempDir = path.join(dirname, '..');
 const rapideBaseDir = path.join(dirname, '..', '..');
-console.log({ rapideBaseDir });
+const undoFolder = path.join(rapideBaseDir, 'undoFiles');
 const arg = process.argv.slice(2)[0] || 'helpFast';
 const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.startsWith('command-'));
 const commands = commandBranches.map(x => x.split('command-')[1]);
@@ -61,6 +61,8 @@ async function runCommand(command) {
   let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
   let result = func() || {};
   let postDo = { ...defaultPostDo, ...result };
+  fs.existsSync(undoFolder) && fs.rm(undoFolder, { resursive: true, force: true });
+  fs.mkdirSync(undoFolder);
   for (let folder of ((postDo.replace || {}).folders || [])) {
     replaceFolder(baseDir, remoteBaseDir, folder);
   }
@@ -77,6 +79,7 @@ function replaceFolder(target, org, ...folderName) {
   target = path.join(target, ...folderName);
   org = path.join(org, ...folderName);
   if (!fs.existsSync(org)) { return; }
+  fs.existsSync(target) && fs.cpSync(target, undoFolder, file ? {} : { recursive: true });
   fs.existsSync(target) && fs.rmSync(target, file ? {} : { recursive: true, force: true });
   fs.cpSync(org, target, file ? {} : { recursive: true });
   !file && log('Replacing the ' + c.bold(folderName[folderName.length - 1]) + '-folder');
