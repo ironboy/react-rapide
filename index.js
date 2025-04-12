@@ -74,7 +74,7 @@ function replaceFolder(target, org, ...folderName) {
   console.log({ target, org });
   if (!fs.existsSync(org)) { return; }
   fs.existsSync(target) && fs.rmSync(target, file ? {} : { recursive: true, force: true });
-  fs.cp(org, target, file ? {} : { recursive: true });
+  fs.cpSync(org, target, file ? {} : { recursive: true });
   !file && log('Replacing the ' + c.bold(folderName[folderName.length - 1]) + ' -folder');
   file && log('Replacing the file ' + c.bold(folderName[folderName.length - 1]));
 }
