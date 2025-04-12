@@ -53,9 +53,14 @@ async function runCommand(command) {
     log(c.red(c.bold('No such command: ' + command)));
   }
   let branch = commandBranches[index];
-  let ok = await getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', branch);
-  let func = (await import(path.join(tempDir, 'react-rapide-' + branch, 'z-rapide.js'))).default;
+  await getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', branch);
+  let baseDir = dirname;
+  let remoteBaseDir = path.join(tempDir, 'react-rapide-' + branch);
+
+  let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
   let result = func() || {};
   let postDo = { ...defaultPostDo, ...result };
-  console.log(postDo, postDo);
+  console.log('baseDir', baseDir);
+  console.log('removeBaseDir', remoteBaseDir);
+  //postDo.replaceSrc && c
 };
