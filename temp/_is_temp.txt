@@ -1,1 +1,1 @@
-This is a temp folder needed for the app.
+This is a temp dir neeeded by the app.
