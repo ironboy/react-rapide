@@ -36,6 +36,7 @@ function helpFast() {
 }
 
 async function help() {
+  log('');
   log(c.blue(c.bold(('Available commands explained:'))));
   let disp = [...commandsToDisplay];
   log('');
