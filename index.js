@@ -62,7 +62,7 @@ async function runCommand(command) {
   let postDo = { ...defaultPostDo, ...result };
   postDo.replaceSrc && replaceFolder(baseDir, remoteBaseDir, 'src');
   postDo.replacePublic && replaceFolder(baseDir, remoteBaseDir, 'public');
-  postDo.replaceIndex && replaceFile(baseDir, remoteBaseDir, 'index');
+  postDo.replaceIndex && replaceFile(baseDir, remoteBaseDir, 'index.html');
   postDo.patchPackage && patchPackage(baseDir, remoteBaseDir, postDo.patchPackage);
 };
 
@@ -71,7 +71,6 @@ function replaceFolder(target, org, ...folderName) {
   file && folderName.pop();
   target = path.join(target, ...folderName);
   org = path.join(org, ...folderName);
-  console.log({ target, org });
   if (!fs.existsSync(org)) { return; }
   fs.existsSync(target) && fs.rmSync(target, file ? {} : { recursive: true, force: true });
   fs.cpSync(org, target, file ? {} : { recursive: true });
