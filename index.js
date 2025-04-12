@@ -40,9 +40,10 @@ async function help() {
   let disp = [...commandsToDisplay];
   log('');
   log(c.bold('npm run react-rapide help'));
-  log('  Displays info about other commands.');
+  log('Displays info about other commands.');
+  log('');
   log(c.bold('npm run react-rapide undo'));
-  log('  Resets files, folders and installed npm modules to their state before the changes made by the latests react-rapide command.');
+  log('Resets files, folders and installed npm modules to their state before the changes made by the latests react-rapide command.');
   for (let branch of commandBranches) {
     log('');
     log(c.bold(disp.shift()));
