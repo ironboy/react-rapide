@@ -14,8 +14,8 @@ const commandsToDisplay = commands.map(x => 'npm run react-rapide ' + x);
 const defaultPostDo = {
   patchPackage: 'auto',
   replaceSrc: true,
-  replacePublic: false,
-  replaceIndex: true
+  replaceIndex: true,
+  replacePublic: false
 };
 
 log('');
