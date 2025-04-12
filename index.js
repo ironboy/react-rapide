@@ -101,7 +101,6 @@ function patchPackage(target, org, todo) {
         patch[type][key] = od[key];
       }
       else if (compareVersion(td[key], od[key])) {
-        console.log("HALLO", key, td[key], od[key]);
         // older in target
         patch[type][key] = od[key];
       }
@@ -118,8 +117,8 @@ function compareVersion(targetV, orgV) {
   // otherwise return true (update needed)
   targetV = targetV.split('.').map(x => +x.replace(/\D/g, ''));
   orgV = orgV.split('.').map(x => +x.replace(/\D/g, ''));
-  if (orgV[0] >= targetV[0]) { return true; }
-  if (orgV[1] >= targetV[1]) { return true; }
-  if (orgV[2] >= targetV[2]) { return true; }
+  if (orgV[0] > targetV[0]) { return true; }
+  if (orgV[1] > targetV[1]) { return true; }
+  if (orgV[2] > targetV[2]) { return true; }
   return false;
 }
