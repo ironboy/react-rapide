@@ -65,7 +65,7 @@ async function runCommand(command) {
   postDo.replaceSrc && replaceFolder(baseDir, remoteBaseDir, 'src');
   postDo.replacePublic && replaceFolder(baseDir, remoteBaseDir, 'public');
   postDo.replaceIndex && replaceFile(baseDir, remoteBaseDir, 'index');
-  postDo.patchPackage && postDo.patchPackage(baseDir, remoteBaseDir, postDo.patchPackage);
+  postDo.patchPackage && patchPackage(baseDir, remoteBaseDir, postDo.patchPackage);
 };
 
 function replaceFolder(target, org, ...folderName) {
