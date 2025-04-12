@@ -14,9 +14,7 @@ const commands = commandBranches.map(x => x.split('command-')[1]);
 const commandsToDisplay = commands.map(x => 'npm run react-rapide ' + x);
 const defaultPostDo = {
   patchPackages: 'auto',
-  replaceSrc: true,
-  replaceIndex: true,
-  replacePublic: false,
+  replace: { files: ['index.html'], folder: ['src'] },
   message: 'All done!'
 };
 
@@ -62,9 +60,12 @@ async function runCommand(command) {
   let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
   let result = func() || {};
   let postDo = { ...defaultPostDo, ...result };
-  postDo.replaceSrc && replaceFolder(baseDir, remoteBaseDir, 'src');
-  postDo.replacePublic && replaceFolder(baseDir, remoteBaseDir, 'public');
-  postDo.replaceIndex && replaceFile(baseDir, remoteBaseDir, 'index.html');
+  for (let folder of ((postDo.replace || {}).folders || [])) {
+    replaceFolder(baseDir, remoteBaseDir, folder);
+  }
+  for (let file of ((postDo.replace || {}).files || [])) {
+    replaceFile(baseDir, remoteBaseDir, file);
+  }
   postDo.patchPackages && patchPackage(baseDir, remoteBaseDir, postDo.patchPackages);
   log(c.green(c.bold(postDo.message)));
 };
