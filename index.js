@@ -77,9 +77,10 @@ function replaceFolder(target, org, ...folderName) {
   let file = folderName[folderName.length - 1] === true;
   file && folderName.pop();
   target = path.join(target, ...folderName);
+  let undoFolderTarget = path.join(undoFolder, ...folderName);
   org = path.join(org, ...folderName);
   if (!fs.existsSync(org)) { return; }
-  fs.existsSync(target) && fs.cpSync(target, undoFolder, file ? {} : { recursive: true });
+  fs.existsSync(target) && fs.cpSync(target, undoFolderTarget, file ? {} : { recursive: true });
   fs.existsSync(target) && fs.rmSync(target, file ? {} : { recursive: true, force: true });
   fs.cpSync(org, target, file ? {} : { recursive: true });
   !file && log('Replacing the ' + c.bold(folderName[folderName.length - 1]) + '-folder');
