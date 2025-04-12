@@ -90,5 +90,35 @@ function patchPackage(target, org, todo) {
   if (!fs.existsSync(pTarget) || !fs.existsSync(pOrg)) { return; }
   let pTargetJson = JSON.parse(fs.readFileSync(pTarget, 'utf-8'));
   let pOrgJson = JSON.parse(fs.readFileSync(pOrg, 'utf-8'));
-  console.log({ pTargetJson, pOrgJson });
+  let patch = {};
+  for (let type of ['dependencies', 'devDependencies']) {
+    patch[type] = {};
+    let td = pTargetJson[type] = pTargetJson[type] || {};
+    let od = pOrgJson[type] = pOrgJson[type] || {};
+    for (let key in od) {
+      if (!td[key]) {
+        // non-existant
+        patch[type][key] = od[key];
+      }
+      else if (compareVersion(td[key], od[key])) {
+        // older in target
+        patch[type][key] = od[key];
+      }
+    }
+  }
+  console.log(patch);
+}
+
+function compareVersion(targetV, orgV) {
+  // ~ update to newer patch versions
+  // ^ update to newer minor versions
+  // but for now ignore this and just make newer!
+  // return false if no update needed (target version same or newer)
+  // otherwise return true (update needed)
+  targetV = targetV.split('.').map(x => +x.replace(/\D/g, ''));
+  orgV = orgV.split('.').map(x => +x.replace(/\D/g, ''));
+  if (orgV[0] >= targetV[0]) { return true; }
+  if (orgV[1] >= targetV[1]) { return true; }
+  if (orgV[2] >= targetV[2]) { return true; }
+  return false;
 }
