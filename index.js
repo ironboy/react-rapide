@@ -16,7 +16,7 @@ const commands = commandBranches.map(x => x.split('command-')[1]);
 const commandsToDisplay = commands.map(x => 'npm run rr ' + x);
 const defaultPostDo = {
   patchPackages: 'auto',
-  replace: { files: ['index.html'], folders: ['public', 'src'] },
+  replace: { files: [['index.html']], folders: [['public'], ['src']] },
   message: 'All done!'
 };
 
@@ -81,10 +81,10 @@ async function runCommand(command) {
     }
   }
   for (let folder of ((postDo.replace || {}).folders || [])) {
-    replaceFolder(baseDir, remoteBaseDir, folder);
+    replaceFolder(baseDir, remoteBaseDir, ...folder);
   }
   for (let file of ((postDo.replace || {}).files || [])) {
-    replaceFile(baseDir, remoteBaseDir, file);
+    replaceFile(baseDir, remoteBaseDir, ...file);
   }
   log(c.green(c.bold(postDo.message)));
 };
