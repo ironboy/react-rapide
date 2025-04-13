@@ -33,6 +33,7 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
     const data = Buffer.from(await (await fetch(url)).arrayBuffer());
     let fileName = repository + '-' + branch;
     let moveTo = path.join(folderPath, fileName);
+    console.log("WHEN MOVE TO GOES WRONG!", moveTo);
     fs.existsSync(fileName) && fs.rmSync(fileName, { recursive: true, force: true });
     fs.existsSync(moveTo) && fs.rmSync(moveTo, { recursive: true, force: true });
     // AdmZip can not extract psf:// file paths in Windows - so we work arouind it...

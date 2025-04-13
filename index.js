@@ -90,7 +90,6 @@ async function runCommand(command) {
     mainContent = fs.readFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), 'utf-8');
     fs.writeFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), '', 'utf-8');
     fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), '', 'utf-8');
-    console.log("content", mainContent);
     await sleep(2000);
   }
 
