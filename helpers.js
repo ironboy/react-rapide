@@ -38,11 +38,18 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
     fs.existsSync(moveTo) && fs.rmSync(moveTo, { recursive: true, force: true });
     // AdmZip can not extract psf:// file paths in Windows - so we work arouind it...
     new AdmZip(data).extractAllTo('.', true);
-    try {
-      fs.renameSync(fileName, moveTo);
+    while (true) {
+      try {
+        fs.renameSync(fileName, moveTo);
+        break;
+      }
+      catch (_e) { console.log("CAUGHT IT"); await sleep(200); }
     }
-    catch (_e) { console.log("CAUGHT IT"); }
   }
   catch (_e) { console.log(_e); return false; }
   return true;
+}
+
+function sleep(ms) {
+  return new Promise(res => setTimeout(res, ms));
 }
