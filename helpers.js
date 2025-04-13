@@ -12,7 +12,7 @@ export async function getBranches(gitHubUser, repository, filter = () => true) {
   $('div[title]').each(function () {
     branches.push($(this).text());
   });
-  return branches.filter(filter);
+  return branches.filter(filter).sort();
 }
 
 export async function getReadMeOfBranch(gitHubUser, repository, branch, shortenTo = Infinity) {
