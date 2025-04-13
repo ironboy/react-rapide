@@ -70,7 +70,7 @@ async function runCommand(command) {
   // let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
   let func = (await import('../react-rapide-' + branch));
   let result = func() || {};
-  let postDo = { ...defaultPostDo, ...result };//x
+  let postDo = { ...defaultPostDo, ...result };
   fs.existsSync(undoFolder) && fs.rmSync(undoFolder, { recursive: true, force: true });
   fs.mkdirSync(undoFolder);
   if (postDo.patchPackages) {
