@@ -85,14 +85,15 @@ async function runCommand(command) {
   // Wait a while to make the vite dev server understand this
   // then at the end after all other copying copy the real src/main.tsx
   // (when all other files are in place)
+  let mainContent;
   if (((postDo.replace || {}).folders || []).find(x => x.length === 1 && x[0] === 'src')) {
-    console.log("HERE BOY");
-    let mainContent = fs.readFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), 'utf-8');
+    mainLast = true;
+    mainContent = fs.readFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), 'utf-8');
+    fs.writeFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), '', 'utf-8');
+    fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), '', 'utf-8');
     console.log("content", mainContent);
     await sleep(2000);
   }
-
-
 
   for (let folder of ((postDo.replace || {}).folders || [])) {
     replaceFolder(baseDir, remoteBaseDir, ...folder);
@@ -100,6 +101,14 @@ async function runCommand(command) {
   for (let file of ((postDo.replace || {}).files || [])) {
     replaceFile(baseDir, remoteBaseDir, ...file);
   }
+
+  // Now write the real main (see above)
+  if (mainContent) {
+    fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), mainContent, 'utf-8');
+    fs.writeFileSync(path.join(undoFolder, 'src', 'main.tsx'), mainContent, 'utf-8');
+  }
+
+
   log(c.green(c.bold(postDo.message)));
 };
 
