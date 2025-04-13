@@ -7,10 +7,13 @@ const tempDir = path.join(dirname, 'temp');
 
 async function start() {
   let ok = await getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', 'app');
-  ok && await import(path.join(tempDir, 'react-rapide-app', 'index.js'));
+  // This didn't work in Windows on psf paths so we try a relative path
+  //ok && await import(path.join(tempDir, 'react-rapide-app', 'index.js'));
+  ok && await import('./temp/react-rapide-app/index.js');
 }
 
 process.on('exit', () => {
+  return;
   fs.rmSync(tempDir, { recursive: true, force: true });
   fs.mkdirSync(tempDir);
   fs.writeFileSync(path.join(tempDir, '_is_temp.txt'),
