@@ -1,5 +1,11 @@
 import LoremIpsum from '../parts/LoremIpsum';
 
+ProductsPage.route = {
+  element: <ProductsPage />,
+  path: '/products',
+  menuLabel: 'Our products'
+};
+
 export default function ProductsPage() {
   return <>
     <h2>Our products</h2>

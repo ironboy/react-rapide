@@ -1,5 +1,11 @@
 import LoremIpsum from '../parts/LoremIpsum';
 
+StartPage.route = {
+  element: <StartPage />,
+  path: '/',
+  menuLabel: 'Start'
+};
+
 export default function StartPage() {
   return <>
     <h2>Start</h2>
