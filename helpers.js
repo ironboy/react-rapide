@@ -43,7 +43,7 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
         fs.renameSync(fileName, moveTo);
         break;
       }
-      catch (_e) { console.log("CAUGHT IT"); await sleep(1000); }
+      catch (_e) { console.log("CAUGHT IT"); await sleep(3000); }
     }
   }
   catch (_e) { console.log(_e); return false; }
