@@ -87,6 +87,9 @@ async function runCommand(command) {
   // (when all other files are in place)
   if (((postDo.replace || {}).folders || []).find(x => x.length === 1 && x[0] === 'src')) {
     console.log("HERE BOY");
+    let mainContent = fs.readFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'));
+    console.log("content", mainContent);
+    await sleep(2000);
   }
 
 
@@ -206,4 +209,8 @@ function undo() {
     log(c.bold('Sync of npm modules to match restored package.json'));
   }
   fs.rmSync(undoFolder, { recursive: true, force: true });
+}
+
+function sleep(ms) {
+  return new Promise(res => setTimeout(res, ms));
 }
