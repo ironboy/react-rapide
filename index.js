@@ -99,11 +99,7 @@ function replaceFolder(target, org, ...folderName) {
   if (!fs.existsSync(org)) { return; }
   !undo && fs.existsSync(target) && fs.cpSync(target, undoFolderTarget, file ? {} : { recursive: true });
   fs.existsSync(target) && fs.rmSync(target, file ? {} : { recursive: true, force: true });
-  // copying to a temp folder first and the changing its name in order to minimize Vite dev server crashing
-  // on slow copies...
-  let tempTarget = file ? target : target + '_temp';
-  fs.cpSync(org, tempTarget, file ? {} : { recursive: true });
-  fs.renameSync(tempTarget, target);
+  fs.cpSync(org, target, file ? {} : { recursive: true });
   !undo && !file && log(c.bold('Replacing the ' + c.blue(folderName[folderName.length - 1]) + '-folder'));
   !undo && file && log(c.bold('Replacing the file ' + c.blue(folderName[folderName.length - 1])));
 }
