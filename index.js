@@ -87,7 +87,6 @@ async function runCommand(command) {
   // (when all other files are in place)
   let mainContent;
   if (((postDo.replace || {}).folders || []).find(x => x.length === 1 && x[0] === 'src')) {
-    mainLast = true;
     mainContent = fs.readFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), 'utf-8');
     fs.writeFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), '', 'utf-8');
     fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), '', 'utf-8');
