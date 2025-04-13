@@ -47,7 +47,9 @@ async function help() {
   log('Resets files, folders and installed npm modules to their state before the changes made by the latests react-rapide command.');
   for (let branch of commandBranches) {
     log('');
-    log(c.bold(disp.shift()));
+    let name = disp.shift();
+    if (!name) { continue; }
+    log(c.bold(name));
     log(await getReadMeOfBranch('ironboy', 'react-rapide', branch));
   }
 }
