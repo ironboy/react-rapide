@@ -12,7 +12,7 @@ const rapideBaseDir = path.join(dirname, '..', '..');
 const undoFolder = path.join(rapideBaseDir, 'undoFiles');
 const arg = process.argv.slice(2)[0] || 'helpFast';
 const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.startsWith('command-'));
-const commands = commandBranches.map(x => x.split('command-')[1].split(/\d.*-/));
+const commands = commandBranches.map(x => x.split('command-')[1].split(/\d.*-/)[1]);
 const commandsToDisplay = commands.map(x => 'npm run rr ' + x);
 const defaultPostDo = {
   patchPackages: 'auto',
