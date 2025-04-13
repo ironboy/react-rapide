@@ -7,13 +7,13 @@ import { ReactElement } from 'react';
 interface RouteWithMenuLabel {
   path: string,
   element: ReactElement,
-  menuLabel: string;
+  menuLabel?: string;
 }
 
 const routes: RouteWithMenuLabel[] = [
-  { path: '/', element: <StartPage />, menuLabel: 'Start' },
-  { path: '/about-us', element: <AboutPage />, menuLabel: 'About us' },
-  { path: '/products', element: <ProductsPage />, menuLabel: 'Our products' }
+  { element: <StartPage />, path: '/', menuLabel: 'Start' },
+  { element: <AboutPage />, path: '/about-us', menuLabel: 'About us' },
+  { element: <ProductsPage />, path: '/products', menuLabel: 'Our products' }
 ];
 
 export default routes;
