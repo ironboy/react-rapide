@@ -66,6 +66,7 @@ async function runCommand(command) {
   let baseDir = dirname.slice(0, dirname.lastIndexOf('node_modules'));
   while (baseDir.endsWith('/') || baseDir.endsWith('\\')) { baseDir = baseDir.slice(0, -1); }
   let remoteBaseDir = path.join(tempDir, 'react-rapide-' + branch);
+  console.log({ remoteBaseDir, dirname });
   let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
   let result = func() || {};
   let postDo = { ...defaultPostDo, ...result };
