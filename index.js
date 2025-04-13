@@ -222,7 +222,7 @@ function undo() {
   let pathToMain = path.join(baseDir, 'src', 'main.tsx');
   if (fs.existsSync(pathToRealMain)) {
     fs.existsSync(pathToMain) && fs.rmSync(pathToMain);
-    fs.rename(pathToRealMain, pathToMain);
+    fs.renameSync(pathToRealMain, pathToMain);
   }
 }
 
