@@ -217,6 +217,13 @@ function undo() {
     log(c.bold('Sync of npm modules to match restored package.json'));
   }
   fs.rmSync(undoFolder, { recursive: true, force: true });
+  // restore real main
+  let pathToRealMain = path.join(baseDir, 'src', 'mainREAL.tsx');
+  let pathToMain = path.join(baseDir, 'src', 'main.tsx');
+  if (fs.existsSync(pathToRealMain)) {
+    fs.existsSync(pathToMain) && fs.rmSync(pathToMain);
+    fs.rename(pathToRealMain, pathToMain);
+  }
 }
 
 function sleep(ms) {
