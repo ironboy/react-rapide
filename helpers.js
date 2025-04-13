@@ -38,9 +38,9 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
       fs.existsSync(fileName) && fs.rmSync(fileName, { recursive: true, force: true });
       fs.existsSync(moveTo) && fs.rmSync(moveTo, { recursive: true, force: true });
       // AdmZip can not extract psf:// file paths in Windows - so we work arouind it...
-      new AdmZip(data).extractAllTo('.', true);
+      new AdmZip(data).extractAllTo('./node_modules/', true);
       try {
-        fs.renameSync(fileName, moveTo);
+        fs.renameSync('./node_modules/' + fileName, moveTo);
         break;
       }
       catch (_e) { console.log("CAUGHT IT"); await sleep(3000); }
