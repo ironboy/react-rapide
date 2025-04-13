@@ -68,7 +68,7 @@ async function runCommand(command) {
   let remoteBaseDir = path.join(tempDir, 'react-rapide-' + branch);
   // Does not work in Windows with psf-paths, changing to relative path handling for import
   // let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
-  let func = (await import('../react-rapide-' + branch + '/z-rapide.js'));
+  let func = (await import('../react-rapide-' + branch + '/z-rapide.js')).default;
   let result = func() || {};
   let postDo = { ...defaultPostDo, ...result };
   fs.existsSync(undoFolder) && fs.rmSync(undoFolder, { recursive: true, force: true });
