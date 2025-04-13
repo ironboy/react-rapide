@@ -1,4 +1,4 @@
-import LoremIpsum from '../components/LoremIpsum';
+import LoremIpsum from '../parts/LoremIpsum';
 
 export default function AboutPage() {
   return <>

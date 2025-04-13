@@ -1,6 +1,6 @@
-import Header from "./components/Header";
-import Main from './components/Main';
-import Footer from './components/Footer';
+import Header from "./partials/Header";
+import Main from './partials/Main';
+import Footer from './partials/Footer';
 
 export default function App() {
   return <>
