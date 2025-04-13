@@ -79,6 +79,18 @@ async function runCommand(command) {
       fs.writeFileSync(path.join(undoFolder, 'package.json'), result.originalPackageContent, 'utf-8');
     }
   }
+
+  // In order to don't crash the vite dev server:
+  // If the src folder is part of of postDo - give it an empty src/main.tsx initially
+  // Wait a while to make the vite dev server understand this
+  // then at the end after all other copying copy the real src/main.tsx
+  // (when all other files are in place)
+  if (((postDo.replace || {}).folders || []).find(x => x.length === 1 && x[0] === 'src'){
+    console.log("HERE BOY");
+  }
+
+
+
   for (let folder of ((postDo.replace || {}).folders || [])) {
     replaceFolder(baseDir, remoteBaseDir, ...folder);
   }
