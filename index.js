@@ -26,7 +26,7 @@ await runCommand(arg);
 log('');
 
 async function helpFast() {
-  log(c.blue(c.bold(('Available commands:'))));
+  ;
   let commandsList = [
     '',
     'help',
@@ -37,7 +37,10 @@ async function helpFast() {
   log('');
   log(c.bold('Run any command by choosing it here'));
   log(c.bold('or by typing ' + c.green('npm run rr') + c.blue(' command')));
+  log('');
   log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
+  log('');
+  log(c.blue(c.bold(('Available commands:'))));
   let { value } = await cliSelect({
     values: commandsList,
     valueRenderer: (value, selected) => {
