@@ -48,17 +48,11 @@ async function helpFast() {
       return c.bold(value);
     },
     selected: '> ',
-    unselected: '  '
+    unselected: '  ',
     cleanup: true,
     defaultValue: 1
   });
   console.log(chosen);
-  /*
-, ({ id: index }) => {
-    console.log(index, commmands[index]);
-    runCommand(commands[index]);
-  });
-  */
 }
 
 async function help() {
