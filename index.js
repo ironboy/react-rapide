@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import c from 'chalk';
+import url from 'url';
 import cliSelect from 'cli-select';
 import { execSync } from 'child_process';
 import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js';
@@ -14,7 +15,6 @@ const undoFolder = path.join(rapideBaseDir, 'undoFiles');
 const arg = process.argv.slice(2)[0] || 'helpFast';
 const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.startsWith('command-'));
 const commands = commandBranches.map(x => x.split('command-')[1].split(/\d{1,}-/)[1]).filter(x => x);
-const commandsToDisplay = commands.map(x => 'npm run rr ' + x);
 const defaultPostDo = {
   patchPackages: 'auto',
   replace: { files: [['index.html']], folders: [['public'], ['src']] },
@@ -97,8 +97,7 @@ async function runCommand(command) {
   let baseDir = dirname.slice(0, dirname.lastIndexOf('node_modules'));
   while (baseDir.endsWith('/') || baseDir.endsWith('\\')) { baseDir = baseDir.slice(0, -1); }
   let remoteBaseDir = path.join(tempDir, 'react-rapide-' + branch);
-  let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
-
+  let func = (await import(url.pathToFileURL(path.join(remoteBaseDir, 'z-rapide.js')))).default;
   let result = func() || {};
   let postDo = { ...defaultPostDo, ...result };
   fs.existsSync(undoFolder) && fs.rmSync(undoFolder, { recursive: true, force: true });
