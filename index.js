@@ -65,10 +65,10 @@ async function help() {
   log(c.blue(c.bold(('Available commands explained:'))));
   let disp = [...commands];
   log('');
-  log(c.bold(c.green(('help')));
+  log(c.bold(c.green('help')));
   log('Displays info about other commands.');
   log('');
-  log(c.bold(c.green(('undo')));
+  log(c.bold(c.green('undo')));
   log('Resets files, folders and installed npm modules to their state before the changes made by the latests react-rapide command.');
   for (let branch of commandBranches) {
     let name = disp.shift();
