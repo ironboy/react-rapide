@@ -30,22 +30,22 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
   const url = `https://github.com/${gitHubUser}/${repository}`
     + `/archive/${branch}.zip`;
   try {
-    while (true) {
-      const data = Buffer.from(await (await fetch(url)).arrayBuffer());
-      let fileName = repository + '-' + branch;
-      let moveTo = path.join(folderPath, fileName);
-      fs.existsSync(fileName) && fs.rmSync(fileName, { recursive: true, force: true });
-      fs.existsSync(moveTo) && fs.rmSync(moveTo, { recursive: true, force: true });
-      // AdmZip can not extract psf:// file paths in Windows - so we work arouind it...
-      // IFFY SOLUTION FOR psf - remove
-      /*new AdmZip(data).extractAllTo('./node_modules/', true);
-      try {
-        fs.renameSync('./node_modules/' + fileName, moveTo);
-        break;
-      }
-      catch (_e) { await sleep(3000); }*/
-      new AdmZip(data).extractAllTo(moveTo, true);
+    //while (true) {
+    const data = Buffer.from(await (await fetch(url)).arrayBuffer());
+    let fileName = repository + '-' + branch;
+    let moveTo = path.join(folderPath, fileName);
+    fs.existsSync(fileName) && fs.rmSync(fileName, { recursive: true, force: true });
+    fs.existsSync(moveTo) && fs.rmSync(moveTo, { recursive: true, force: true });
+    // AdmZip can not extract psf:// file paths in Windows - so we work arouind it...
+    // IFFY SOLUTION FOR psf - remove
+    /*new AdmZip(data).extractAllTo('./node_modules/', true);
+    try {
+      fs.renameSync('./node_modules/' + fileName, moveTo);
+      break;
     }
+    catch (_e) { await sleep(3000); }*/
+    new AdmZip(data).extractAllTo(moveTo, true);
+    //}
   }
   catch (_e) { console.log(_e); return false; }
   return true;
