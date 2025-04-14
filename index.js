@@ -33,13 +33,15 @@ function helpFast() {
     ...commandsToDisplay
   ];
   let commandsChalked = commands.map(x => c.bold(x));
-  log();
+  log('');
   log(c.bold('Run any command by choosing it here or with ' + c.green('npm run rr') + ' command'));
   log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
-  log('ha');
-  console.log(commands, commandsChalked);
-  cliSelect({ values: commandsChalked, cleanup: true }, ({ id: index }) => {
-    console.log(index);
+  log('');
+  cliSelect({
+    values: commands,
+    cleanup: true,
+    defaultValue: 0
+  }, ({ id: index }) => {
     runCommand(commands[index]);
   });
 }
