@@ -38,7 +38,16 @@ function helpFast() {
   log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
   log('');
   cliSelect({
-    values: commands,
+    values: ['Major', 'Minor', 'Patch'],
+    valueRenderer: (value, selected) => {
+      if (selected) {
+        return c.bold(underline(value));
+      }
+      return c.bold(value);
+    }
+  });
+  cliSelect({
+    values: commandsChalked,
     cleanup: true,
     defaultValue: 0
   }, ({ id: index }) => {
