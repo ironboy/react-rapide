@@ -33,7 +33,6 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
     const data = Buffer.from(await (await fetch(url)).arrayBuffer());
     let fileName = repository + '-' + branch;
     let moveTo = path.join(folderPath, fileName);
-    console.log(moveTo);
     new AdmZip(data).extractAllTo(folderPath, true);
   }
   catch (_e) { console.log(_e); return false; }
