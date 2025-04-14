@@ -35,7 +35,7 @@ async function helpFast() {
   ];
   let commandsChalked = commands.map(x => c.bold(x));
   log('');
-  log(c.bold('Run any command by choosing it here or with ' + c.green('npm run rr') + ' command'));
+  log(c.bold('Run any command by choosing it here or\n by typing ' + c.green('npm run rr') + c.blue(' command')));
   log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
   log('');
   let chosen = await cliSelect({
