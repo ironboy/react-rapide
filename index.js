@@ -82,6 +82,7 @@ async function help() {
 }
 
 async function runCommand(command) {
+  console.clear();
   log(c.green(c.bold(('REACT RAPIDE' + (command === 'helpFast' ? '' : ': ' + command)))));
   if (command === 'helpFast') { helpFast(); return; }
   if (command === 'help') { await help(); return; }
@@ -89,6 +90,7 @@ async function runCommand(command) {
   let index = commands.indexOf(command);
   if (index < 0) {
     log(c.red(c.bold('No such command: ' + command)));
+    return;
   }
   let branch = commandBranches[index];
   await getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', branch);
