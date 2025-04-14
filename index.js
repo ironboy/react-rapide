@@ -36,10 +36,10 @@ function helpFast() {
   log();
   log(c.bold('Run any command by choosing it here or with ' + c.green('npm run rr') + ' command'));
   log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
-  log();
+  log('ha');
   console.log(commands, commandsChalked);
-  cliSelect({ values: commandsChalked, cleanup: true }, (_x, index) => {
-    console.log(_x, index);
+  cliSelect({ values: commandsChalked, cleanup: true }, ({ id: index }) => {
+    console.log(index);
     runCommand(commands[index]);
   });
 }
