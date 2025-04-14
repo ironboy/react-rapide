@@ -47,7 +47,7 @@ async function helpFast() {
       return c.bold(value);
     },
     cleanup: true,
-    defaultValue: 0
+    defaultValue: 1
   });
   console.log(chosen);
   /*
