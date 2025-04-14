@@ -27,10 +27,10 @@ log('');
 
 async function helpFast() {
   log(c.blue(c.bold(('Available commands:'))));
-  let commands = [
+  let commandsList = [
     'help',
     'undo',
-    ...commandsToDisplay
+    ...commands
   ];
   let commandsChalked = commands.map(x => c.bold(x));
   log('');
@@ -38,7 +38,7 @@ async function helpFast() {
   log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
   log('');
   let chosen = await cliSelect({
-    values: commands,
+    values: commandsList,
     valueRenderer: (value, selected) => {
       if (selected) {
         return c.bold(c.underline(value));
@@ -60,7 +60,7 @@ async function helpFast() {
 async function help() {
   log('');
   log(c.blue(c.bold(('Available commands explained:'))));
-  let disp = [...commandsToDisplay];
+  let disp = [...commands];
   log('');
   log(c.bold('npm run rr help'));
   log('Displays info about other commands.');
