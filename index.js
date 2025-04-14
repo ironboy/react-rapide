@@ -52,7 +52,7 @@ async function helpFast() {
     selected: '> ',
     unselected: '  ',
     defaultValue: 1
-  }).catch(_e => { return; });
+  });
   console.clear();
   let { value } = result || {};
   value && runCommand(value);
@@ -138,6 +138,7 @@ async function runCommand(command) {
 
 
   log(c.green(c.bold(postDo.message)));
+  log('');
 };
 
 function replaceFolder(target, org, ...folderName) {
