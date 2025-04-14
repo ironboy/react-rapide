@@ -28,6 +28,7 @@ log('');
 async function helpFast() {
   log(c.blue(c.bold(('Available commands:'))));
   let commandsList = [
+    '',
     'help',
     'undo',
     ...commands
