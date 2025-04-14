@@ -35,17 +35,20 @@ async function helpFast() {
   ];
   let commandsChalked = commands.map(x => c.bold(x));
   log('');
-  log(c.bold('Run any command by choosing it here or\n by typing ' + c.green('npm run rr') + c.blue(' command')));
+  log(c.bold('Run any command by choosing it here'));
+  log(c.bold('or\n by typing ' + c.green('npm run rr') + c.blue(' command')));
   log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
   log('');
   let chosen = await cliSelect({
     values: commandsList,
     valueRenderer: (value, selected) => {
       if (selected) {
-        return c.bold(c.underline(value));
+        return c.bold(c.green(value));
       }
       return c.bold(value);
     },
+    selected: '> ',
+    unselected: '  '
     cleanup: true,
     defaultValue: 1
   });
