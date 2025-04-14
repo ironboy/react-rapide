@@ -41,7 +41,7 @@ function helpFast() {
     values: ['Major', 'Minor', 'Patch'],
     valueRenderer: (value, selected) => {
       if (selected) {
-        return c.bold(underline(value));
+        return c.bold(c.underline(value));
       }
       return c.bold(value);
     }
