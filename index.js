@@ -83,6 +83,7 @@ async function help() {
 
 async function runCommand(command) {
   clearConsole();
+  let mainRapide = fs.writeFileSync(path.join(dirname, './main-rapide.tsx'));
   log(c.green(c.bold(('REACT RAPIDE' + (command === 'helpFast' ? '' : ': ' + command)))));
   if (command === 'helpFast') { helpFast(); return; }
   if (command === 'help') { await help(); return; }
@@ -118,8 +119,8 @@ async function runCommand(command) {
   if (((postDo.replace || {}).folders || []).find(x => x.length === 1 && x[0] === 'src')) {
     oldMainContent = !fs.existsSync(path.join(baseDir, 'src', 'main.tsx')) ? '' : fs.readFileSync(path.join(baseDir, 'src', 'main.tsx'), 'utf-8');
     mainContent = fs.readFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), 'utf-8');
-    fs.writeFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), '', 'utf-8');
-    fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), '', 'utf-8');
+    fs.writeFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), mainRapide, 'utf-8');
+    fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), mainRapide, 'utf-8');
     await sleep(2000);
   }
 
