@@ -60,21 +60,21 @@ async function helpFast() {
 async function help() {
   log('');
   log(c.bold('Run any command by choosing it after typing ' + c.blue('npm run rr')));
-  log(c.bold('or by typing ' + c.green('npm run rr') + c.blue(' command')));
+  log(c.bold('or by typing ' + c.blue('npm run rr') + c.green(' command')));
   log('');
   log(c.blue(c.bold(('Available commands explained:'))));
   let disp = [...commands];
   log('');
-  log(c.bold('help'));
+  log(c.bold(c.green(('help')));
   log('Displays info about other commands.');
   log('');
-  log(c.bold('undo'));
+  log(c.bold(c.green(('undo')));
   log('Resets files, folders and installed npm modules to their state before the changes made by the latests react-rapide command.');
   for (let branch of commandBranches) {
     let name = disp.shift();
     if (!name) { continue; }
     log('');
-    log(c.bold(name));
+    log(c.bold(c.green(name)));
     log(await getReadMeOfBranch('ironboy', 'react-rapide', branch));
   }
 }
