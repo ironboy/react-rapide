@@ -41,6 +41,7 @@ async function helpFast() {
   let { value } = await cliSelect({
     values: commandsList,
     valueRenderer: (value, selected) => {
+      commandsList[0].includes('\n') && commands.shift();
       if (selected) {
         return c.bold(c.green(value));
       }
