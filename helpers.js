@@ -46,7 +46,7 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
     catch (_e) { await sleep(3000); }*/
     console.log(moveTo);
     new AdmZip(data).extractAllTo(moveTo, true);
-    while (!fs.existsSync(path.join(moveTo, 'z-rapide.js')){
+    while (!fs.existsSync(path.join(moveTo, 'z-rapide.js'))) {
       console.log('men', fs.existsSync(moveTo), 'and', fs.existsSync(path.join(moveTo, 'z-rapide.js')));
       await sleep(100);
     }
