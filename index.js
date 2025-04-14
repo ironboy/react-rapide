@@ -53,7 +53,7 @@ async function helpFast() {
     unselected: '  ',
     defaultValue: 1
   });
-  console.clear();
+  clearConsole();
   let { value } = result || {};
   value && runCommand(value);
 }
@@ -82,7 +82,7 @@ async function help() {
 }
 
 async function runCommand(command) {
-  console.clear();
+  clearConsole();
   log(c.green(c.bold(('REACT RAPIDE' + (command === 'helpFast' ? '' : ': ' + command)))));
   if (command === 'helpFast') { helpFast(); return; }
   if (command === 'help') { await help(); return; }
@@ -260,4 +260,8 @@ function undo() {
 
 function sleep(ms) {
   return new Promise(res => setTimeout(res, ms));
+}
+
+function clearConsole() {
+  execSync('clear');
 }
