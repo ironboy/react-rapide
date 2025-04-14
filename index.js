@@ -52,7 +52,7 @@ async function helpFast() {
     selected: '> ',
     unselected: '  ',
     defaultValue: 1
-  }).catch(_e => { });
+  }).catch(_e => { return; });
   console.clear();
   value && runCommand(value);
 }
