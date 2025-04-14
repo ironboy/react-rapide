@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import c from 'chalk';
+import cliSelect from 'cli-select';
 import { execSync } from 'child_process';
 import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js';
 
@@ -26,13 +27,19 @@ log('');
 
 function helpFast() {
   log(c.blue(c.bold(('Available commands:'))));
-  log(c.bold([
-    'npm run rr help',
-    'npm run rr undo',
+  let commands = [
+    'help',
+    'undo',
     ...commandsToDisplay
-  ].join('\n')));
+  ];
+  let commandsChalked = commands.map(x => c.bold(x));
   log();
-  log(c.bold(c.green('For more info run ') + 'npm run rr help'));
+  log(c.bold('Run any command by choosing it here or with ' + c.green('npm run rr') + ' command'));
+  log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
+  log();
+  cliSelect({ values: commandsChalked, cleanup: true }, (_x, index) => {
+    runCommand(commands[index]);
+  });
 }
 
 async function help() {
