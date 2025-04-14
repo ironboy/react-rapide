@@ -98,8 +98,11 @@ async function runCommand(command) {
   while (baseDir.endsWith('/') || baseDir.endsWith('\\')) { baseDir = baseDir.slice(0, -1); }
   let remoteBaseDir = path.join(tempDir, 'react-rapide-' + branch);
   // Does not work in Windows with psf-paths, changing to relative path handling for import
-  // let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
-  let func = (await import('../react-rapide-' + branch + '/z-rapide.js')).default;
+  // let func = (await import('../react-rapide-' + branch + '/z-rapide.js')).default;
+  // CHANGED BACK IFFY BEHAVIOR OTERWIS TELL PEOPLE RUNNING psf-paths it won't work instead
+  // Doesn't work with Vite either! TODO!
+  let func = (await import(path.join(remoteBaseDir, 'z-rapide.js'))).default;
+
   let result = func() || {};
   let postDo = { ...defaultPostDo, ...result };
   fs.existsSync(undoFolder) && fs.rmSync(undoFolder, { recursive: true, force: true });
