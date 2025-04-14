@@ -46,7 +46,7 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
     catch (_e) { await sleep(3000); }*/
     console.log(moveTo);
     new AdmZip(data).extractAllTo(moveTo, true);
-    consolelog('men', fs.existsSync(moveTo));
+    console.log('men', fs.existsSync(moveTo));
     //}
   }
   catch (_e) { console.log(_e); return false; }
