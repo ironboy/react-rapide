@@ -44,6 +44,7 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
       break;
     }
     catch (_e) { await sleep(3000); }*/
+    console.log(moveTo);
     new AdmZip(data).extractAllTo(moveTo, true);
     //}
   }
