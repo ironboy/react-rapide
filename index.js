@@ -22,7 +22,7 @@ const defaultPostDo = {
 };
 
 log('');
-await runCommand(arg);
+await runCommand(arg).catch(_e => { });
 log('');
 
 async function helpFast() {
