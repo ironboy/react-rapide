@@ -59,13 +59,16 @@ async function helpFast() {
 
 async function help() {
   log('');
+  log(c.bold('Run any command by choosing it after typing ' + c.blue('npm run rr')));
+  log(c.bold('or by typing ' + c.green('npm run rr') + c.blue(' command')));
+  log('');
   log(c.blue(c.bold(('Available commands explained:'))));
   let disp = [...commands];
   log('');
-  log(c.bold('npm run rr help'));
+  log(c.bold('help'));
   log('Displays info about other commands.');
   log('');
-  log(c.bold('npm run rr undo'));
+  log(c.bold('undo'));
   log('Resets files, folders and installed npm modules to their state before the changes made by the latests react-rapide command.');
   for (let branch of commandBranches) {
     let name = disp.shift();
