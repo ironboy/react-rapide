@@ -25,7 +25,7 @@ log('');
 await runCommand(arg);
 log('');
 
-function helpFast() {
+async function helpFast() {
   log(c.blue(c.bold(('Available commands:'))));
   let commands = [
     'help',
@@ -37,22 +37,24 @@ function helpFast() {
   log(c.bold('Run any command by choosing it here or with ' + c.green('npm run rr') + ' command'));
   log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
   log('');
-  cliSelect({
-    values: ['Major', 'Minor', 'Patch'],
+  let chosen = await cliSelect({
+    values: commands,
     valueRenderer: (value, selected) => {
       if (selected) {
         return c.bold(c.underline(value));
       }
       return c.bold(value);
-    }
-  });
-  cliSelect({
-    values: commandsChalked,
+    },
     cleanup: true,
     defaultValue: 0
-  }, ({ id: index }) => {
+  });
+  console.log(chosen);
+  /*
+, ({ id: index }) => {
+    console.log(index, commmands[index]);
     runCommand(commands[index]);
   });
+  */
 }
 
 async function help() {
