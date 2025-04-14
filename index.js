@@ -41,7 +41,7 @@ async function helpFast() {
   log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
   log('');
   log(c.blue(c.bold(('Available commands:'))));
-  let { value } = await cliSelect({
+  let result = await cliSelect({
     values: commandsList,
     valueRenderer: (value, selected) => {
       if (selected) {
@@ -54,6 +54,7 @@ async function helpFast() {
     defaultValue: 1
   }).catch(_e => { return; });
   console.clear();
+  let { value } = result || {};
   value && runCommand(value);
 }
 
