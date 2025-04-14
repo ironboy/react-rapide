@@ -263,5 +263,5 @@ function sleep(ms) {
 }
 
 function clearConsole() {
-  execSync('clear');
+  process.stdout.write('\x1Bc');
 }
