@@ -37,7 +37,9 @@ function helpFast() {
   log(c.bold('Run any command by choosing it here or with ' + c.green('npm run rr') + ' command'));
   log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
   log();
+  console.log(commands, commandChalked);
   cliSelect({ values: commandsChalked, cleanup: true }, (_x, index) => {
+    console.log(_x, index);
     runCommand(commands[index]);
   });
 }
