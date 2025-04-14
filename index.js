@@ -34,10 +34,13 @@ async function helpFast() {
     ...commands
   ];
   let commandsChalked = commands.map(x => c.bold(x));
-  log('');
-  log(c.bold('Run any command by choosing it here'));
-  log(c.bold('or\n by typing ' + c.green('npm run rr') + c.blue(' command')));
-  log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
+  setTimeout(() => {
+    log('');
+    log(c.bold('Run any command by choosing it here'));
+    log(c.bold('or by typing ' + c.green('npm run rr') + c.blue(' command')));
+    log('');
+    log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
+  }, 1);
   let { value } = await cliSelect({
     values: commandsList,
     valueRenderer: (value, selected) => {
