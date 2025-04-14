@@ -77,6 +77,7 @@ async function help() {
     log(c.bold(c.green(name)));
     log(await getReadMeOfBranch('ironboy', 'react-rapide', branch));
   }
+  log('');
 }
 
 async function runCommand(command) {
