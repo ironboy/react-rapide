@@ -51,9 +51,9 @@ async function helpFast() {
     },
     selected: '> ',
     unselected: '  ',
-    cleanup: true,
     defaultValue: 1
   });
+  console.clear();
   value && runCommand(value);
 }
 
