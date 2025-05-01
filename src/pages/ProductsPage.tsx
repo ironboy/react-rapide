@@ -3,7 +3,8 @@ import LoremIpsum from '../parts/LoremIpsum';
 ProductsPage.route = {
   element: <ProductsPage />,
   path: '/products',
-  menuLabel: 'Our products'
+  menuLabel: 'Our products',
+  index: 3
 };
 
 export default function ProductsPage() {

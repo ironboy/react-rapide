@@ -3,7 +3,8 @@ import LoremIpsum from '../parts/LoremIpsum';
 AboutPage.route = {
   element: <AboutPage />,
   path: '/about-us',
-  menuLabel: 'About us'
+  menuLabel: 'About us',
+  index: 2
 };
 
 export default function AboutPage() {
