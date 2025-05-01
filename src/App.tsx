@@ -1,17 +1,12 @@
-export default function App() {
+import animals from './json/animals.json';
 
-  // An array of objects is a very common data structure
-  const animals = [
-    { species: 'rabbit', description: 'fluffy' },
-    { species: 'snake', description: 'smart' },
-    { species: 'dog', description: 'loyal' },
-    { species: 'cat', description: 'cheeky' }
-  ];
+export default function App() {
 
   // Se what happens if you comment out the line with filter
   //  and/or the line with sort below!
   return <>
     <h1>Animals I like...</h1>
+    <p><b>Note:</b> The data with info about the animals is stored in a JSON file.</p>
     {animals
       .filter(({ species }) => species !== 'snake')
       .sort((a, b) => a.species > b.species ? 1 : -1)

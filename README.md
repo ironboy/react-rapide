@@ -1,1 +1,1 @@
-A first example of how to use the array methods filter, sort and map.
+A third example of how to use the array methods filter, sort and map.
