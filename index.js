@@ -74,7 +74,7 @@ async function help() {
   log('Resets files, folders and installed npm modules to their state before the changes made by the latests react-rapide command.');
   log('');
   log(c.bold(c.green('auto-routes')));
-  log('Auto-generates a routes.tsx file, if your project is setup according to example found in router-decentralized.');
+  log('Auto-generates a routes.tsx file, if your project is setup according to the example found in router-decentralized.');
   for (let branch of commandBranches) {
     let name = disp.shift();
     if (!name) { continue; }
