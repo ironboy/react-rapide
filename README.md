@@ -1,1 +1,1 @@
-Creates an almost empty src folder. (Removes the counter example installed by Vite.)
+A first example of how to use the array methods filter, sort and map.
