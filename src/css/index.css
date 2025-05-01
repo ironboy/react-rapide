@@ -12,14 +12,19 @@ body {
   margin: 20px;
 }
 
+/* nested css, see: https: //pawelgrzybek.com/native-css-nesting-landed */
+
 section {
-  height: 110px;
   border-radius: 10px;
   background-color: #b8e1aa;
   padding: 20px;
   position: relative;
   margin-bottom: 20px;
   border: 2px solid #ddd;
+
+  @media (width >=600px) {
+    height: 110px;
+  }
 
   &:nth-child(odd) {
     background-color: #b7cce5;
@@ -32,11 +37,22 @@ section {
   img {
     aspect-ratio: 16/9;
     object-fit: cover;
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 150px;
+    border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    margin: -20px 0 0 -20px;
+    width: calc(100% + 40px);
+    display: block;
+    margin-bottom: 20px;
+
+    @media (width >=600px) {
+      margin: 0;
+      border-top-left-radius: 0;
+      border-bottom-right-radius: 10px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 150px;
+      width: initial;
+    }
   }
 }
