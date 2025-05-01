@@ -32,7 +32,7 @@ async function helpFast() {
     '',
     'help',
     'undo',
-    'auto-routes'
+    'auto-routes',
     ...commands
   ];
   log('');
