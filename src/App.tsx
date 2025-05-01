@@ -1,6 +1,6 @@
 export default function App() {
 
-  const animals = ['rabbit', 'cat', 'dog', 'snake'];
+  const animals = ['rabbit', 'snake', 'dog', 'cat'];
 
   return <>
     <h1>Animals I like</h1>
