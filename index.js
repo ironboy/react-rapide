@@ -6,6 +6,7 @@ import url from 'url';
 import cliSelect from 'cli-select';
 import { execSync } from 'child_process';
 import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js';
+import autoGenerateRoutes from './auto-generate-routes.js';
 
 const log = (...x) => console.log(...x);
 const dirname = import.meta.dirname;
@@ -31,9 +32,9 @@ async function helpFast() {
     '',
     'help',
     'undo',
+    'auto-routes'
     ...commands
   ];
-  let commandsChalked = commands.map(x => c.bold(x));
   log('');
   log(c.bold('Run any command by choosing it here'));
   log(c.bold('or by typing ' + c.green('npm run rr') + c.blue(' command')));
@@ -71,6 +72,9 @@ async function help() {
   log('');
   log(c.bold(c.green('undo')));
   log('Resets files, folders and installed npm modules to their state before the changes made by the latests react-rapide command.');
+  log('');
+  log(c.bold(c.green('auto-routes')));
+  log('Auto-generates a routes.tsx file, if your project is setup according to example found in router-decentralized.');
   for (let branch of commandBranches) {
     let name = disp.shift();
     if (!name) { continue; }
@@ -81,6 +85,13 @@ async function help() {
   log('');
 }
 
+async function autoRoutes() {
+  let baseDir = dirname.slice(0, dirname.lastIndexOf('node_modules'));
+  while (baseDir.endsWith('/') || baseDir.endsWith('\\')) { baseDir = baseDir.slice(0, -1); }
+  let srcDir = path.join(baseDir, 'src');
+  autoGenerateRoutes(srcDir);
+}
+
 async function runCommand(command) {
   clearConsole();
   let mainRapide = fs.readFileSync(path.join(dirname, './main-rapide.tsx'), 'utf-8');
@@ -88,6 +99,7 @@ async function runCommand(command) {
   if (command === 'helpFast') { helpFast(); return; }
   if (command === 'help') { await help(); return; }
   if (command === 'undo') { undo(); return; }
+  if (command === 'auto-routes') { autoRoutes(); return; }
   let index = commands.indexOf(command);
   if (index < 0) {
     log(c.red(c.bold('No such command: ' + command)));
@@ -136,7 +148,6 @@ async function runCommand(command) {
     fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), mainContent, 'utf-8');
     fs.writeFileSync(path.join(undoFolder, 'src', 'mainREAL.tsx'), oldMainContent, 'utf-8');
   }
-
 
   log(c.green(c.bold(postDo.message)));
   log('');
@@ -231,11 +242,11 @@ function undo() {
     path: path.join(undoFolder, x),
     isDir: fs.statSync(path.join(undoFolder, x)).isDirectory()
   }));
-  for (let { name, path } of toRestore.filter(x => x.isDir)) {
+  for (let { name } of toRestore.filter(x => x.isDir)) {
     replaceFolder(baseDir, undoFolder, name.replace(baseDir, ''));
     log(c.bold('Restoring the ' + c.blue(name) + '-folder'));
   }
-  for (let { name, path } of toRestore.filter(x => !x.isDir)) {
+  for (let { name } of toRestore.filter(x => !x.isDir)) {
     replaceFile(baseDir, undoFolder, name.replace(baseDir, ''));
     log(c.bold('Restoring the file ' + c.blue(name)));
   }
