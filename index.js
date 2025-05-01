@@ -89,7 +89,13 @@ async function autoRoutes() {
   let baseDir = dirname.slice(0, dirname.lastIndexOf('node_modules'));
   while (baseDir.endsWith('/') || baseDir.endsWith('\\')) { baseDir = baseDir.slice(0, -1); }
   let srcDir = path.join(baseDir, 'src');
-  autoGenerateRoutes(srcDir);
+  log('');
+  try {
+    autoGenerateRoutes(srcDir);
+    log(c.bold(c.green('routes.tsx created!')));
+  }
+  catch (_e) { log(c.bold(c.red('Something went wrong!'))); }
+  log('');
 }
 
 async function runCommand(command) {
