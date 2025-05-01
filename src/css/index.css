@@ -11,3 +11,32 @@
 body {
   margin: 20px;
 }
+
+section {
+  height: 110px;
+  border-radius: 10px;
+  background-color: #b8e1aa;
+  padding: 20px;
+  position: relative;
+  margin-bottom: 20px;
+  border: 2px solid #ddd;
+
+  &:nth-child(odd) {
+    background-color: #b7cce5;
+  }
+
+  h2 {
+    margin-top: 0
+  }
+
+  img {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 150px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}
