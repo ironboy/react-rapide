@@ -1,10 +1,10 @@
 // pages/routes
-import StartPage from './pages/StartPage';
-import AboutPage from './pages/AboutPage';
-import ProductsPage from './pages/ProductsPage';
+import AboutPage from './pages/AboutPage.tsx';
+import ProductsPage from './pages/ProductsPage.tsx';
+import StartPage from './pages/StartPage.tsx';
 
 export default [
-  StartPage,
   AboutPage,
-  ProductsPage
-].map(x => x.route);
+  ProductsPage,
+  StartPage
+].map(x => x.route).sort((a, b) => (a.index || 0) - (b.index || 0));
