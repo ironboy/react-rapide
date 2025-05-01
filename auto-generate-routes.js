@@ -19,7 +19,7 @@ ${namesAndRoutes.map(({ name, route }) => `import ${name} from './${route}';`).j
 
 export default [
 ${namesAndRoutes.map(({ name }) => `  ${name}`).join(',\n')}
-].map(x => x.route);
+].map(x => x.route).sort((a, b) => (a.index || 0) - (b.index || 0));
 `.trim();
 
   fs.writeFileSync(path.join(srcDir, 'routes.tsx'), generated, 'utf-8');
