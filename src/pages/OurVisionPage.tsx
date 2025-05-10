@@ -9,7 +9,7 @@ OurVisionPage.route = {
 export default function OurVisionPage() {
   return <>
     <h2>We run with our vision!</h2>
-    <img src="/images/start.jpg"></img>
+    <img src="/images/start.jpg" />
     <p>This is a page about our vision. Here we describe it in detail.</p>
     <LoremIpsum />
   </>;
