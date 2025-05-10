@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import useStateObject from '../utils/useStateObject';
 import { Link } from 'react-router-dom';
 import Select from '../parts/Select';
 import {
@@ -15,10 +15,15 @@ ProductsPage.route = {
 
 export default function ProductsPage() {
 
-  // state variables (used for our selects / drop-down lists)
-  const [categoryChoice, setCategoryChoice] = useState(categories[0]);
-  const [sortChoice, setSortChoice] = useState(sortDescriptions[0]);
-  const [bwImages, setBwImages] = useState(false);
+  // state object (instead of several calls to useState)
+  const [
+    { categoryChoice, sortChoice, bwImages },
+    setState
+  ] = useStateObject({
+    categoryChoice: categories[0],
+    sortChoice: sortDescriptions[0],
+    bwImages: false
+  });
 
   // get the chosen category without the product count part
   const category = categoryChoice.split(' (')[0];
@@ -36,20 +41,20 @@ export default function ProductsPage() {
     <p>Click on a product for detailed info.</p>
     <section className="products">
       {/* User choices connected to states */}
-      <button onClick={() => setBwImages(!bwImages)}>
+      <button onClick={() => setState('bwImages', !bwImages)}>
         {'Show images in ' +
           (bwImages ? 'color' : 'black and white')}
       </button>
       <Select
         label="Category"
         value={categoryChoice}
-        changeHandler={setCategoryChoice}
+        changeHandler={(x: string) => setState('categoryChoice', x)}
         options={categories}
       />
       <Select
         label="Sort by"
         value={sortChoice}
-        changeHandler={setSortChoice}
+        changeHandler={(x: string) => setState('sortChoice', x)}
         options={sortDescriptions}
       />
       {/* Show a filtered and sorted product list */}
