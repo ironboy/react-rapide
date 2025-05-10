@@ -1,1 +1,1 @@
-Installs React Router and an example with route info decentralized into components.
+An example of using React Router with router parameters.
