@@ -1,1 +1,1 @@
-An example of using state and React Router with router parameters.
+An example of collecting your state variables in an object.
