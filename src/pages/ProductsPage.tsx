@@ -3,8 +3,7 @@ import Product from '../interfaces/Product';
 import products from '../json/products.json';
 
 ProductsPage.route = {
-  element: <ProductsPage />,
-  path: '/products',
+  path: '/',
   menuLabel: 'Our products',
   index: 1
 };
@@ -22,7 +21,7 @@ export default function ProductsPage() {
       {(products as Product[]).map((
         { id, name, quantity, price$, slug }
       ) => (
-        <Link to={'/products/' + slug}>
+        <Link key={id} to={'/products/' + slug}>
           <img src={'/images/products/' + id + '.jpg'} />
           <h3>{name}</h3>
           <p><strong>Quantity</strong>: {quantity}</p>

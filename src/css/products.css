@@ -8,7 +8,7 @@ section.products {
     height: 150px;
 
     img {
-      transition: filter 0.4s;
+      transition: filter 0.3s;
       float: right;
       aspect-ratio: initial;
       border: 1px solid #b9c0ce;
@@ -46,9 +46,10 @@ article.product {
     font-size: 16px;
     cursor: pointer;
     float: right;
+    margin-bottom: 15px;
 
     &:hover {
-      filter: saturate(1.5);
+      filter: saturate(1.4);
     }
   }
 

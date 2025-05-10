@@ -1,8 +1,7 @@
 import LoremIpsum from '../parts/LoremIpsum';
 
 OurVisionPage.route = {
-  element: <OurVisionPage />,
-  path: '/',
+  path: '/our-vision',
   menuLabel: 'Our Vision',
   index: 3
 };

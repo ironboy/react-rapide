@@ -4,7 +4,6 @@ import products from '../json/products.json';
 
 
 ProductDetailsPage.route = {
-  element: <ProductDetailsPage />,
   path: '/products/:slug'
 };
 
@@ -19,10 +18,10 @@ export default function ProductDetailsPage() {
   return <article className="product">
     <h2>{name}</h2>
     <img src={'/images/products/' + id + '.jpg'} />
-    {description.split('\n').map(x => <p>{x}</p>)}
+    {description.split('\n').map((x, i) => <p key={i}>{x}</p>)}
     <p><strong>Quantity</strong>: {quantity}</p>
     <p><strong>Price: ${price$.toFixed(2)}</strong></p>
-    <p><Link to="/products">
+    <p><Link to="/">
       <button>Back to the product list</button>
     </Link></p>
   </article>;
