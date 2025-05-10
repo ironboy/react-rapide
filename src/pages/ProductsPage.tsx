@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useStateContext } from '../utils/useStateObject';
 import Select from '../parts/Select';
+import Image from '../parts/Image';
 import {
   products, categories, SortOption,
   sortOptions, sortDescriptions
@@ -63,10 +64,7 @@ export default function ProductsPage() {
           { id, name, quantity, price$, slug }
         ) => (
           <Link key={id} to={'/products/' + slug}>
-            <img
-              className={bwImages ? 'bw' : ''}
-              src={'/images/products/' + id + '.jpg'}
-            />
+            <Image src={'/images/products/' + id + '.jpg'} />
             <h3>{name}</h3>
             <p><strong>Quantity</strong>: {quantity}</p>
             <p><strong>Price: ${price$.toFixed(2)}</strong></p>

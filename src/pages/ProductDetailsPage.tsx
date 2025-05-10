@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useStateContext } from '../utils/useStateObject';
+import Image from '../parts/Image';
 import Product from '../interfaces/Product';
 import products from '../json/products.json';
 
@@ -9,7 +9,6 @@ ProductDetailsPage.route = {
 };
 
 export default function ProductDetailsPage() {
-  const [{ bwImages }] = useStateContext();
   // read the slug from the route parameter :slug
   const { slug } = useParams();
   // find the correct product based on its slug
@@ -19,10 +18,7 @@ export default function ProductDetailsPage() {
 
   return <article className="product">
     <h2>{name}</h2>
-    <img
-      src={'/images/products/' + id + '.jpg'}
-      className={bwImages ? 'bw' : ''}
-    />
+    <Image src={'/images/products/' + id + '.jpg'} />
     {description.split('\n').map((x, i) => <p key={i}>{x}</p>)}
     <p><strong>Quantity</strong>: {quantity}</p>
     <p><strong>Price: ${price$.toFixed(2)}</strong></p>
