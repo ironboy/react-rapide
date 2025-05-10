@@ -1,7 +1,6 @@
 import productsJson from '../json/products.json';
 import Product from '../interfaces/Product';
 
-
 export const products = productsJson as Product[];
 
 export const categories = [
