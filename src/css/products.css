@@ -17,6 +17,10 @@ section.products {
       min-width: 0;
       display: block;
       object-position: center center;
+
+      &.bw {
+        filter: grayscale(100%);
+      }
     }
 
     h3 {
@@ -29,13 +33,47 @@ section.products {
       text-decoration: underline;
     }
 
-    img {
+    img:not(.bw) {
       filter: saturate(2);
+    }
+
+    img.bw {
+      filter: grayscale(100%) sepia(20%);
+    }
+  }
+
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+
+    &:last-of-type {
+      margin-bottom: 40px;
+    }
+
+    span {
+      display: inline-block;
+      width: 100px;
+    }
+
+    select {
+      width: 200px;
+      font-size: 16px;
+      border: 1px solid #000;
+      border-radius: 5px;
+      background-color: #eee;
+      text-indent: 10px;
+      line-height: 30px;
+      appearance: none;
+      -webkit-appearance: none;
+      background: right no-repeat #eee url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
     }
   }
 }
 
-article.product {
+article.product,
+section.products {
   button {
     transition: filter 0.3s;
     background-color: var(--buttonBgColor);
@@ -58,4 +96,9 @@ article.product {
     border: 1px solid #b9c0ce;
     filter: saturate(1.4);
   }
+}
+
+section.products button {
+  float: initial;
+  width: 300px;
 }

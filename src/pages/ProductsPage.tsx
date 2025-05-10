@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Product from '../interfaces/Product';
-import products from '../json/products.json';
+import Select from '../parts/Select';
+import {
+  products, categories, SortOption,
+  sortOptions, sortDescriptions
+} from '../utils/productSort';
 
 ProductsPage.route = {
   path: '/',
@@ -10,6 +14,18 @@ ProductsPage.route = {
 };
 
 export default function ProductsPage() {
+
+  // state variables (used for our selects / drop-down lists)
+  const [categoryChoice, setCategoryChoice] = useState(categories[0]);
+  const [sortChoice, setSortChoice] = useState(sortDescriptions[0]);
+  const [bwImages, setBwImages] = useState(false);
+
+  // get the chosen category without the product count part
+  const category = categoryChoice.split(' (')[0];
+  // get the key and order to from the chosen sort option
+  const { key: sortKey, order: sortOrder } =
+    sortOptions.find(x => x.description === sortChoice) as SortOption;
+
   return <>
     <h2>Our products</h2>
     <p>
@@ -19,16 +35,42 @@ export default function ProductsPage() {
     </p>
     <p>Click on a product for detailed info.</p>
     <section className="products">
-      {(products as Product[]).map((
-        { id, name, quantity, price$, slug }
-      ) => (
-        <Link key={id} to={'/products/' + slug}>
-          <img src={'/images/products/' + id + '.jpg'} />
-          <h3>{name}</h3>
-          <p><strong>Quantity</strong>: {quantity}</p>
-          <p><strong>Price: ${price$.toFixed(2)}</strong></p>
-        </Link>
-      ))}
-    </section>
+      {/* User choices connected to states */}
+      <button onClick={() => setBwImages(!bwImages)}>
+        {'Show images in ' +
+          (bwImages ? 'color' : 'black and white')}
+      </button>
+      <Select
+        label="Category"
+        value={categoryChoice}
+        changeHandler={setCategoryChoice}
+        options={categories}
+      />
+      <Select
+        label="Sort by"
+        value={sortChoice}
+        changeHandler={setSortChoice}
+        options={sortDescriptions}
+      />
+      {/* Show a filtered and sorted product list */}
+      {products
+        // filter by the chosen category
+        .filter(x => category === 'All' || x.categories.includes(category))
+        // sort by the chosen choice for sorting
+        .sort((a, b) => (a[sortKey] > b[sortKey] ? 1 : -1) * sortOrder)
+        .map((
+          { id, name, quantity, price$, slug }
+        ) => (
+          <Link key={id} to={'/products/' + slug}>
+            <img
+              className={bwImages ? 'bw' : ''}
+              src={'/images/products/' + id + '.jpg'}
+            />
+            <h3>{name}</h3>
+            <p><strong>Quantity</strong>: {quantity}</p>
+            <p><strong>Price: ${price$.toFixed(2)}</strong></p>
+          </Link>
+        ))}
+    </section >
   </>;
 }
