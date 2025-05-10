@@ -5,7 +5,8 @@ import products from '../json/products.json';
 ProductsPage.route = {
   path: '/',
   menuLabel: 'Products',
-  index: 1
+  index: 1,
+  parent: '/'
 };
 
 export default function ProductsPage() {
