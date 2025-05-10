@@ -98,9 +98,5 @@ main {
     object-position: left top;
     border-radius: 10px;
     border: 1px solid var(--headerFooterBgColor);
-
-    &[src*="products.jpg"] {
-      object-position: left bottom;
-    }
   }
 }
