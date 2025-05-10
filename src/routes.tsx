@@ -10,5 +10,7 @@ export default [
   ProductsPage,
   StartPage
 ]
+  // get the routes for each component
   .map(x => x.route)
+  // sort by index
   .sort((a: any, b: any) => (a.index || 0) - (b.index || 0));
