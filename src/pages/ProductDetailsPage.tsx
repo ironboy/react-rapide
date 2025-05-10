@@ -4,7 +4,8 @@ import products from '../json/products.json';
 
 
 ProductDetailsPage.route = {
-  path: '/products/:slug'
+  path: '/products/:slug',
+  parent: '/'
 };
 
 export default function ProductDetailsPage() {
