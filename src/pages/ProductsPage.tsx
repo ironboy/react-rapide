@@ -4,7 +4,7 @@ import products from '../json/products.json';
 
 ProductsPage.route = {
   path: '/',
-  menuLabel: 'Our products',
+  menuLabel: 'Products',
   index: 1
 };
 
