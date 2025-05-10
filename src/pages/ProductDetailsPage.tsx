@@ -2,8 +2,7 @@ import LoremIpsum from '../parts/LoremIpsum';
 
 ProductDetailsPage.route = {
   element: <ProductDetailsPage />,
-  path: '/products/:slug',
-  index: 2
+  path: '/products/:slug'
 };
 
 export default function ProductDetailsPage() {
