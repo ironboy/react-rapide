@@ -1,1 +1,1 @@
-An example of collecting your state variables in an object.
+An example of using the useOutletContext hook
