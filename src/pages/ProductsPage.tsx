@@ -1,7 +1,6 @@
 import LoremIpsum from '../parts/LoremIpsum';
 
 ProductsPage.route = {
-  element: <ProductsPage />,
   path: '/products',
   menuLabel: 'Our products',
   index: 3
