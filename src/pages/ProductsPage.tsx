@@ -1,4 +1,6 @@
-import LoremIpsum from '../parts/LoremIpsum';
+import { Link } from 'react-router-dom';
+import Product from '../interfaces/Product';
+import productsJson from '../json/products.json';
 
 ProductsPage.route = {
   element: <ProductsPage />,
@@ -7,11 +9,19 @@ ProductsPage.route = {
   index: 3
 };
 
+const products = productsJson as Product[];
+
 export default function ProductsPage() {
   return <>
     <h2>Our products</h2>
-    <img src="/images/products.jpg"></img>
-    <p>Our products are fantastic. We will list them here shortly.</p>
-    <LoremIpsum />
+    <p>Our products are fantastic, organic and fresh.</p>
+    {products.map(({ id, name, quantity, price$, slug }) => (
+      <Link to={'/images/products/' + slug}>
+        <img src={'/images/products/' + id + '.jpg'} />
+        <h3>{name}</h3>
+        <p><strong>Quantity</strong>: {quantity}</p>
+        <p>Price: ${price$}</p>
+      </Link>
+    ))}
   </>;
 }

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Croissant",
+    "description": "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.\nCras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.",
+    "quantity": "1 large",
+    "price$": 0.99,
+    "slug": "croissant"
+  },
+  {
+    "id": 2,
+    "name": "Gherkins",
+    "description": "In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.\nMaecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
+    "quantity": "A bottle of 10",
+    "price$": 4.5,
+    "slug": "gherkins"
+  },
+  {
+    "id": 3,
+    "name": "Bay Leaves",
+    "description": "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.\nCras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",
+    "quantity": "Bundle",
+    "price$": 3.45,
+    "slug": "bay-leaves"
+  },
+  {
+    "id": 4,
+    "name": "Tomatoes on the vine",
+    "description": "Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.\nAenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
+    "quantity": "1 lb",
+    "price$": 2.5,
+    "slug": "tomatoes-on-the-vine"
+  },
+  {
+    "id": 5,
+    "name": "Basmati Rice",
+    "description": "Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
+    "quanity": "4 lb",
+    "price$": 6.99,
+    "slug": "basmati-rice"
+  }
+]
