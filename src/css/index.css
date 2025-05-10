@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Chewy&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import 'products.css';
 
 :root {
   font-family: 'Noto Sans';
@@ -8,7 +9,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --headerFooterBgColor: #0d1050;
+  --headerFooterBgColor: #0e6c15;
+  --buttonBgColor: #127d1b;
   --headerFooterTextColor: #fff;
   --navLinkColor: #bbb;
   --navLinkColorActive: #fff;
@@ -95,15 +97,10 @@ main {
     object-fit: cover;
     object-position: left top;
     border-radius: 10px;
-    border: 1px dashed #1b305b;
+    border: 1px solid var(--headerFooterBgColor);
 
     &[src*="products.jpg"] {
       object-position: left bottom;
     }
   }
-}
-
-a.product {
-  color: #000;
-  text-decoration: none;
 }

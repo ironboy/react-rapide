@@ -1,0 +1,17 @@
+import LoremIpsum from '../parts/LoremIpsum';
+
+OurVisionPage.route = {
+  element: <OurVisionPage />,
+  path: '/',
+  menuLabel: 'Our Vision',
+  index: 3
+};
+
+export default function OurVisionPage() {
+  return <>
+    <h2>We run with our vision!</h2>
+    <img src="/images/start.jpg"></img>
+    <p>This is our page about or vision. Here we describe it.</p>
+    <LoremIpsum />
+  </>;
+}

@@ -1,0 +1,60 @@
+section.products {
+
+  a {
+    color: #000;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    height: 150px;
+
+    img {
+      transition: filter 0.4s;
+      float: right;
+      aspect-ratio: initial;
+      border: 1px solid #b9c0ce;
+      max-width: 35%;
+      height: calc(100% - 20px);
+      min-width: 0;
+      display: block;
+      object-position: center center;
+    }
+
+    h3 {
+      color: var(--headerFooterBgColor);
+    }
+  }
+
+  a:hover {
+    h3 {
+      text-decoration: underline;
+    }
+
+    img {
+      filter: saturate(2);
+    }
+  }
+}
+
+article.product {
+  button {
+    transition: filter 0.3s;
+    background-color: var(--buttonBgColor);
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    float: right;
+
+    &:hover {
+      filter: saturate(1.5);
+    }
+  }
+
+  img {
+    object-position: center center;
+    border: 1px solid #b9c0ce;
+    filter: saturate(1.4);
+  }
+}

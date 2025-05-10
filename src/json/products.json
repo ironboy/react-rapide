@@ -35,7 +35,7 @@
     "id": 5,
     "name": "Basmati Rice",
     "description": "Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
-    "quanity": "4 lb",
+    "quantity": "4 lb",
     "price$": 6.99,
     "slug": "basmati-rice"
   }

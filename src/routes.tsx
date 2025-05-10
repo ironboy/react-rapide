@@ -1,16 +1,24 @@
+import { JSX } from 'react';
 // pages/routes
-import AboutPage from './pages/AboutPage.tsx';
+import OurVisionPage from './pages/AboutPage.tsx';
+import StartPage from './pages/OurVisionPage.tsx';
 import ProductDetailsPage from './pages/ProductDetailsPage.tsx';
 import ProductsPage from './pages/ProductsPage.tsx';
-import StartPage from './pages/StartPage.tsx';
+
+interface Route {
+  element: JSX.Element;
+  path: string;
+  menuLabel: string;
+  index?: number;
+}
 
 export default [
-  AboutPage,
+  OurVisionPage,
+  StartPage,
   ProductDetailsPage,
-  ProductsPage,
-  StartPage
+  ProductsPage
 ]
   // get the routes for each component
-  .map(x => x.route)
+  .map(x => x.route as Route)
   // sort by index (if an item has no index, sort as index 0)
-  .sort((a: any, b: any) => (a.index || 0) - (b.index || 0));
+  .sort((a, b) => (a.index || 0) - (b.index || 0));

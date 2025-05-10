@@ -1,5 +1,5 @@
 export default function Footer() {
   return <footer>
-    © My Company {new Date().getFullYear()}
+    © The Good Grocery {new Date().getFullYear()}
   </footer>;
 }

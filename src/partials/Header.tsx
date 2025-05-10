@@ -4,7 +4,7 @@ import routes from '../routes.tsx';
 export default function Header() {
   return <header>
     <Link to="/">
-      <h1>Another Company</h1>
+      <h1>The Good Grocery</h1>
     </Link>
     <nav>
       {routes.filter(x => x.menuLabel).map(({ menuLabel, path }, i) =>

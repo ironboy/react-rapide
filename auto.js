@@ -14,14 +14,23 @@ export default function x(srcDir = path.join(import.meta.dirname, 'src')) {
       let name = (x.content.match(/\w{1,}\.route\s*=\s*\{/) + '').split('.')[0].trim();
       return { name, route: x.filePath };
     });
-  const generated = `// pages/routes
+  const generated = `import { JSX } from 'react';\n// pages/routes
 ${namesAndRoutes.map(({ name, route }) => `import ${name} from './${route}';`).join('\n')}
+
+interface Route {
+  element: JSX.Element;
+  path: string;
+  menuLabel: string;
+  index?: number;
+}
 
 export default [
 ${namesAndRoutes.map(({ name }) => `  ${name}`).join(',\n')}
 ]
-  .map(x => x.route)
-  .sort((a: any, b: any) => (a.index || 0) - (b.index || 0));
+  // get the routes for each component
+  .map(x => x.route as Route)
+  // sort by index (if an item has no index, sort as index 0)
+  .sort((a, b) => (a.index || 0) - (b.index || 0));
 `.trim();
   fs.writeFileSync(path.join(srcDir, 'routes.tsx'), generated, 'utf-8');
 }
