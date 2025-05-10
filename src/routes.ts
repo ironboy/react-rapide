@@ -9,7 +9,7 @@ interface Route {
   path: string;
   menuLabel: string;
   index?: number;
-  parent?: JSX.Element
+  parent?: string;
 }
 
 export default [
