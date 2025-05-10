@@ -14,7 +14,7 @@ export default function (srcDir = path.join(import.meta.dirname, 'src')) {
       let name = (x.content.match(/\w{1,}\.route\s*=\s*\{/) + '').split('.')[0].trim();
       return { name, route: x.filePath };
     });
-  const generated = `import { JSX } from 'react';\n// pages/routes
+  const generated = `import { JSX, createElement } from 'react';\n// page components
 ${namesAndRoutes.map(({ name, route }) => `import ${name} from './${route}';`).join('\n')}
 
 interface Route {
@@ -22,15 +22,16 @@ interface Route {
   path: string;
   menuLabel: string;
   index?: number;
+  parent?: JSX.Element
 }
 
 export default [
 ${namesAndRoutes.map(({ name }) => `  ${name}`).join(',\n')}
 ]
-  // get the routes for each component
-  .map(x => x.route as Route)
-  // sort by index (if an item has no index, sort as index 0)
+  // map the route property of each page component to a Route
+  .map(x => (({ element: createElement(x), ...x.route }) as Route))
+  // sort by index (and if an item has no index, sort as index 0)
   .sort((a, b) => (a.index || 0) - (b.index || 0));
 `.trim();
-  fs.writeFileSync(path.join(srcDir, 'routes.tsx'), generated, 'utf-8');
+  fs.writeFileSync(path.join(srcDir, 'routes.ts'), generated, 'utf-8');
 }
