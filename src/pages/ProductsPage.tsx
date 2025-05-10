@@ -4,7 +4,7 @@ import Select from '../parts/Select';
 import {
   products, categories, SortOption,
   sortOptions, sortDescriptions
-} from '../utils/productSort';
+} from '../utils/productPageHelpers';
 
 ProductsPage.route = {
   path: '/',
