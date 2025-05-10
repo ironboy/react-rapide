@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
-import routes from '../routes.tsx';
+import routes from '../routes';
 
 export default function Header() {
   return <header>
