@@ -1,5 +1,5 @@
-import useStateObject from '../utils/useStateObject';
 import { Link } from 'react-router-dom';
+import { useStateContext } from '../utils/useStateObject';
 import Select from '../parts/Select';
 import {
   products, categories, SortOption,
@@ -15,15 +15,11 @@ ProductsPage.route = {
 
 export default function ProductsPage() {
 
-  // state object (instead of several calls to useState)
+  // get state object and setter from the outlet context
   const [
     { categoryChoice, sortChoice, bwImages },
     setState
-  ] = useStateObject({
-    categoryChoice: categories[0],
-    sortChoice: sortDescriptions[0],
-    bwImages: false
-  });
+  ] = useStateContext();
 
   // get the chosen category without the product count part
   const category = categoryChoice.split(' (')[0];
