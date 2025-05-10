@@ -12,5 +12,5 @@ export default [
 ]
   // get the routes for each component
   .map(x => x.route)
-  // sort by index
+  // sort by index (if an item has no index, sort as index 0)
   .sort((a: any, b: any) => (a.index || 0) - (b.index || 0));
