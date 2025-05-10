@@ -9,7 +9,6 @@ interface Route {
   menuLabel: string;
 }
 
-
 const routes: Route[] = [
   { element: <StartPage />, path: '/', menuLabel: 'Start' },
   { element: <AboutPage />, path: '/about-us', menuLabel: 'About us' },
