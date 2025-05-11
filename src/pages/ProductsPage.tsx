@@ -64,7 +64,10 @@ export default function ProductsPage() {
           { id, name, quantity, price$, slug }
         ) => (
           <Link key={id} to={'/products/' + slug}>
-            <Image src={'/images/products/' + id + '.jpg'} />
+            <Image
+              src={'/images/products/' + id + '.jpg'}
+              alt={'Product image of the product ' + name + '.'}
+            />
             <h3>{name}</h3>
             <p><strong>Quantity</strong>: {quantity}</p>
             <p><strong>Price: ${price$.toFixed(2)}</strong></p>

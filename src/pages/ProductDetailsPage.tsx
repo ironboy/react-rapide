@@ -18,7 +18,10 @@ export default function ProductDetailsPage() {
 
   return <article className="product">
     <h2>{name}</h2>
-    <Image src={'/images/products/' + id + '.jpg'} />
+    <Image
+      src={'/images/products/' + id + '.jpg'}
+      alt={'Product image of the product ' + name + '.'}
+    />
     {description.split('\n').map((x, i) => <p key={i}>{x}</p>)}
     <p><strong>Quantity</strong>: {quantity}</p>
     <p><strong>Price: ${price$.toFixed(2)}</strong></p>
