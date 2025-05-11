@@ -1,0 +1,14 @@
+header::after {
+  position: absolute;
+  transform-origin: right top;
+  font-size: 11px;
+  font-weight: 500;
+  transform: rotate(90deg);
+  right: 0;
+  top: 135px;
+  text-align: center;
+  width: 135px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 0 10px;
+  content: 'State and Objects'
+}
