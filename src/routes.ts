@@ -8,7 +8,8 @@ import StartPage from './pages/StartPage.tsx';
 interface Route {
   element: JSX.Element;
   path: string;
-  menuLabel: string;
+  loader?: Function;
+  menuLabel?: string;
   index?: number;
   parent?: string;
 }
