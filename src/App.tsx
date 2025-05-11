@@ -16,7 +16,10 @@ export default function App() {
       .filter(({ species }) => species !== 'snake')
       .sort((a, b) => a.species > b.species ? 1 : -1)
       .map(({ species, description }, i) => <section key={i}>
-        <img src={'/images/' + species + 's.jpg'} />
+        <img
+          src={'/images/' + species + 's.jpg'}
+          alt={'A photo of ' + species + 's.'}
+        />
         <h2>{species.slice(0, 1).toUpperCase() + species.slice(1)}s</h2>
         <p>I like {species}s. They are so {description}!</p>
       </section>)}
