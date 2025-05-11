@@ -16,8 +16,8 @@ ProductsPage.route = {
 export default function ProductsPage() {
 
   // state variables (used for our selects / drop-down lists)
-  const [categoryChoice, setCategoryChoice] = useState(categories[0]);
-  const [sortChoice, setSortChoice] = useState(sortDescriptions[0]);
+  const [categoryChoice, setCategoryChoice] = useState('All');
+  const [sortChoice, setSortChoice] = useState('Price (low to high)');
   const [bwImages, setBwImages] = useState(false);
 
   // get the chosen category without the product count part
