@@ -22,7 +22,10 @@ export default function ProductDetailsPage() {
     <Row>
       <Col>
         <h2 className="text-primary">{name}</h2>
-        <Image src={'/images/products/' + id + '.jpg'} />
+        <Image
+          src={'/images/products/' + id + '.jpg'}
+          alt={'Product image of the product ' + name + '.'}
+        />
         {description.split('\n').map((x, i) => <p key={i}>{x}</p>)}
       </Col>
     </Row>

@@ -32,6 +32,7 @@ export default function ProductCard(
         <Card.Img
           as={Image}
           src={'/images/products/' + id + '.jpg'}
+          alt={'Product image of the product ' + name + '.'}
           className="h-100"
         />
       </Col>
