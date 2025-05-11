@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { useStateContext } from '../utils/useStateObject';
 import Select from '../parts/Select';
