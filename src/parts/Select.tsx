@@ -8,9 +8,10 @@ interface SelectProps {
 export default function Select(
   { label, value, changeHandler, options }: SelectProps
 ) {
-  return <label>
+  return <label className="d-block">
     <span>{label}:</span>
     <select
+      className="form-select bg-light mb-4 w-50"
       value={value}
       onChange={e => changeHandler(e.target.value)}
     >

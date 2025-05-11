@@ -45,7 +45,10 @@ export default function ProductsPage() {
     <p>Click on a product for detailed info.</p>
     <section className="products">
       {/* User choices connected to states */}
-      <button onClick={() => setState('bwImages', !bwImages)}>
+      <button
+        className="btn btn-primary mb-3 w-50"
+        onClick={() => setState('bwImages', !bwImages)}
+      >
         {'Show images in ' +
           (bwImages ? 'color' : 'black and white')}
       </button>

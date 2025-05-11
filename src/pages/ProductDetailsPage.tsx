@@ -23,8 +23,10 @@ export default function ProductDetailsPage() {
     {description.split('\n').map((x, i) => <p key={i}>{x}</p>)}
     <p><strong>Quantity</strong>: {quantity}</p>
     <p><strong>Price: ${price$.toFixed(2)}</strong></p>
-    <p><Link to="/">
-      <button>Back to the product list</button>
-    </Link></p>
+    <p>
+      <Link to="/" className="btn btn-primary float-end">
+        Back to the product list
+      </Link>
+    </p>
   </article>;
 }

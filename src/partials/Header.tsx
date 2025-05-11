@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import routes from '../routes';
 
 export default function Header() {
@@ -11,6 +12,23 @@ export default function Header() {
   // function that returns true if a menu item is 'active'
   const isActive = (path: string) =>
     path === currentRoute?.path || path === currentRoute?.parent;
+
+  return <Navbar expand="lg" className="bg-primary" data-bs-theme="dark">
+    <Container fluid>
+      <Navbar.Brand href="#home">The Good Grocery</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="me-auto">
+          {routes.filter(x => x.menuLabel).map(({ menuLabel, path }, i) =>
+            <Nav.Link as={Link}
+              className={isActive(path) ? 'active' : ''}
+              key={i}
+              to={path}
+            >{menuLabel}</Nav.Link>)}
+        </Nav>
+      </Navbar.Collapse>
+    </Container>
+  </Navbar>;
 
   return <header>
     <Link to="/">
