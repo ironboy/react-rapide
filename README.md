@@ -1,1 +1,1 @@
-Using context and the useOutletContext hook
+Using context and the useOutletContext hook.
