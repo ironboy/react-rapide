@@ -20,9 +20,10 @@ ${namesAndRoutes.map(({ name, route }) => `import ${name} from './${route}';`).j
 interface Route {
   element: JSX.Element;
   path: string;
-  menuLabel: string;
+  loader?: Function;
+  menuLabel?: string;
   index?: number;
-  parent?: string
+  parent?: string;
 }
 
 export default [
