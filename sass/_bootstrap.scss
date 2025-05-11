@@ -8,3 +8,12 @@ $primary: #0e6c15;
 
 // Import bootstrap
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+// Override some Bootstrap defaults
+.navbar-brand {
+  font-family: 'Chewy';
+}
+
+.container {
+  max-width: 970px;
+}

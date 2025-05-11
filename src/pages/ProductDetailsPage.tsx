@@ -18,7 +18,7 @@ export default function ProductDetailsPage() {
     (useLoaderData().products as Product[])
       .find(x => x.slug === slug) as Product;
 
-  return <>
+  return <article className="product-details">
     <Row>
       <Col>
         <h2 className="text-primary">{name}</h2>
@@ -33,5 +33,5 @@ export default function ProductDetailsPage() {
         </p>
       </Col>
     </Row>
-  </>;
+  </article>;
 }

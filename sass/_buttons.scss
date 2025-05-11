@@ -1,0 +1,12 @@
+// Buttons in cards
+.card {
+  .col:has(button) {
+    padding-bottom: 40px;
+  }
+
+  button {
+    position: absolute;
+    bottom: 1px;
+    width: calc(100% - 1.2rem);
+  }
+}

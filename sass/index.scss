@@ -1,12 +1,12 @@
 @use 'bootstrap';
-// @use 'main';
-// @use 'products';
-// @use 'version';
+@use 'bootstrap-breakpoints';
+@use 'buttons';
+@use 'images';
 
-// fonts from Google Fonts
+// Import fonts from Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Chewy&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-/* Sticky footer */
+// Sticky footer
 #root {
   display: flex;
   min-height: 100vh;
@@ -15,34 +15,4 @@
   main {
     flex: 1;
   }
-}
-
-.navbar-brand {
-  font-family: 'Chewy';
-}
-
-main img {
-  aspect-ratio: 30/9;
-  object-fit: cover;
-  object-position: top left;
-}
-
-.container {
-  max-width: 970px;
-}
-
-img.bw {
-  filter: grayscale(100%)
-}
-
-.bootstrap-breakpoints {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px;
-  color: white;
-  border-top-left-radius: 10px;
-  text-align: center;
-  width: 50px;
 }

@@ -1,8 +1,8 @@
-import { Link, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { Row, Col, Button } from 'react-bootstrap';
 import { useStateContext } from '../utils/useStateObject';
 import Select from '../parts/Select';
-import Image from '../parts/Image';
+import ProductCard from '../parts/ProductCard';
 import productsLoader from '../utils/productsLoader';
 import { getHelpers, SortOption }
   from '../utils/productPageHelpers';
@@ -45,7 +45,6 @@ export default function ProductsPage() {
           They are also very reasonably priced considering
           they all harvested with the greatest care.
         </p>
-        <p>Click on a product for detailed info.</p>
       </Col>
     </Row>
     <Row>
@@ -88,20 +87,17 @@ export default function ProductsPage() {
         </Row>
       </Col>
     </Row>
-    {products
-      // filter by the chosen category
-      .filter(x => category === 'All' || x.categories.includes(category))
-      // sort by the chosen choice for sorting
-      .sort((a, b) => (a[sortKey] > b[sortKey] ? 1 : -1) * sortOrder)
-      .map((
-        { id, name, quantity, price$, slug }
-      ) => (
-        <Link key={id} to={'/products/' + slug}>
-          <Image src={'/images/products/' + id + '.jpg'} />
-          <h3>{name}</h3>
-          <p><strong>Quantity</strong>: {quantity}</p>
-          <p><strong>Price: ${price$.toFixed(2)}</strong></p>
-        </Link>
-      ))}
+    <Row>
+      {products
+        // filter by the chosen category
+        .filter(x => category === 'All' || x.categories.includes(category))
+        // sort by the chosen choice for sorting
+        .sort((a, b) => (a[sortKey] > b[sortKey] ? 1 : -1) * sortOrder)
+        // map to product cards
+        .map(product => <Col xs={12} lg={6} key={product.id}>
+          <ProductCard {...product} />
+        </Col>)
+      }
+    </Row>
   </>;
 };
