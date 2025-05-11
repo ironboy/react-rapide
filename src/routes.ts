@@ -9,7 +9,8 @@ import ProductsPage from './pages/ProductsPage.tsx';
 interface Route {
   element: JSX.Element;
   path: string;
-  menuLabel: string;
+  loader?: Function;
+  menuLabel?: string;
   index?: number;
   parent?: string;
 }
