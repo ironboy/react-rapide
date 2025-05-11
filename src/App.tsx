@@ -2,6 +2,8 @@ import { useLocation } from 'react-router-dom';
 import Header from "./partials/Header";
 import Main from './partials/Main';
 import Footer from './partials/Footer';
+import BootstrapBreakPoints
+  from './parts/BootstrapBreakPoints';
 
 export default function App() {
 
@@ -13,5 +15,6 @@ export default function App() {
     <Header />
     <Main />
     <Footer />
+    <BootstrapBreakPoints />
   </>;
 };

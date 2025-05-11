@@ -34,3 +34,15 @@ main img {
 img.bw {
   filter: grayscale(100%)
 }
+
+.bootstrap-breakpoints {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  color: white;
+  border-top-left-radius: 10px;
+  text-align: center;
+  width: 50px;
+}

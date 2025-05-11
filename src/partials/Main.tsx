@@ -12,8 +12,8 @@ export default function Main() {
   });
 
   return <main>
-    <Container className="mt-5">
+    <Container className="my-4">
       <Outlet context={stateAndSetter} />
-    </Container>;
+    </Container>
   </main>;
 }

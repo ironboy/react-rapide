@@ -15,32 +15,22 @@ export default function Header() {
 
   return <Navbar expand="lg" className="bg-primary" data-bs-theme="dark">
     <Container fluid>
-      <Navbar.Brand href="#home">The Good Grocery</Navbar.Brand>
+      <Navbar.Brand className="me-4" as={Link} to="/">
+        The Good Grocery
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          {routes.filter(x => x.menuLabel).map(({ menuLabel, path }, i) =>
-            <Nav.Link as={Link}
-              className={isActive(path) ? 'active' : ''}
-              key={i}
-              to={path}
-            >{menuLabel}</Nav.Link>)}
+          {routes.filter(x => x.menuLabel).map(
+            ({ menuLabel, path }, i) =>
+              <Nav.Link as={Link}
+                className={isActive(path) ? 'active' : ''}
+                key={i}
+                to={path}
+              >{menuLabel}</Nav.Link>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Container>
   </Navbar>;
-
-  return <header>
-    <Link to="/">
-      <h1>The Good Grocery</h1>
-    </Link>
-    <nav>
-      {routes.filter(x => x.menuLabel).map(({ menuLabel, path }, i) =>
-        <Link
-          className={isActive(path) ? 'active' : ''}
-          key={i}
-          to={path}
-        >{menuLabel}</Link>)}
-    </nav>
-  </header>;
 }
