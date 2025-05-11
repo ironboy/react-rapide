@@ -1,1 +1,1 @@
-Data loading and context with React Router.
+Using Bootstrap with React.
