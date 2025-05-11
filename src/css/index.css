@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Chewy&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'products.css';
+@import 'version.css';
 
 :root {
   font-family: 'Noto Sans';
@@ -87,10 +88,6 @@ main {
   margin: -5px auto 20px;
   max-width: 700px;
 
-  h2 {
-    color: var(--headerFooterBgColor);
-  }
-
   img {
     width: 100%;
     aspect-ratio: 20/9;
@@ -98,5 +95,14 @@ main {
     object-position: left top;
     border-radius: 10px;
     border: 1px solid var(--headerFooterBgColor);
+  }
+
+  h2 {
+    color: var(--headerFooterBgColor);
+    margin-bottom: 6px
+  }
+
+  h2+p {
+    margin-top: 0;
   }
 }
