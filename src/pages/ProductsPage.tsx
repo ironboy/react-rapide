@@ -1,20 +1,28 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLoaderData } from 'react-router-dom';
 import { useStateContext } from '../utils/useStateObject';
 import Select from '../parts/Select';
 import Image from '../parts/Image';
-import {
-  products, categories, SortOption,
-  sortOptions, sortDescriptions
-} from '../utils/productPageHelpers';
+import productsLoader from '../utils/productsLoader';
+import { getHelpers, SortOption }
+  from '../utils/productPageHelpers';
 
 ProductsPage.route = {
   path: '/',
   menuLabel: 'Products',
   index: 1,
-  parent: '/'
+  parent: '/',
+  loader: productsLoader
 };
 
 export default function ProductsPage() {
+
+  let {
+    products,
+    categories,
+    sortOptions,
+    sortDescriptions
+  } = getHelpers(useLoaderData().products);
 
   // get state object and setter from the outlet context
   const [

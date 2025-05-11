@@ -11,7 +11,8 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    children: routes as RouteObject[]
+    children: routes as RouteObject[],
+    HydrateFallback: App
   }
 ]);
 

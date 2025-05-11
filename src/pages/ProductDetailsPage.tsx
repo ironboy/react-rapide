@@ -1,11 +1,12 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLoaderData } from 'react-router-dom';
 import Image from '../parts/Image';
 import Product from '../interfaces/Product';
-import products from '../json/products.json';
+import productsLoader from '../utils/productsLoader';
 
 ProductDetailsPage.route = {
   path: '/products/:slug',
-  parent: '/'
+  parent: '/',
+  loader: productsLoader
 };
 
 export default function ProductDetailsPage() {
@@ -13,7 +14,7 @@ export default function ProductDetailsPage() {
   const { slug } = useParams();
   // find the correct product based on its slug
   const { id, name, quantity, price$, description } =
-    (products as Product[])
+    (useLoaderData().products as Product[])
       .find(x => x.slug === slug) as Product;
 
   return <article className="product">
