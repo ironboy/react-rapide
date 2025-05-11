@@ -29,13 +29,21 @@ export default function ProductDetailsPage() {
     <Row>
       <Col className="px-4 pb-4">
         <Row className="p-3 bg-primary-subtle rounded">
-          <Col className="pe-5 border-end border-primary">
+          <Col className="pe-4 pe-sm-5 border-end border-primary">
             <strong>Quantity</strong>:
-            <span className="float-end">{quantity}</span>
+            <span
+              className="d-block d-sm-inline float-sm-end"
+            >
+              {quantity}
+            </span>
           </Col>
-          <Col className="ps-5">
+          <Col className="ps-4 ps-sm-5 text-end text-sm-start">
             <strong>Price</strong>:
-            <span className="float-end">${price$.toFixed(2)}</span>
+            <span
+              className="d-block d-sm-inline float-sm-end"
+            >
+              ${price$.toFixed(2)}
+            </span>
           </Col>
         </Row>
       </Col>
