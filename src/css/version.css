@@ -1,0 +1,10 @@
+header::after {
+  position: absolute;
+  text-transform: uppercase;
+  transform-origin: top right;
+  font-size: 9px;
+  transform: rotate(90deg);
+  right: 15px;
+  ;
+  content: 'Router with params'
+}
