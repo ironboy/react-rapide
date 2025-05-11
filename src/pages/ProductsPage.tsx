@@ -49,7 +49,7 @@ export default function ProductsPage() {
     </Row>
     <Row>
       <Col className="px-4 pt-1 pb-4">
-        <Row className="bg-secondary-subtle pt-3 rounded">
+        <Row className="bg-primary-subtle pt-3 rounded">
           <Col md="4">
             <label className="d-block">
               <div className="d-none d-md-block">

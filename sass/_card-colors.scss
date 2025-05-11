@@ -1,0 +1,28 @@
+$darker-card-color: #f0f0f0;
+
+// md sizes and below
+// - every other card has a different color
+@media (max-width: 991.98px) {
+  [class^="col"]:nth-of-type(odd):has(.card) {
+    .card {
+      background-color: $darker-card-color;
+    }
+  }
+}
+
+// lg sizes and above
+// - every other card, but alternately per 'row'
+// has a different color
+@media (min-width: 992px) {
+  [class^="col"]:nth-of-type(4n+1):has(.card) {
+    .card {
+      background-color: $darker-card-color;
+    }
+  }
+
+  [class^="col"]:nth-of-type(4n+4):has(.card) {
+    .card {
+      background-color: $darker-card-color;
+    }
+  }
+}

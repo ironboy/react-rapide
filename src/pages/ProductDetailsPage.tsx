@@ -24,14 +24,28 @@ export default function ProductDetailsPage() {
         <h2 className="text-primary">{name}</h2>
         <Image src={'/images/products/' + id + '.jpg'} />
         {description.split('\n').map((x, i) => <p key={i}>{x}</p>)}
-        <p><strong>Quantity</strong>: {quantity}</p>
-        <p><strong>Price: ${price$.toFixed(2)}</strong></p>
-        <p>
-          <Link to="/" className="btn btn-primary float-end">
-            Back to the product list
-          </Link>
-        </p>
       </Col>
     </Row>
-  </article>;
+    <Row>
+      <Col className="px-4 pb-4">
+        <Row className="p-3 bg-primary-subtle rounded">
+          <Col className="pe-5 border-end border-primary">
+            <strong>Quantity</strong>:
+            <span className="float-end">{quantity}</span>
+          </Col>
+          <Col className="ps-5">
+            <strong>Price</strong>:
+            <span className="float-end">${price$.toFixed(2)}</span>
+          </Col>
+        </Row>
+      </Col>
+    </Row >
+    <Row>
+      <Col>
+        <Link to="/" className="btn btn-primary float-end">
+          Back to the product list
+        </Link>
+      </Col>
+    </Row>
+  </article >;
 }
