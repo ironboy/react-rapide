@@ -70,6 +70,7 @@ export default function ProductsPage() {
             <img
               className={bwImages ? 'bw' : ''}
               src={'/images/products/' + id + '.jpg'}
+              alt={'Product image of the product ' + name + '.'}
             />
             <h3>{name}</h3>
             <p><strong>Quantity</strong>: {quantity}</p>
