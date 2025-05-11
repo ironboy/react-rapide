@@ -18,7 +18,7 @@ const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.st
 const commands = commandBranches.map(x => x.split('command-')[1].split(/\d{1,}-/)[1]).filter(x => x);
 const defaultPostDo = {
   patchPackages: 'auto',
-  replace: { files: [['index.html']], folders: [['public'], ['src']] },
+  replace: { files: [['index.html']], folders: [['public'], ['src'], ['sass']] },
   message: 'All done!'
 };
 
@@ -129,7 +129,7 @@ async function runCommand(command) {
   }
 
   // In order to don't crash the vite dev server:
-  // If the src folder is part of of postDo - give it an empty src/main.tsx initially
+  // If the src folder is part of postDo - give it an empty src/main.tsx initially
   // Wait a while to make the vite dev server understand this
   // then at the end after all other copying copy the real src/main.tsx
   // (when all other files are in place)
@@ -219,7 +219,7 @@ function patchPackage(target, org, patch) {
   }
   if (!anythingChanged) { return false; }
   fs.writeFileSync(pTarget, JSON.stringify(pTargetJson, null, '  '), 'utf-8');
-  execSync('cd "' + target + '" && npm install');
+  execSync('cd "' + target + '" && npm install && npm audit fix');
   return { patched: true, originalPackageContent };
 }
 
