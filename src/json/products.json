@@ -14,7 +14,7 @@
     "id": 2,
     "name": "Gherkins",
     "description": "In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.\nMaecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
-    "quantity": "A bottle of 10",
+    "quantity": "A can of 10",
     "price$": 4.5,
     "slug": "gherkins",
     "categories": [
@@ -26,7 +26,7 @@
     "id": 3,
     "name": "Bay Leaves",
     "description": "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.\nCras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",
-    "quantity": "Bundle",
+    "quantity": "1 bundle",
     "price$": 3.45,
     "slug": "bay-leaves",
     "categories": [
@@ -54,6 +54,29 @@
     "slug": "basmati-rice",
     "categories": [
       "Bread & rice"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Green Olives",
+    "description": "Aenean auctor gravida sem. Etiam vel augue. Vestibulum rutrum rutrum neque.\nAenean sit amet justo. Morbi ut odio. Praesent id massa id nisl venenatis lacinia. ",
+    "quantity": "1 lb, canned",
+    "price$": 9.75,
+    "slug": "green-olives",
+    "categories": [
+      "Canned food"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Parsley",
+    "description": "Maecenas rhoncus aliquam lacus. In quis justo.  Morbi quis tortor id nulla ultrices aliquet.\nPellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. \nSuspendisse potenti. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam.",
+    "quantity": "1 bundle",
+    "price$": 2.75,
+    "slug": "parsley",
+    "categories": [
+      "Vegetables",
+      "Spices"
     ]
   }
 ]

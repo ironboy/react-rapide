@@ -20,8 +20,8 @@ export default function ProductsPage() {
     { categoryChoice, sortChoice, bwImages },
     setState
   ] = useStateObject({
-    categoryChoice: categories[0],
-    sortChoice: sortDescriptions[0],
+    categoryChoice: 'All',
+    sortChoice: 'Price (low to high)',
     bwImages: false
   });
 
