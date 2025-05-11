@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Chewy&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'products.css';
+@import 'version.css';
 
 :root {
   font-family: 'Noto Sans';
@@ -89,6 +90,11 @@ main {
 
   h2 {
     color: var(--headerFooterBgColor);
+    margin-bottom: 6px
+  }
+
+  h2+p {
+    margin-top: 0;
   }
 
   img {
