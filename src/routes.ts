@@ -1,19 +1,12 @@
-import { JSX, createElement } from 'react';
+import { createElement } from 'react';
+import Route from './interfaces/Route.ts';
+
 // page components
 import AboutPage from './pages/AboutPage.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
 import OurVisionPage from './pages/OurVisionPage.tsx';
 import ProductDetailsPage from './pages/ProductDetailsPage.tsx';
 import ProductsPage from './pages/ProductsPage.tsx';
-
-interface Route {
-  element: JSX.Element;
-  path: string;
-  loader?: Function;
-  menuLabel?: string;
-  index?: number;
-  parent?: string;
-}
 
 export default [
   AboutPage,

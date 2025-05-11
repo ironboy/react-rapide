@@ -87,7 +87,7 @@ export default function ProductsPage() {
         </Row>
       </Col>
     </Row>
-    <Row>
+    <Row className="mt-1 mb-n3">
       {products
         // filter by the chosen category
         .filter(x => category === 'All' || x.categories.includes(category))
