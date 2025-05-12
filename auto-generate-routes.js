@@ -12,7 +12,7 @@ export default function (srcDir = path.join(import.meta.dirname, 'src')) {
     .filter(({ content }) => content.match(/\w{1,}\.route\s*=\s*\{/))
     .map(x => {
       let name = (x.content.match(/\w{1,}\.route\s*=\s*\{/) + '').split('.')[0].trim();
-      return { name, route: x.filePath };
+      return { name, route: x.filePath.replaceAll('\\', '/').replaceAll('//', '/') };
     });
   const generated = `import { JSX, createElement } from 'react';\n// page components
 ${namesAndRoutes.map(({ name, route }) => `import ${name} from './${route}';`).join('\n')}
