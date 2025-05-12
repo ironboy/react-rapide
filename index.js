@@ -157,6 +157,12 @@ async function runCommand(command) {
 
   log(c.green(c.bold(postDo.message)));
   log('');
+
+  // Because of problems seen in Windows with the Vite server caching public
+  // (in some strange way - new images doesn't show etc...)
+  // let us force a server restart by "touching" vite.config (rewrite it)
+  let content = fs.readFileSync(path.join(baseDir, 'vite.config.ts'), 'utf-8');
+  fs.writeFileSync(path.join(baseDir, 'vite.config.ts'), content, 'utf-8');
 };
 
 function replaceFolder(target, org, ...folderName) {
