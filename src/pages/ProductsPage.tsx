@@ -1,5 +1,5 @@
 import { useLoaderData } from 'react-router-dom';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Form } from 'react-bootstrap';
 import { useStateContext } from '../utils/useStateObject';
 import Select from '../parts/Select';
 import ProductCard from '../parts/ProductCard';
@@ -53,19 +53,20 @@ export default function ProductsPage() {
           <Col md="4">
             <label className="d-block">
               <div className="d-none d-md-block">
-                Show images this way:
+                Color images:
               </div>
-              <Button variant="primary" className="mt-2 mb-3 w-100"
-                onClick={() => setState('bwImages', !bwImages)}
+              <div
+                className={'form-switch-text position-absolute' +
+                  ' d-md-none px-5' + (bwImages ? '' : ' text-white')}
               >
-                <span className="d-md-none">
-                  Show images in
-                </span>
-                <span className="d-none d-md-inline">
-                  In
-                </span>
-                {(bwImages ? ' color' : ' black & white')}
-              </Button>
+                B/W Images
+                <span className="float-end">Color Images</span>
+              </div>
+              <Form.Switch
+                className="mt-2 mb-4 mb-md-2"
+                defaultChecked={!bwImages}
+                onChange={e => setState('bwImages', !e.target.checked)}
+              />
             </label>
           </Col>
           <Col md="4">
@@ -85,8 +86,8 @@ export default function ProductsPage() {
             />
           </Col>
         </Row>
-      </Col>
-    </Row>
+      </Col >
+    </Row >
     <Row className="mt-1 mb-n3">
       {products
         // filter by the chosen category

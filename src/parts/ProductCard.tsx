@@ -8,12 +8,12 @@ export default function ProductCard(
 ) {
   const navigate = useNavigate();
   return <Card
-    className="mb-4"
+    className="mb-4 border-0"
     role="button" /*sets the cursor to pointer*/
     onClick={() => navigate('/products/' + slug)}
   >
     <Card.Body as={Row}>
-      <Col className="position-relative">
+      <Col>
         <Card.Title>{name}</Card.Title>
         <Card.Text className="mb-0">
           <strong className=" d-sm-none">Qty:</strong>

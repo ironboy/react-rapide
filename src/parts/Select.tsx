@@ -17,6 +17,7 @@ export default function Select(
       </Col>
       <Col xs={9} md={12}>
         <select
+          role="button"
           className="form-select bg-light mb-4 d-inline w-100"
           value={value}
           onChange={e => changeHandler(e.target.value)}
