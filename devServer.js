@@ -40,6 +40,7 @@ app.use(viteDevServer.middlewares);
 
 // Start up the server
 app.listen(port, () => {
+  process.stdout.write('\x1Bc'); // clear console
   let timeTaken = Date.now() - startTime;
   console.log(
     c.green(c.bold('  VITE ') + 'v' + viteVersion)
