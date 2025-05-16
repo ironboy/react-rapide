@@ -8,8 +8,6 @@ const tempDir = path.join(dirname, 'temp');
 async function start() {
   cleanup();
   let ok = await getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', 'app');
-  // This didn't work in Windows on psf paths so we try a relative path
-  //ok && await import(path.join(tempDir, 'react-rapide-app', 'index.js'));
   ok && await import('./temp/react-rapide-app/index.js');
 }
 
