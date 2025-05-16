@@ -1,4 +1,5 @@
-import { loremIpsum, ILoremIpsumParams } from "lorem-ipsum";
+import type { ILoremIpsumParams } from 'lorem-ipsum';
+import { loremIpsum } from 'lorem-ipsum';;
 
 export default function LoremIpsum(props: ILoremIpsumParams) {
   props = Object.assign({
