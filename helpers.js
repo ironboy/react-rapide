@@ -5,14 +5,19 @@ import * as cheerio from 'cheerio';
 import AdmZip from 'adm-zip';
 
 export async function getBranches(gitHubUser, repository, filter = () => true) {
-  const url = `https://github.com/${gitHubUser}/${repository}/branches/all`;
-  const html = await (await fetch(url)).text();
-  const $ = cheerio.load(html);
+  let page = 1;
   const branches = [];
-  $('div[title]').each(function () {
-    branches.push($(this).text());
-  });
-  return branches.filter(filter);
+  while (true) {
+    const url = `https://github.com/${gitHubUser}/${repository}/branches/all?page=${page}`;
+    const html = await (await fetch(url)).text();
+    const $ = cheerio.load(html);
+    if (!$('div[title]').length) { break; }
+    $('div[title]').each(function () {
+      branches.push($(this).text());
+    });
+    page++;
+  }
+  return branches.filter(filter).sort();
 }
 
 export async function getReadMeOfBranch(gitHubUser, repository, branch, shortenTo = Infinity) {
