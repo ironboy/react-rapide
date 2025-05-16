@@ -1,7 +1,7 @@
 {
   "name": "react-rapide",
   "type": "module",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "main": "index.js",
   "author": "ironboy",
   "license": "MIT",

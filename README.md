@@ -8,10 +8,10 @@ Run
 npm install react-rapide --save-dev
 ```
 
-Then read the help:
+Then show the menu from which you can choose different commands and get additional help:
 
 ```
-npm run react-rapide help
+npm run rr
 ```
 
 (Requires Node 20.11.0 or newer.)
