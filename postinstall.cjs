@@ -2,10 +2,6 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-// killall node processes
-// (because vite can be started and we  want it to start through our script instead)
-execSync(process.platform === "win32" ? 'taskkill /f /im node.exe' : 'killall node');
-
 // modify npm scripts in package json
 const dirname = __dirname;
 const lastIndex = dirname.lastIndexOf('node_modules');
@@ -21,6 +17,11 @@ packageContents.scripts = {
   'react-rapide': 'react-rapide'
 };
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageContents, null, '  '), 'utf-8');
+
+// killall node processes
+// (because vite can be started and we  want it to start through our script instead)
+// will kill me... so don't
+// execSync(process.platform === "win32" ? 'taskkill /f /im node.exe' : 'killall node');
 
 
 
