@@ -55,7 +55,7 @@ export default async function createServer(type = 'dev') {
   app.listen(port, () => {
     process.stdout.write('\x1Bc'); // clear console
     let timeTaken = Date.now() - startTime;
-    devServer && console.log(
+    type === 'dev' && console.log(
       c.green(c.bold('  VITE ') + 'v' + viteVersion)
       + c.gray('  ready in ') + c.white(c.bold(timeTaken) + ' ms') + '\n'
     );
