@@ -22,9 +22,11 @@ const viteConfigPath = path.join(baseFolder, 'vite.config.ts');
 if (fs.existsSync(viteConfigPath)) {
   let contents = fs.readFileSync(viteConfigPath, 'utf-8');
   fs.writeFileSync(viteConfigPath, 'process.kill();', 'utf-8');
+  console.log("OK");
   setTimeout(() => {
+    console.log("OK2");
     fs.writeFileSync(viteConfigPath, contents, 'utf-8');
-  }, 1000);
+  }, 5000);
 }
 
 
