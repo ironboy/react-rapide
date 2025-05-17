@@ -1,7 +1,7 @@
 {
   "name": "react-rapide",
   "type": "module",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "main": "index.js",
   "author": "ironboy",
   "license": "MIT",
@@ -26,9 +26,12 @@
   },
   "dependencies": {
     "adm-zip": "^0.5.16",
+    "better-sqlite3": "^11.10.0",
     "chalk": "^5.4.1",
     "cheerio": "^1.0.0",
-    "cli-select": "^1.1.2"
+    "cli-select": "^1.1.2",
+    "express": "^5.1.0",
+    "find-free-ports": "^3.1.1"
   },
   "engines": {
     "node": ">=20.11.0"
