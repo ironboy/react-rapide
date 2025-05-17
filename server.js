@@ -11,14 +11,16 @@ import c from 'chalk';
 
 export default async function createServer(type = 'dev') {
 
-  let baseDir = import.meta.dirname.split('node_modules')[0];
-  console.log(baseDir);
-  process.exit();
-
   const startTime = Date.now();
+  const baseDir = import.meta.dirname.split('node_modules')[0];
+  const pathToBackend = path.join(baseDir, 'backend', 'index.js');
+  const backendToImport = url.pathToFileURL(pathToBackend);
 
   // check for middleware/server in local folder
-  //if(fs.existsSync(''))
+  let backendDefaultFunc;
+  if (fs.existsSync(pathToBackend)) {
+    backendDefaultFunc = await import(backendToImport);
+  }
 
   // Find free ports
   // (one for the server and one for
@@ -46,6 +48,7 @@ export default async function createServer(type = 'dev') {
         if (req.url === 'react-rapide') {
           res.json({ reactRapideRunningTheServer: true });
         }
+        backendDefaultFunc(app);
       }
       else { next(); }
     });
