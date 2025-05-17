@@ -8,6 +8,8 @@ import c from 'chalk';
 
 export default async function createServer(type = 'dev') {
 
+  console.log("NOW TELL MED", type);
+
   const startTime = Date.now();
 
   // Find free ports

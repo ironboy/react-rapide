@@ -109,8 +109,7 @@ async function runCommand(command) {
   if (command === 'auto-routes') { autoRoutes(); return; }
   let index = commands.indexOf(command);
   if (index < 0) {
-    console.log("COMMAND", command);
-    if (command === 'dev') { console.log("HERE"); await createServer('dev'); return; }
+    if (command === 'dev') { await createServer('dev'); return; }
     if (command === 'preview') { await createServer('preview'); return; }
     log(c.red(c.bold('No such command: ' + command)));
     return;
