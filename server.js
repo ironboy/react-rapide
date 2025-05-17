@@ -19,7 +19,7 @@ export default async function createServer(type = 'dev') {
   // check for middleware/server in local folder
   let backendDefaultFunc;
   if (fs.existsSync(pathToBackend)) {
-    backendDefaultFunc = await import(backendToImport);
+    backendDefaultFunc = (await import(backendToImport)).default;
   }
 
   // Find free ports
