@@ -48,7 +48,7 @@ export default async function createServer(type = 'dev') {
         if (req.url === 'react-rapide') {
           res.json({ reactRapideRunningTheServer: true });
         }
-        backendDefaultFunc(app);
+        backendDefaultFunc && backendDefaultFunc(app);
       }
       else { next(); }
     });
