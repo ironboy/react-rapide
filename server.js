@@ -21,6 +21,8 @@ export default async function createServer(type = 'dev') {
   // Create the express server
   const app = express();
 
+  console.log('type', type);
+
   // Create the vite dev server
   if (type === 'dev') {
     const viteDevServer = await createViteServer({
