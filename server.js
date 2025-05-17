@@ -50,6 +50,9 @@ export default async function createServer(type = 'dev') {
         if (req.url === '/api/react-rapide') {
           res.json({ reactRapideRunningTheServer: true });
         }
+        else if (req.url === '/api/react-rapide-kill-server') {
+          process.exit();
+        }
         else {
           res.status(404);
           res.json({ error: 'Not found...' });
