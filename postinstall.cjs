@@ -19,7 +19,7 @@ fs.writeFileSync(packageJsonPath, JSON.stringify(packageContents, null, '  '), '
 
 // killall current vite server if any
 const viteConfigPath = path.join(baseFolder, 'vite.config.ts');
-console.log("EXISTS", fs.existsSync(viteConfigPath), viteConfigPath);
+fs.writeFileSync(path.join(baseFolder, 'rr-report.txt'), viteConfigPath + ' ' + fs.existsSync(viteConfigPath), 'utf-8');
 if (fs.existsSync(viteConfigPath)) {
   let contents = fs.readFileSync(viteConfigPath, 'utf-8');
   fs.writeFileSync(viteConfigPath, 'process.kill();', 'utf-8');
