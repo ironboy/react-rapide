@@ -9,11 +9,11 @@ const packageJsonPath = path.join(baseFolder, 'package.json');
 const packageContents = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 packageContents.scripts = {
   ...packageContents.scripts,
-  'start': 'react-rapide dev',
-  'dev': 'react-rapide dev',
-  'preview': 'react-rapide preview',
-  'rr': 'react-rapide',
-  'react-rapide': 'react-rapide'
+  'start': 'node node_modules/react-rapide dev',
+  'dev': 'node node_modules/react-rapidedev',
+  'preview': 'node node_modules/react-rapide preview',
+  'rr': 'node node_modules/react-rapide',
+  'react-rapide': 'node node_modules/react-rapide'
 };
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageContents, null, '  '), 'utf-8');
 
