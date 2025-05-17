@@ -42,7 +42,6 @@ export default async function createServer(type = 'dev') {
       hmr: { port }
     });
 
-
     // Add our own middleware
     backendDefaultFunc && backendDefaultFunc(app);
     app.use((req, res, next) => {
