@@ -13,6 +13,7 @@ export default async function createServer(type = 'dev') {
 
   let baseDir = import.meta.dirname.split('node_modules')[0];
   console.log(baseDir);
+  process.exit();
 
   const startTime = Date.now();
 
