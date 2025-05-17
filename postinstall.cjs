@@ -10,7 +10,7 @@ const packageContents = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 packageContents.scripts = {
   ...packageContents.scripts,
   'start': 'node node_modules/react-rapide dev',
-  'dev': 'node node_modules/react-rapidedev',
+  'dev': 'node node_modules/react-rapide dev',
   'preview': 'node node_modules/react-rapide preview',
   'rr': 'node node_modules/react-rapide',
   'react-rapide': 'node node_modules/react-rapide'
