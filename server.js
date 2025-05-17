@@ -23,7 +23,7 @@ export default async function createServer(type = 'dev') {
   // Create the express server
   const app = express();
 
-  console.log('type', type);
+  console.log('type', type, port);
 
   // Create the vite dev server
   if (type === 'dev') {
