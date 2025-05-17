@@ -44,7 +44,7 @@ export default async function createServer(type = 'dev') {
 
 
     // Add our own middleware
-    backendDefaultFunc && backendDefaultFunc();
+    backendDefaultFunc && backendDefaultFunc(app);
     app.use((req, res, next) => {
       if (req.url.startsWith('/api/')) {
         if (req.url === '/api/react-rapide') {
