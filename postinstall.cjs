@@ -19,15 +19,14 @@ fs.writeFileSync(packageJsonPath, JSON.stringify(packageContents, null, '  '), '
 
 // killall current vite server if any
 const viteConfigPath = path.join(baseFolder, 'vite.config.ts');
-fs.writeFileSync(path.join(baseFolder, 'rr-report.txt'), viteConfigPath + ' ' + fs.existsSync(viteConfigPath), 'utf-8');
 if (fs.existsSync(viteConfigPath)) {
   let contents = fs.readFileSync(viteConfigPath, 'utf-8');
-  fs.writeFileSync(viteConfigPath, 'process.kill();', 'utf-8');
+  fs.writeFileSync(viteConfigPath, 'process.exit();', 'utf-8');
   console.log("OK");
   setTimeout(() => {
     console.log("OK2");
     fs.writeFileSync(viteConfigPath, contents, 'utf-8');
-  }, 5000);
+  }, 2000);
 }
 
 
