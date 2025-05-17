@@ -1,4 +1,3 @@
-const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -18,10 +17,15 @@ packageContents.scripts = {
 };
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageContents, null, '  '), 'utf-8');
 
-// killall node processes
-// (because vite can be started and we  want it to start through our script instead)
-// will kill me... so don't
-// execSync(process.platform === "win32" ? 'taskkill /f /im node.exe' : 'killall node');
+// killall current vite server if any
+const viteConfigPath = path.join(baseFolder, 'vite.config.ts');
+if (fs.existsSync(viteConfigPath)) {
+  let contents = fs.readFileSync(viteConfigPath, 'utf-8');
+  fs.writeFileSync(viteConfigPath, 'process.kill();', 'utf-8');
+  setTimeout(() => {
+    fs.writeFileSync(viteConfigPath, contents, 'utf-8');
+  }, 1000);
+}
 
 
 
