@@ -7,6 +7,7 @@ import cliSelect from 'cli-select';
 import { execSync } from 'child_process';
 import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js';
 import autoGenerateRoutes from './auto-generate-routes.js';
+import createServer from './server.js';
 
 const log = (...x) => console.log(...x);
 const dirname = import.meta.dirname;
@@ -108,6 +109,8 @@ async function runCommand(command) {
   if (command === 'auto-routes') { autoRoutes(); return; }
   let index = commands.indexOf(command);
   if (index < 0) {
+    if (command === 'dev') { await createServer('dev'); return; }
+    if (command === 'preview') { await createServer('preview'); return; }
     log(c.red(c.bold('No such command: ' + command)));
     return;
   }
