@@ -1,3 +1,6 @@
+import url from 'url';
+import fs from 'fs';
+import path from 'path';
 import { isFreePort } from 'find-free-ports';
 import express from 'express';
 import {
@@ -8,7 +11,13 @@ import c from 'chalk';
 
 export default async function createServer(type = 'dev') {
 
+  let baseDir = import.meta.dirname.split('node_modules')[0];
+  console.log(baseDir);
+
   const startTime = Date.now();
+
+  // check for middleware/server in local folder
+  //if(fs.existsSync(''))
 
   // Find free ports
   // (one for the server and one for
@@ -32,8 +41,10 @@ export default async function createServer(type = 'dev') {
 
     // Add our own middleware
     app.use((req, res, next) => {
-      if (req.url.startsWith('/api')) {
-        res.json({ ok: true });
+      if (req.url.startsWith('/api/')) {
+        if (req.url === 'react-rapide') {
+          res.json({ reactRapideRunningTheServer: true });
+        }
       }
       else { next(); }
     });
