@@ -42,13 +42,14 @@ export default async function createServer(type = 'dev') {
       hmr: { port }
     });
 
+
     // Add our own middleware
+    backendDefaultFunc && backendDefaultFunc();
     app.use((req, res, next) => {
       if (req.url.startsWith('/api/')) {
         if (req.url === '/api/react-rapide') {
           res.json({ reactRapideRunningTheServer: true });
         }
-        backendDefaultFunc && backendDefaultFunc(app);
       }
       else { next(); }
     });
