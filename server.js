@@ -15,7 +15,7 @@ export default async function createServer(type = 'dev') {
   // Find free ports
   // (one for the server and one for
   //  Vite HMR - hot module reload - using web socket)
-  let port = devServer ? 5173 : 4173;
+  let port = type === 'dev' ? 5173 : 4173;
   while (!await isFreePort(port)) { port++; }
   let hmrPort = 27018;
   while (!await isFreePort(hmrPort)) { hmrPort++; }
