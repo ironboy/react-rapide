@@ -12,7 +12,7 @@ import c from 'chalk';
 let currentServer;
 let currentServerType;
 
-export default async function createServer(type = 'dev') {
+export default async function createServer(type = 'dev', restart = false) {
 
   const startTime = Date.now();
   const baseDir = import.meta.dirname.split('node_modules')[0];
@@ -84,12 +84,16 @@ export default async function createServer(type = 'dev') {
       + c.cyan('http://localhost:' + port + '/'));
     console.log(c.green('  ➜ ') + c.white(c.bold('Extra:  '))
       + c.cyan('React Rapide installed') + '\n');
+    if (restart) {
+      console.log('');
+      console.log('  ' + new Date().toLocaleTimeString() + c.cyan('[rr]') + ' server restarted.');
+    }
   });
 }
 
 // Restart the server
 function restartServer() {
-  currentServer.close(() => createServer(currentServerType));
+  currentServer.close(() => createServer(currentServerType, true));
 }
 
 // Some baseic middleware for both the  dev and preview server
