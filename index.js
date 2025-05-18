@@ -291,5 +291,5 @@ function sleep(ms) {
 }
 
 function clearConsole() {
-  //process.stdout.write('\x1Bc');
+  process.stdout.write('\x1Bc');
 }
