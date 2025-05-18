@@ -36,11 +36,17 @@ export default async function createServer(type = 'dev') {
     // middleware if no other middleware
     app.use(function always(req, res, next) {
       if (app.router.stack.length < 2) {
-        res.send(/*html*/`<!DOCTYPE html>
+        if (req.url.includes('@') || req.url.includes('.')) {
+          res.set('Content-Type', 'application/javascript');
+          res.send('setTimeout(()=>location.reload(),500)');
+        }
+        else {
+          res.send(/*html*/`<!DOCTYPE html>
           <html><body>
             <script>setTimeout(()=>location.reload(),500)</script>
           </body></html>
         `);
+        }
       }
       else { next(); }
     });
