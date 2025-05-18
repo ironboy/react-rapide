@@ -91,6 +91,7 @@ async function addBackend(app) {
   const pathToBackend = path.join(backendFolder, 'index.js');
   const backendToImport = url.pathToFileURL(pathToBackend) + '?' + Date.now();
   let backendDefaultFunc;
+  console.log(app.router.stack.map(x => x.name));
   let stackCopy = [...app.router.stack];
   let middleWareIndex = stackCopy.findIndex(({ name }) => name === 'basicMiddleware');
   if (middleWareIndex >= 0) { stackCopy = stackCopy.slice(middleWareIndex); }
