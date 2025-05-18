@@ -12,7 +12,6 @@ export default class DBQueryMaker {
 
   // Create a db connection (if not existing already)
   constructor({ dbPath }) {
-    console.log("I ALSO RUN AGAIN");
     //  connect to the db if not done already by another instance
     let dbAbsPath = globalThis.orgBackendFolder ? // from react-rapide
       path.join(globalThis.orgBackendFolder, dbPath) :
