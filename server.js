@@ -103,7 +103,7 @@ async function addBackend(app) {
   // using the express stack directly to remove old middleware from the previous backend!
   let backendFolder = path.join(baseDir, 'backend');
 
-  if (oldBackendTemp && fs.existsSync(oldBackendtemp)) {
+  if (oldBackendTemp && fs.existsSync(oldBackendTemp)) {
     fs.rmSync(oldBackendTemp, { recursive: true, force: true });
   }
 
