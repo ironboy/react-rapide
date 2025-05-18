@@ -8,6 +8,7 @@ import {
   version as viteVersion
 } from 'vite';
 import c from 'chalk';
+import chokidar from 'chokidar';
 
 let currentServer;
 let currentViteDevServer;
@@ -17,7 +18,8 @@ export default async function createServer(type = 'dev', restart = false) {
 
   const startTime = Date.now();
   const baseDir = import.meta.dirname.split('node_modules')[0];
-  const pathToBackend = path.join(baseDir, 'backend', 'index.js');
+  const backendFolder = path.join(basedDir, 'backend');
+  const pathToBackend = path.join(backendFolder, 'index.js');
   const backendToImport = url.pathToFileURL(pathToBackend);
 
   // Find free ports
@@ -36,6 +38,9 @@ export default async function createServer(type = 'dev', restart = false) {
   if (fs.existsSync(pathToBackend)) {
     backendDefaultFunc = (await import(backendToImport)).default;
     backendDefaultFunc(app);
+    chokidar.watch(backendFolder).on('all', (_event, _path) => {
+      console.log(_event, _path);
+    });
   }
 
   // Create the vite dev server
