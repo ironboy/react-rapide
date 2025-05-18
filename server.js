@@ -14,7 +14,7 @@ let currentServer;
 let currentViteDevServer;
 let currentServerType;
 
-let chokCount = 0;
+let chokMem = [];
 
 export default async function createServer(type = 'dev', restart = false) {
   try {
@@ -41,7 +41,8 @@ export default async function createServer(type = 'dev', restart = false) {
       backendDefaultFunc = (await import(backendToImport)).default;
       backendDefaultFunc(app);
       chokidar.watch(backendFolder).on('all', (_event, _path) => {
-        console.log(chokCount++, _event, _path);
+        chokMem.push({ _event, _path });
+        console.log(chokMem);
       });
     }
 
