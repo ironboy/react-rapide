@@ -187,7 +187,7 @@ function replaceFolder(target, org, ...folderName) {
     globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
     globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
     // remove backend folder if not needed
-    fs.rmSync(target, { recursive: true, force: true });
+    setTimeout(() => fs.rmSync(target, { recursive: true, force: true }), 1000);
   }
   if (!fs.existsSync(org)) { return; }
   !undo && fs.existsSync(target) && fs.cpSync(target, undoFolderTarget, file ? {} : { recursive: true });
