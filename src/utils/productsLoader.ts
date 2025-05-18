@@ -1,6 +1,11 @@
 export default async function productsLoader() {
-  return {
-    products:
-      await (await fetch('/json/products.json')).json()
-  };
+  let products = await (await fetch('/api/products')).json();
+
+  // convert categories to array
+  products = products.map((x: any) => ({
+    ...x,
+    categories: x.categories.split(',')
+  }));
+
+  return { products };
 };
