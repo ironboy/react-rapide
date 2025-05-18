@@ -98,8 +98,8 @@ async function addBackend(app) {
   let backendDefaultFunc;
   let stackCopy = [...app.router.stack];
   let middleWareIndex = stackCopy.findIndex(({ name }) => name === 'basicMiddleware');
-  console.log("THE MIDDLEWARE INDEX", middleWareIndex);
-  // app.router.stack.slice(0, Infinity);
+  if (middleWareIndex >= 0) { stackCopy = stackCopy.slice(middleWareIndex); }
+  app.router.stack.splice(0, Infinity);
   if (fs.existsSync(pathToBackend)) {
     backendDefaultFunc = (await import(backendToImport)).default;
     backendDefaultFunc(app);
@@ -112,6 +112,7 @@ async function addBackend(app) {
     });
     chokidarInitDone = true;
   }
+  app.router.stack.splice(Infinity, 0, ...stackCopy);
 }
 
 // Some basic middleware for both the  dev and preview server
