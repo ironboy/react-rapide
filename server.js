@@ -84,8 +84,8 @@ export default async function createServer(type = 'dev', restart = false) {
   currentServerType = type;
   currentServer = app.listen(port, () => {
     if (restart) {
-      console.log(c.gray(new Date().toLocaleTimeString())
-        + c.cyan(' [rr] ') + 'server restarted.');
+      //console.log(c.gray(new Date().toLocaleTimeString())
+      //  + c.cyan(' [rr] ') + 'server restarted.');
       return;
     }
     process.stdout.write('\x1Bc'); // clear console
