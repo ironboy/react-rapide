@@ -14,6 +14,7 @@ let currentServer;
 let chokidarInitDone = false;
 let baseDir;
 let chokidarTimeout;
+let oldBackendTemp;
 
 export default async function createServer(type = 'dev') {
   try {
@@ -102,11 +103,16 @@ async function addBackend(app) {
   // using the express stack directly to remove old middleware from the previous backend!
   let backendFolder = path.join(baseDir, 'backend');
 
+  if (oldBackendTemp && fs.existsSync(oldBackendtemp)) {
+    fs.rmSync(oldBackendTemp, { recursive: true, force: true });
+  }
+
   // copy the whole backend to a temp folder - since do not want cached imports
   if (fs.existsSync(backendFolder)) {
     let tempFolder = path.join(import.meta.dirname, 'tempBackends', Date.now() + '');
     fs.cpSync(backendFolder, tempFolder, { recursive: true });
     backendFolder = tempFolder;
+    oldBackendTemp = tempFolder;
   }
 
   const pathToBackend = path.join(backendFolder, 'index.js');
