@@ -187,6 +187,8 @@ function replaceFolder(target, org, ...folderName) {
     // first close db connections if they exist
     globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
     globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
+    console.log('globalThis.openDbFromQueryMaker', globalThis.openDbFromQueryMaker);
+    console.log('globalThis.openDbFromSessionStore', globalThis.openDbFromSessionStore);
     // remove backend folder if not needed
     setTimeout(() => fs.rmSync(target, { recursive: true, force: true }), 1000);
   }
