@@ -19,6 +19,8 @@ export default class DBQueryMaker {
     this.constructor.db = this.constructor.db || betterSqlite3(dbAbsPath);
     // copy the connection to an instance property for convenience
     this.db = this.constructor.db;
+    // for react-rapide, so it can close the db connection
+    globalThis.openDbFromQueryMaker = db;
   }
 
   // Make a query to the database, as a prepared statement and

@@ -12,10 +12,15 @@ export default function sessionStore(settings, _session) {
     let dbAbsPath = globalThis.orgBackendFolder ? // from react-rapide
       path.join(globalThis.orgBackendFolder, dbPath) :
       PathFinder.relToAbs('../' + dbPath);
-    return SQLiteStore({
+    let store = SQLiteStore({
       dbPath: dbAbsPath,
       deleteAfterInactivityMinutes: 120
     });
+    // for react-rapide, so it can close the db connection
+    globalThis.openDbFromSessionStore = 1;
+    console.log(store);
+
+    return store;
   }
   /*else if (settings.dbType === 'MySQL') {
     const { dbHost: host, dbPort: port, dbUser: user,
