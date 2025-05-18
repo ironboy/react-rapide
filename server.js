@@ -107,10 +107,11 @@ async function addBackend(app) {
     fs.rmSync(oldBackendTemp, { recursive: true, force: true });
   }
 
-  // copy the whole backend to a temp folder - since do not want cached imports
+  // copy the whole backend to a temp folder - since we do not want cached imports
   if (fs.existsSync(backendFolder)) {
     let tempFolder = path.join(import.meta.dirname, 'tempBackends', Date.now() + '');
     fs.cpSync(backendFolder, tempFolder, { recursive: true });
+    globalThis.dbPath = path.join(backendFolder, 'databases', 'live.sqlite3');
     backendFolder = tempFolder;
     oldBackendTemp = tempFolder;
   }
