@@ -10,7 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "better-express-store": "^1.0.5",
+    "better-sqlite3": "^11.10.0",
     "bootstrap": "^5.3.6",
+    "callsites": "^4.2.0",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
     "lorem-ipsum": "^2.0.8",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
