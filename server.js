@@ -31,6 +31,14 @@ export default async function createServer(type = 'dev') {
     const app = express();
     currentServer = app;
 
+    // middleware if no other middleware
+    app.use(function always(req, res, next) {
+      if (app.router.stack.length < 2) {
+        res.json({ test: 'yo' });
+      }
+      else { next(); }
+    });
+
     // check for middleware/server in local folder - add if it exists
     await addBackend(app);
 
@@ -91,11 +99,10 @@ async function addBackend(app) {
   const pathToBackend = path.join(backendFolder, 'index.js');
   const backendToImport = url.pathToFileURL(pathToBackend) + '?' + Date.now();
   let backendDefaultFunc;
-  console.log(app.router.stack.map(x => x.name));
   let stackCopy = [...app.router.stack];
   let middleWareIndex = stackCopy.findIndex(({ name }) => name === 'basicMiddleware');
   if (middleWareIndex >= 0) { stackCopy = stackCopy.slice(middleWareIndex); }
-  app.router.stack.splice(0, Infinity);
+  app.router.stack.splice(1, Infinity);
   if (fs.existsSync(pathToBackend)) {
     backendDefaultFunc = (await import(backendToImport)).default;
     backendDefaultFunc(app);
