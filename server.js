@@ -43,7 +43,8 @@ export default async function createServer(type = 'dev', restart = false) {
       !chokidarInitDone && chokidar.watch(
         backendFolder,
         { ignoreInitial: true }
-      ).on('all', () => {
+      ).on('all', (event, path) => {
+        console.log(event, path);
         restartServer();
       });
       chokidarInitDone = true;
