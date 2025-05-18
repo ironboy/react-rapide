@@ -1,3 +1,4 @@
+import path from 'path';
 import SQLiteStore from 'better-express-store';
 // import MySQLStore from 'express-mysql-session';
 // import MongoDBStore from 'connect-mongodb-session';
