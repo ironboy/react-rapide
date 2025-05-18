@@ -103,6 +103,7 @@ function addBasicMiddleware(app) {
         process.exit();
       }
       else if (req.url === '/api/react-rapide-restart-server') {
+        res.json({ status: 'Restarting...' });
         restartServer();
       }
       else {
