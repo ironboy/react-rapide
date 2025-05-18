@@ -60,15 +60,12 @@ export default async function createServer(type = 'dev') {
       console.log('');
       process.exit();
     }
-    app.use(express.static(pathToDist));
-    app.use((req, res, next) => {
-      // answer with index page on all routes that does not contain a file extension
-      if (req.url.includes('.')) { next(); }
-      else {
-        res.sendFile(path.join(pathToDist, 'index.html'));
-      }
-    });
     addBasicMiddleware(app);
+    app.use(express.static(pathToDist));
+    app.use((_req, res, _next) => {
+      // answer with index page on all non-existant routes (SPA behavior)
+      res.sendFile(path.join(pathToDist, 'index.html'));
+    });
   }
 
   // Start up the server
