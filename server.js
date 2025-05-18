@@ -44,7 +44,6 @@ export default async function createServer(type = 'dev') {
           res.send(/*html*/`<!DOCTYPE html>
           <html><body>
             <script>
-              // ${req.url}
               setTimeout(()=>location.reload(),500)
             </script>
           </body></html>
