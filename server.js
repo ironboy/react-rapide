@@ -42,7 +42,7 @@ export default async function createServer(type = 'dev', restart = false) {
       backendDefaultFunc(app);
       chokidar.watch(backendFolder).on('all', (event, _path) => {
         if (event !== 'change') { return; }
-        chokMem.push({ _event, _path });
+        chokMem.push({ event, _path });
         console.log(chokMem);
       });
     }
