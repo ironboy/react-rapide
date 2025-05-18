@@ -21,7 +21,7 @@ export default async function createServer(type = 'dev', restart = false) {
     const baseDir = import.meta.dirname.split('node_modules')[0];
     const backendFolder = path.join(baseDir, 'backend');
     const pathToBackend = path.join(backendFolder, 'index.js');
-    const backendToImport = url.pathToFileURL(pathToBackend);
+    const backendToImport = url.pathToFileURL(pathToBackend) + '?' + Date.now();
 
     // Find free ports
     // (one for the server and one for
@@ -109,7 +109,9 @@ export default async function createServer(type = 'dev', restart = false) {
 // Restart the server
 async function restartServer() {
   currentViteDevServer && await currentViteDevServer.close();
-  currentServer.close(() => createServer(currentServerType, true));
+  setTimeout(() => {
+    currentServer.close(() => createServer(currentServerType, true));
+  }, 1000);
 }
 
 // Some baseic middleware for both the  dev and preview server
