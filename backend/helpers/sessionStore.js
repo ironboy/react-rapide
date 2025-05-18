@@ -17,9 +17,7 @@ export default function sessionStore(settings, _session) {
       deleteAfterInactivityMinutes: 120
     });
     // for react-rapide, so it can close the db connection
-    globalThis.openDbFromSessionStore = 1;
-    console.log(store);
-
+    globalThis.openDbFromSessionStore = store.db.db;
     return store;
   }
   /*else if (settings.dbType === 'MySQL') {
