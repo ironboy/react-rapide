@@ -1,6 +1,6 @@
+import type Product from '../interfaces/Product';
 import { useParams, Link, useLoaderData } from 'react-router-dom';
 import Image from '../parts/Image';
-import Product from '../interfaces/Product';
 import productsLoader from '../utils/productsLoader';
 
 ProductDetailsPage.route = {

@@ -1,9 +1,10 @@
+import type { SortOption } from '../utils/productPageHelpers';
 import { Link, useLoaderData } from 'react-router-dom';
 import { useStateContext } from '../utils/useStateObject';
 import Select from '../parts/Select';
 import Image from '../parts/Image';
 import productsLoader from '../utils/productsLoader';
-import { getHelpers, SortOption }
+import { getHelpers }
   from '../utils/productPageHelpers';
 
 ProductsPage.route = {
