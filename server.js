@@ -111,7 +111,7 @@ async function addBackend(app) {
   if (fs.existsSync(backendFolder)) {
     let tempFolder = path.join(import.meta.dirname, 'tempBackends', Date.now() + '');
     fs.cpSync(backendFolder, tempFolder, { recursive: true });
-    globalThis.dbPath = path.join(backendFolder, 'databases', 'live.sqlite3');
+    globalThis.orgBackendFolder = backendFolder;
     backendFolder = tempFolder;
     oldBackendTemp = tempFolder;
   }
