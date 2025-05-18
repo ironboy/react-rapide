@@ -8,7 +8,7 @@ import {
   version as viteVersion
 } from 'vite';
 import c from 'chalk';
-import chokidar from 'chokidar';
+// import chokidar from 'chokidar';
 
 let currentServer;
 let currentViteDevServer;
