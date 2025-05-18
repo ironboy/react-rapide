@@ -16,12 +16,6 @@ export default async function createServer(type = 'dev') {
   const pathToBackend = path.join(baseDir, 'backend', 'index.js');
   const backendToImport = url.pathToFileURL(pathToBackend);
 
-  // check for middleware/server in local folder
-  let backendDefaultFunc;
-  if (fs.existsSync(pathToBackend)) {
-    backendDefaultFunc = (await import(backendToImport)).default;
-  }
-
   // Find free ports
   // (one for the server and one for
   //  Vite HMR - hot module reload - using web socket)
@@ -33,6 +27,13 @@ export default async function createServer(type = 'dev') {
   // Create the express server
   const app = express();
 
+  // check for middleware/server in local folder - add if it exists
+  let backendDefaultFunc;
+  if (fs.existsSync(pathToBackend)) {
+    backendDefaultFunc = (await import(backendToImport)).default;
+    backendDefaultFunc(app);
+  }
+
   // Create the vite dev server
   if (type === 'dev') {
     const viteDevServer = await createViteServer({
@@ -42,23 +43,7 @@ export default async function createServer(type = 'dev') {
       hmr: { port }
     });
 
-    // Add our own middleware
-    backendDefaultFunc && backendDefaultFunc(app);
-    app.use((req, res, next) => {
-      if (req.url.startsWith('/api/')) {
-        if (req.url === '/api/react-rapide') {
-          res.json({ reactRapideRunningTheServer: true });
-        }
-        else if (req.url === '/api/react-rapide-kill-server') {
-          process.exit();
-        }
-        else {
-          res.status(404);
-          res.json({ error: 'Not found...' });
-        }
-      }
-      else { next(); }
-    });
+    addBasicMiddleware(app);
 
     // Add the vite dev server as middleware
     app.use(viteDevServer.middlewares);
@@ -66,8 +51,20 @@ export default async function createServer(type = 'dev') {
 
   // Create the preview server
   if (type === 'preview') {
-    console.log("THIS WILL CREATE A PREVIEW SERVER");
-    process.exit();
+    let pathToDist = path.join(baseDir, 'dist');
+    if (!fs.existsSync) {
+      console.log('No dist folder found. Create it by running npm run build!');
+      process.exit();
+    }
+    app.use(express.static(pathToDist));
+    app.use((req, res, next) => {
+      // answer with index page on all routes that does not contain a file extension
+      if (req.url.includes('.')) { next(); }
+      else {
+        res.sendFile(path.join(pathToDist, 'index.html'));
+      }
+    });
+    addBasicMiddleware();
   }
 
   // Start up the server
@@ -84,4 +81,23 @@ export default async function createServer(type = 'dev') {
       + c.cyan('React Rapide installed') + '\n');
   });
 
+}
+
+// Some baseic middleware for both the  dev and preview server
+function addBasicMiddleware(app) {
+  app.use((req, res, next) => {
+    if (req.url.startsWith('/api/')) {
+      if (req.url === '/api/react-rapide') {
+        res.json({ reactRapideRunningTheServer: true });
+      }
+      else if (req.url === '/api/react-rapide-kill-server') {
+        process.exit();
+      }
+      else {
+        res.status(404);
+        res.json({ error: 'Not found...' });
+      }
+    }
+    else { next(); }
+  });
 }
