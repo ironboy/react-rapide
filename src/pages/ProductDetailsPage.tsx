@@ -1,6 +1,6 @@
 import type Product from '../interfaces/Product';
 import { Row, Col } from 'react-bootstrap';
-import { useParams, Link, useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import Image from '../parts/Image';
 import productsLoader from '../utils/productsLoader';
 
@@ -11,12 +11,8 @@ ProductDetailsPage.route = {
 };
 
 export default function ProductDetailsPage() {
-  // read the slug from the route parameter :slug
-  const { slug } = useParams();
-  // find the correct product based on its slug
   const { id, name, quantity, price$, description } =
-    (useLoaderData().products as Product[])
-      .find(x => x.slug === slug) as Product;
+    useLoaderData().products[0] as Product;
 
   return <article className="product-details">
     <Row>
