@@ -47,6 +47,12 @@ export default async function createServer(type = 'dev') {
 
       // Add the vite dev server as middleware
       app.use(viteDevServer.middlewares);
+
+      // Add fallback (since we get a temp cannot GET /)
+      app.use((_req, res, _next) => {
+        // answer with index page on all non-existant routes (SPA behavior)
+        res.sendFile(path.join(baseDir, 'index.html'));
+      });
     }
 
     // Create the preview server

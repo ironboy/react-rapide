@@ -152,26 +152,24 @@ async function runCommand(command) {
     replaceFile(baseDir, remoteBaseDir, ...file);
   }
 
-  setTimeout(() => {
-    // Now write the real main (see above)
-    if (mainContent) {
-      fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), mainContent, 'utf-8');
-      fs.writeFileSync(path.join(undoFolder, 'src', 'mainREAL.tsx'), oldMainContent, 'utf-8');
-    }
+  // Now write the real main (see above)
+  if (mainContent) {
+    fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), mainContent, 'utf-8');
+    fs.writeFileSync(path.join(undoFolder, 'src', 'mainREAL.tsx'), oldMainContent, 'utf-8');
+  }
 
-    log(c.green(c.bold(postDo.message)));
-    log('');
+  log(c.green(c.bold(postDo.message)));
+  log('');
 
-    // Because of problems seen in Windows with the Vite server caching public
-    // (in some strange way - new images doesn't show etc...)
-    // let us force a server restart by "touching" vite.config (rewrite it)
-    let content = fs.readFileSync(path.join(baseDir, 'vite.config.ts'), 'utf-8');
-    fs.writeFileSync(path.join(baseDir, 'vite.config.ts'), content, 'utf-8');
+  // Because of problems seen in Windows with the Vite server caching public
+  // (in some strange way - new images doesn't show etc...)
+  // let us force a server restart by "touching" vite.config (rewrite it)
+  let content = fs.readFileSync(path.join(baseDir, 'vite.config.ts'), 'utf-8');
+  fs.writeFileSync(path.join(baseDir, 'vite.config.ts'), content, 'utf-8');
 
-    // explicitely exit
-    process.exit();
+  // explicitely exit
+  process.exit();
 
-  }, 3000);
 };
 
 function replaceFolder(target, org, ...folderName) {
