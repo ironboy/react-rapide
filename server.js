@@ -12,14 +12,12 @@ import chokidar from 'chokidar';
 
 let currentServer;
 let chokidarInitDone = false;
+let baseDir;
 
 export default async function createServer(type = 'dev', restart = false) {
   try {
     const startTime = Date.now();
-    const baseDir = import.meta.dirname.split('node_modules')[0];
-    const backendFolder = path.join(baseDir, 'backend');
-    const pathToBackend = path.join(backendFolder, 'index.js');
-    const backendToImport = url.pathToFileURL(pathToBackend) + '?' + Date.now();
+    baseDir = import.meta.dirname.split('node_modules')[0];
 
     // Find free ports
     // (one for the server and one for
@@ -94,6 +92,9 @@ export default async function createServer(type = 'dev', restart = false) {
 
 // Restart the server
 async function addBackend(app) {
+  const backendFolder = path.join(baseDir, 'backend');
+  const pathToBackend = path.join(backendFolder, 'index.js');
+  const backendToImport = url.pathToFileURL(pathToBackend) + '?' + Date.now();
   let backendDefaultFunc;
   console.log(" I AM ADD BACKEND", app.router.stack);
   if (fs.existsSync(pathToBackend)) {
