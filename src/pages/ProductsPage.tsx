@@ -1,9 +1,10 @@
+import type { SortOption } from '../utils/productPageHelpers';
 import { Link } from 'react-router-dom';
 import { useStateContext } from '../utils/useStateObject';
 import Select from '../parts/Select';
 import Image from '../parts/Image';
 import {
-  products, categories, SortOption,
+  products, categories,
   sortOptions, sortDescriptions
 } from '../utils/productPageHelpers';
 
