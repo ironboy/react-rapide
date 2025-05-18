@@ -104,6 +104,7 @@ async function addBackend(app) {
     baseDir,
     { ignoreInitial: true }
   ).on('all', (event, path) => {
+    if (!path.replaceAll('\\', '/').includes('/backend')) { return; }
     console.log(event, path);
     addBackend(app);
   });
