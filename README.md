@@ -1,1 +1,1 @@
-Using Bootstrap with React.
+Using our own backend with React/Vite.
