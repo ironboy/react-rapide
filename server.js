@@ -13,6 +13,7 @@ import chokidar from 'chokidar';
 let currentServer;
 let chokidarInitDone = false;
 let baseDir;
+let chokidarTimeout;
 
 export default async function createServer(type = 'dev') {
   try {
@@ -118,7 +119,8 @@ async function addBackend(app) {
   ).on('all', (_event, path) => {
     if (!path.replaceAll('\\', '/').includes('/backend')) { return; }
     if (path.replaceAll('\\', '/').includes('/databases/')) { return; }
-    addBackend(app);
+    clearTimeout(chokidarTimeout);
+    chokidarTimeout = setTimeout(() => addBackend(app), 500);
   });
   chokidarInitDone = true;
   app.router.stack.splice(Infinity, 0, ...stackCopy);
