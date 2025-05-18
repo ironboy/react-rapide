@@ -12,6 +12,7 @@ import chokidar from 'chokidar';
 
 let currentServer;
 let chokidarInitDone = false;
+let chokidarTimeout;
 let baseDir;
 
 export default async function createServer(type = 'dev') {
@@ -70,7 +71,7 @@ export default async function createServer(type = 'dev') {
 
     // Start up the server
     app.listen(port, () => {
-      //process.stdout.write('\x1Bc'); // clear console
+      process.stdout.write('\x1Bc'); // clear console
       let timeTaken = Date.now() - startTime;
       type === 'dev' && console.log(
         c.green(c.bold('  VITE ') + 'v' + viteVersion)
@@ -91,7 +92,6 @@ async function addBackend(app) {
   const pathToBackend = path.join(backendFolder, 'index.js');
   const backendToImport = url.pathToFileURL(pathToBackend) + '?' + Date.now();
   let backendDefaultFunc;
-  console.log(app.router.stack.map(x => x.name));
   let stackCopy = [...app.router.stack];
   let middleWareIndex = stackCopy.findIndex(({ name }) => name === 'basicMiddleware');
   if (middleWareIndex >= 0) { stackCopy = stackCopy.slice(middleWareIndex); }
@@ -106,7 +106,8 @@ async function addBackend(app) {
     { ignoreInitial: true }
   ).on('all', (_event, path) => {
     if (!path.replaceAll('\\', '/').includes('/backend')) { return; }
-    addBackend(app);
+    clearTimeout(chokidarTimeout);
+    chokidarTimeout = setTimeout(() => addBackend(app), 500);
   });
   chokidarInitDone = true;
   app.router.stack.splice(Infinity, 0, ...stackCopy);
