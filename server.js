@@ -98,15 +98,15 @@ async function addBackend(app) {
   if (fs.existsSync(pathToBackend)) {
     backendDefaultFunc = (await import(backendToImport)).default;
     backendDefaultFunc(app);
-    // use chokidar to watch for changes to the backend folder
-    !chokidarInitDone && chokidar.watch(
-      backendFolder,
-      { ignoreInitial: true }
-    ).on('all', (event, path) => {
-      addBackend(app);
-    });
-    chokidarInitDone = true;
   }
+  // use chokidar to watch for changes to the backend folder
+  !chokidarInitDone && chokidar.watch(
+    backendFolder,
+    { ignoreInitial: true }
+  ).on('all', (event, path) => {
+    addBackend(app);
+  });
+  chokidarInitDone = true;
   app.router.stack.splice(Infinity, 0, ...stackCopy);
 }
 
