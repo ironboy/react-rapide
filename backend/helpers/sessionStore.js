@@ -7,8 +7,11 @@ import PathFinder from '../helpers/PathFinder.js';
 // choose the correct sessionStore depending on DB
 export default function sessionStore(settings, session) {
   if (settings.dbType === 'SQLite') {
+    let dbAbsPath = globalThis.orgBackendFolder ? // from react-rapide
+      path.join(globalThis.orgBackendFolder, dbPath) :
+      PathFinder.relToAbs('../' + dbPath);
     return SQLiteStore({
-      dbPath: PathFinder.relToAbs('../' + settings.dbPath),
+      dbPath: PathFinder.relToAbs(dbAbsPath),
       deleteAfterInactivityMinutes: 120
     });
   }

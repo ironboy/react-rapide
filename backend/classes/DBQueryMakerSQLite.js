@@ -6,7 +6,7 @@ import numericValuesToNumbers from '../helpers/numericValuesToNumbers.js';
 
 export default class DBQueryMaker {
 
-  log = true; // debug log all queries to the db
+  log = false; // debug log all queries to the db
 
   static db = null;  // db connection, store static so it can be reused
 
@@ -54,11 +54,11 @@ export default class DBQueryMaker {
     }
     catch (error) { result = { error: error + '' }; }
     // log method, route, query, parameters and result
-    /*this.log && method && route && console.log('\nDB Query:', {
+    this.log && method && route && console.log('\nDB Query:', {
       method, route, sql, parameters,
       result: result instanceof Array ?
         { rows: result.length } : result
-    });*/
+    });
     return result;
   }
 
