@@ -13,7 +13,7 @@ export default function sessionStore(settings, _session) {
       path.join(globalThis.orgBackendFolder, dbPath) :
       PathFinder.relToAbs('../' + dbPath);
     return SQLiteStore({
-      dbPath: PathFinder.relToAbs(dbAbsPath),
+      dbPath: dbAbsPath,
       deleteAfterInactivityMinutes: 120
     });
   }
