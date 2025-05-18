@@ -11,7 +11,6 @@ import c from 'chalk';
 import chokidar from 'chokidar';
 
 let currentServer;
-let currentViteDevServer;
 let currentServerType;
 let chokidarInitDone = false;
 
@@ -44,8 +43,7 @@ export default async function createServer(type = 'dev', restart = false) {
         backendFolder,
         { ignoreInitial: true }
       ).on('all', (event, path) => {
-        console.log(event, path);
-        restartServer();
+        reloadBackend();
       });
       chokidarInitDone = true;
     }
@@ -63,7 +61,6 @@ export default async function createServer(type = 'dev', restart = false) {
 
       // Add the vite dev server as middleware
       app.use(viteDevServer.middlewares);
-      currentViteDevServer = viteDevServer;
     }
 
     // Create the preview server
@@ -110,15 +107,12 @@ export default async function createServer(type = 'dev', restart = false) {
 }
 
 // Restart the server
-async function restartServer() {
-  currentViteDevServer && await currentViteDevServer.close();
-  currentServer.close();
-  createServer(currentServerType, true);
+async function reloadBackend() {
 }
 
 // Some basic middleware for both the  dev and preview server
 function addBasicMiddleware(app) {
-  app.use((req, res, next) => {
+  app.use(function basicMiddleware(req, res, next) {
     if (req.url.startsWith('/api/')) {
       if (req.url === '/api/react-rapide') {
         res.json({ reactRapideRunningTheServer: true });
@@ -126,9 +120,9 @@ function addBasicMiddleware(app) {
       else if (req.url === '/api/react-rapide-kill-server') {
         process.exit();
       }
-      else if (req.url === '/api/react-rapide-restart-server') {
-        res.json({ status: 'Restarting...' });
-        restartServer();
+      else if (req.url === '/api/react-rapide-reload-stack') {
+        res.json({ status: 'Reloading backend...' });
+        reloadBackend;
       }
       else {
         res.status(404);
