@@ -52,7 +52,7 @@ export default async function createServer(type = 'dev') {
   // Create the preview server
   if (type === 'preview') {
     let pathToDist = path.join(baseDir, 'dist');
-    if (!fs.existsSync) {
+    if (!fs.existsSync(pathToDist)) {
       console.log('No dist folder found. Create it by running npm run build!');
       process.exit();
     }
@@ -66,10 +66,11 @@ export default async function createServer(type = 'dev') {
     });
     addBasicMiddleware();
   }
+  console.log("HALLOOOOOO", port);
 
   // Start up the server
   app.listen(port, () => {
-    process.stdout.write('\x1Bc'); // clear console
+    //process.stdout.write('\x1Bc'); // clear console
     let timeTaken = Date.now() - startTime;
     type === 'dev' && console.log(
       c.green(c.bold('  VITE ') + 'v' + viteVersion)
