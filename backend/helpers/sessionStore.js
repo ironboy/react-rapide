@@ -6,7 +6,8 @@ import PathFinder from '../helpers/PathFinder.js';
 
 
 // choose the correct sessionStore depending on DB
-export default function sessionStore(settings, session) {
+export default function sessionStore(settings, _session) {
+  let dbPath = settings.dbPath;
   if (settings.dbType === 'SQLite') {
     let dbAbsPath = globalThis.orgBackendFolder ? // from react-rapide
       path.join(globalThis.orgBackendFolder, dbPath) :
