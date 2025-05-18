@@ -99,7 +99,6 @@ export default async function createServer(type = 'dev') {
 
 // add backend
 async function addBackend(app) {
-  console.log("RUNNING addBackend");
   // using the express stack directly to remove old middleware from the previous backend!
   const backendFolder = path.join(baseDir, 'backend');
   const pathToBackend = path.join(backendFolder, 'index.js');
