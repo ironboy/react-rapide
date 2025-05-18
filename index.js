@@ -158,6 +158,7 @@ async function runCommand(command) {
     fs.writeFileSync(path.join(undoFolder, 'src', 'mainREAL.tsx'), oldMainContent, 'utf-8');
   }
 
+  await sleep(1500);
   log(c.green(c.bold(postDo.message)));
   log('');
 
