@@ -1,5 +1,5 @@
+import type Product from '../interfaces/Product';
 import { Link } from 'react-router-dom';
-import Product from '../interfaces/Product';
 import products from '../json/products.json';
 
 ProductsPage.route = {
