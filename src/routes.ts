@@ -1,4 +1,5 @@
-import { JSX, createElement } from 'react';
+import type { JSX } from 'react';
+import { createElement } from 'react';
 // page components
 import AboutPage from './pages/AboutPage.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
