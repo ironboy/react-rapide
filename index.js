@@ -179,6 +179,13 @@ function replaceFolder(target, org, ...folderName) {
   target = path.join(target, ...folderName);
   let undoFolderTarget = path.join(undoFolder, ...folderName);
   org = path.join(org, ...folderName);
+  if (
+    folderName[0] === 'backend' && folderName.length === 1 &&
+    !fs.existsSync(org) && fs.existsSync(target)
+  ) {
+    // remove backend folder if not needed
+    fs.rmSync(target, { recursive: true, force: true });
+  }
   if (!fs.existsSync(org)) { return; }
   !undo && fs.existsSync(target) && fs.cpSync(target, undoFolderTarget, file ? {} : { recursive: true });
   fs.existsSync(target) && fs.rmSync(target, file ? {} : { recursive: true, force: true });
