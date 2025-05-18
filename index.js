@@ -183,6 +183,9 @@ function replaceFolder(target, org, ...folderName) {
     folderName[0] === 'backend' && folderName.length === 1 &&
     !fs.existsSync(org) && fs.existsSync(target)
   ) {
+    // first close db connections if they exist
+    globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
+    globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
     // remove backend folder if not needed
     fs.rmSync(target, { recursive: true, force: true });
   }
