@@ -4,6 +4,6 @@ if (process.argv[2] === 'standalone') {
   new Server();
 }
 
-export default function startBackend() {
+export default function startBackend(app) {
   new Server(app);
 }
