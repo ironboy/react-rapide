@@ -16,7 +16,6 @@ export default class DBQueryMaker {
     let dbAbsPath = globalThis.orgBackendFolder ? // from react-rapide
       path.join(globalThis.orgBackendFolder, dbPath) :
       PathFinder.relToAbs('../' + dbPath);
-    console.log("HELLO ", dbAbsPath);
     this.constructor.db = this.constructor.db || betterSqlite3(dbAbsPath);
     // copy the connection to an instance property for convenience
     this.db = this.constructor.db;
