@@ -171,7 +171,7 @@ async function runCommand(command) {
     // explicitely exit
     process.exit();
 
-  }, 1000);
+  }, 3000);
 };
 
 function replaceFolder(target, org, ...folderName) {
