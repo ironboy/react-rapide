@@ -110,7 +110,11 @@ export default async function createServer(type = 'dev', restart = false) {
 
 // Restart the server
 async function restartServer() {
+  console.log("HERE");
+  currentViteDevServer && await currentViteDevServer.close();
+  console.log("THERE");
   currentServer.close(() => createServer(currentServerType, true));
+  console.log('everywhere');
 }
 
 // Some basic middleware for both the  dev and preview server
