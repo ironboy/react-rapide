@@ -104,7 +104,6 @@ async function addBackend(app) {
     backendFolder,
     { ignoreInitial: true }
   ).on('all', (event, path) => {
-    console.log(event, path);
     addBackend(app);
   });
   chokidarInitDone = true;
