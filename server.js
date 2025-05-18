@@ -40,9 +40,9 @@ export default async function createServer(type = 'dev', restart = false) {
   if (fs.existsSync(pathToBackend)) {
     backendDefaultFunc = (await import(backendToImport)).default;
     backendDefaultFunc(app);
-    chokidar.watch(backendFolder).on('all', (_event, _path) => {
+    /*chokidar.watch(backendFolder).on('all', (_event, _path) => {
       console.log(chokCount++, _event, _path);
-    });
+    });*/
   }
 
   // Create the vite dev server
