@@ -17,14 +17,20 @@ packageContents.scripts = {
 };
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageContents, null, '  '), 'utf-8');
 
+// set the ts configuration to what vite was at 2025-05-18
+// (because it changes sometimes and we want no more unexpected surprises)
+let tsSettingsPath = path.join(dirname, 'ts-settings');
+let filesToCopy = fs.readdirSync(tsSettingsPath).filter(x => x.endsWith('.json'));
+for (let file of filesToCopy) {
+  fs.copyFileSync(path.join(tsSettingsPath, file), path.join(baseFolder, file));
+}
+
 // killall current vite server if any
 const viteConfigPath = path.join(baseFolder, 'vite.config.ts');
 if (fs.existsSync(viteConfigPath)) {
   let contents = fs.readFileSync(viteConfigPath, 'utf-8');
   fs.writeFileSync(viteConfigPath, 'process.exit();', 'utf-8');
-  console.log("OK");
   setTimeout(() => {
-    console.log("OK2");
     fs.writeFileSync(viteConfigPath, contents, 'utf-8');
   }, 2000);
 }
