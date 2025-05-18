@@ -51,7 +51,7 @@ export default async function createServer(type = 'dev', restart = false) {
 
     // Add the vite dev server as middleware
     app.use(viteDevServer.middlewares);
-    currentViteDevServer = viteDevServer();
+    currentViteDevServer = viteDevServer;
   }
 
   // Create the preview server
