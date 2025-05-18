@@ -20,7 +20,7 @@ export default async function createServer(type = 'dev', restart = false) {
   try {
     const startTime = Date.now();
     const baseDir = import.meta.dirname.split('node_modules')[0];
-    const backendFolder = path.join(basedDir, 'backend');
+    const backendFolder = path.join(baseDir, 'backend');
     const pathToBackend = path.join(backendFolder, 'index.js');
     const backendToImport = url.pathToFileURL(pathToBackend);
 
