@@ -8,7 +8,7 @@ import {
   version as viteVersion
 } from 'vite';
 import c from 'chalk';
-// import chokidar from 'chokidar';
+import chokidar from 'chokidar';
 
 let currentServer;
 let currentViteDevServer;
@@ -83,11 +83,11 @@ export default async function createServer(type = 'dev', restart = false) {
   // Start up the server
   currentServerType = type;
   currentServer = app.listen(port, () => {
-    /*if (restart) {
+    if (restart) {
       console.log(c.gray(new Date().toLocaleTimeString())
         + c.cyan(' [rr] ') + 'server restarted.');
       return;
-    }*/
+    }
     process.stdout.write('\x1Bc'); // clear console
     let timeTaken = Date.now() - startTime;
     type === 'dev' && console.log(
