@@ -10,6 +10,7 @@ import {
 import c from 'chalk';
 
 let currentServer;
+let currentViteDevServer;
 let currentServerType;
 
 export default async function createServer(type = 'dev', restart = false) {
@@ -50,6 +51,7 @@ export default async function createServer(type = 'dev', restart = false) {
 
     // Add the vite dev server as middleware
     app.use(viteDevServer.middlewares);
+    currentViteDevServer = viteDevServer();
   }
 
   // Create the preview server
@@ -76,7 +78,8 @@ export default async function createServer(type = 'dev', restart = false) {
   currentServer = app.listen(port, () => {
     if (restart) {
       console.log('');
-      console.log('  ' + new Date().toLocaleTimeString() + c.cyan('[rr]') + ' server restarted.');
+      console.log(c.gray(new Date().toLocaleTimeString())
+        + c.cyan(' [rr] ') + 'server restarted.');
       return;
     }
     process.stdout.write('\x1Bc'); // clear console
@@ -93,7 +96,8 @@ export default async function createServer(type = 'dev', restart = false) {
 }
 
 // Restart the server
-function restartServer() {
+async function restartServer() {
+  currentViteDevServer && await currentViteDevServer.close();
   currentServer.close(() => createServer(currentServerType, true));
 }
 
