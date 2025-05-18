@@ -54,7 +54,10 @@ export default async function createServer(type = 'dev') {
     let pathToDist = path.join(baseDir, 'dist');
     if (!fs.existsSync(pathToDist)) {
       process.stdout.write('\x1Bc'); // clear console
-      console.log('No dist folder found. Create it by running npm run build!');
+      console.log('');
+      console.log(c.bold('No dist folder found.'));
+      console.log('Create it by running ' + c.green('npm run build') + '!');
+      console.log('');
       process.exit();
     }
     app.use(express.static(pathToDist));
