@@ -102,6 +102,7 @@ export default async function createServer(type = 'dev', restart = false) {
         console.log(c.gray(new Date().toLocaleTimeString())
           + c.cyan(' [rr] ') + 'server restarted.');
         console.log(backendToImport);
+        console.log(backendDefaultFunc + '');
       }
     });
   } catch (e) { console.log(e); }
@@ -109,11 +110,8 @@ export default async function createServer(type = 'dev', restart = false) {
 
 // Restart the server
 async function restartServer() {
-  console.log("HERE");
   currentViteDevServer && await currentViteDevServer.close();
-  console.log("THERE");
   currentServer.close();
-  console.log('everywhere');
   createServer(currentServerType, true);
 }
 
