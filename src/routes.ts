@@ -1,5 +1,5 @@
+import type Route from './interfaces/Route.ts';
 import { createElement } from 'react';
-import Route from './interfaces/Route.ts';
 
 // page components
 import AboutPage from './pages/AboutPage.tsx';

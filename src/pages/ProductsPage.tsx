@@ -1,11 +1,11 @@
+import type { SortOption } from '../utils/productPageHelpers';
 import { useLoaderData } from 'react-router-dom';
 import { Row, Col, Form } from 'react-bootstrap';
 import { useStateContext } from '../utils/useStateObject';
 import Select from '../parts/Select';
 import ProductCard from '../parts/ProductCard';
 import productsLoader from '../utils/productsLoader';
-import { getHelpers, SortOption }
-  from '../utils/productPageHelpers';
+import { getHelpers } from '../utils/productPageHelpers';
 
 ProductsPage.route = {
   path: '/',

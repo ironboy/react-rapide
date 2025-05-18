@@ -1,6 +1,7 @@
+import type { RouteObject } from 'react-router-dom';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider, RouteObject }
+import { createBrowserRouter, RouterProvider }
   from 'react-router-dom';
 import '../sass/index.scss';
 import routes from './routes';

@@ -1,6 +1,6 @@
+import type Product from '../interfaces/Product';
 import { useNavigate } from 'react-router-dom';
 import { Card, Button, Row, Col } from 'react-bootstrap';
-import Product from '../interfaces/Product';
 import Image from './Image';
 
 export default function ProductCard(
