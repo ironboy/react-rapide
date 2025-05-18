@@ -162,3 +162,10 @@ function addBasicMiddleware(app) {
     else { next(); }
   });
 }
+
+// cleanup on exit
+process.on('exit', function () {
+  if (oldBackendTemp && fs.existsSync(oldBackendTemp)) {
+    fs.rmSync(oldBackendTemp, { recursive: true, force: true });
+  }
+});
