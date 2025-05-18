@@ -14,7 +14,7 @@ let currentServer;
 let chokidarInitDone = false;
 let baseDir;
 
-export default async function createServer(type = 'dev', restart = false) {
+export default async function createServer(type = 'dev') {
   try {
     const startTime = Date.now();
     baseDir = import.meta.dirname.split('node_modules')[0];
@@ -80,17 +80,11 @@ export default async function createServer(type = 'dev', restart = false) {
         + c.cyan('http://localhost:' + port + '/'));
       console.log(c.green('  ➜ ') + c.white(c.bold('Extra:  '))
         + c.cyan('React Rapide installed') + '\n');
-      if (restart) {
-        console.log(c.gray(new Date().toLocaleTimeString())
-          + c.cyan(' [rr] ') + 'server restarted.');
-        console.log(backendToImport);
-        console.log(backendDefaultFunc + '');
-      }
     });
   } catch (e) { console.log(e); }
 }
 
-// Restart the server
+// add backend
 async function addBackend(app) {
   // using the express stack directly to remove old middleware from the previous backend!
   const backendFolder = path.join(baseDir, 'backend');
