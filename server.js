@@ -100,9 +100,17 @@ export default async function createServer(type = 'dev') {
 // add backend
 async function addBackend(app) {
   // using the express stack directly to remove old middleware from the previous backend!
-  const backendFolder = path.join(baseDir, 'backend');
+  let backendFolder = path.join(baseDir, 'backend');
+
+  // copy the whole backend to a temp folder - since do not want cached imports
+  if (fs.existsSync(backendFolder)) {
+    let tempFolder = path.join(import.meta.dirname, 'tempBackends', Date.now() + '');
+    fs.cpSync(backendFolder, tempFolder, { recursive: true });
+    backendFolder = tempFolder;
+  }
+
   const pathToBackend = path.join(backendFolder, 'index.js');
-  const backendToImport = url.pathToFileURL(pathToBackend) + '?' + Date.now();
+  const backendToImport = url.pathToFileURL(pathToBackend);
   let backendDefaultFunc;
   let stackCopy = [...app.router.stack];
   let middleWareIndex = stackCopy.findIndex(({ name }) => name === 'basicMiddleware');
@@ -110,7 +118,7 @@ async function addBackend(app) {
   app.router.stack.splice(1, Infinity);
   if (fs.existsSync(pathToBackend)) {
     backendDefaultFunc = (await import(backendToImport)).default;
-    backendDefaultFunc(app);
+    typeof backendDefaultFunc === 'function' && backendDefaultFunc(app);
   }
   // use chokidar to watch for changes to the backend folder
   !chokidarInitDone && chokidar.watch(
