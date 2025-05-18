@@ -17,7 +17,7 @@ let currentServerType;
 let chokCount = 0;
 
 export default async function createServer(type = 'dev', restart = false) {
-
+  console.log("HI");
   const startTime = Date.now();
   const baseDir = import.meta.dirname.split('node_modules')[0];
   const backendFolder = path.join(basedDir, 'backend');
@@ -37,13 +37,13 @@ export default async function createServer(type = 'dev', restart = false) {
 
   // check for middleware/server in local folder - add if it exists
   let backendDefaultFunc;
-  /*if (fs.existsSync(pathToBackend)) {
+  if (fs.existsSync(pathToBackend)) {
     backendDefaultFunc = (await import(backendToImport)).default;
     backendDefaultFunc(app);
     chokidar.watch(backendFolder).on('all', (_event, _path) => {
       console.log(chokCount++, _event, _path);
     });
-  }*/
+  }
 
   // Create the vite dev server
   if (type === 'dev') {
