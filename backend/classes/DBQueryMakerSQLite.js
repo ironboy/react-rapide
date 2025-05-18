@@ -1,3 +1,4 @@
+import path from 'path';
 import betterSqlite3 from 'better-sqlite3';
 import PathFinder from '../helpers/PathFinder.js';
 import PasswordEncryptor from '../helpers/PasswordEncryptor.js';
