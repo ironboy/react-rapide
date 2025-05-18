@@ -34,7 +34,11 @@ export default async function createServer(type = 'dev') {
     // middleware if no other middleware
     app.use(function always(req, res, next) {
       if (app.router.stack.length < 2) {
-        res.json({ test: 'yo' });
+        res.send(/*html*/`<!DOCTYPE html>
+          <html><body>
+            <script>setTimeout(()=>location.reload(),1000)</script>
+          </body></html>
+        `);
       }
       else { next(); }
     });
