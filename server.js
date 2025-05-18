@@ -104,7 +104,7 @@ export default async function createServer(type = 'dev', restart = false) {
         console.log(backendToImport);
         console.log(backendDefaultFunc + '');
       }
-      console.log(app._router.stack);
+      console.log(app.router.stack);
     });
   } catch (e) { console.log(e); }
 }
