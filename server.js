@@ -30,12 +30,6 @@ export default async function createServer(type = 'dev') {
     // Create the express server
     const app = express();
     currentServer = app;
-    /* app.use(function always(req, res, next) {
-       if (app.router.stack.length < 2) {
-         res.json({ test: 'yo' });
-       }
-       else { next(); }
-     });*/
 
     // check for middleware/server in local folder - add if it exists
     await addBackend(app);
@@ -59,7 +53,7 @@ export default async function createServer(type = 'dev') {
     if (type === 'preview') {
       let pathToDist = path.join(baseDir, 'dist');
       if (!fs.existsSync(pathToDist)) {
-        process.stdout.write('\x1Bc'); // clear console
+        //process.stdout.write('\x1Bc'); // clear console
         console.log('');
         console.log(c.bold('No dist folder found.'));
         console.log('  ' + c.green('➜ ') + 'Create it by running ' + c.green('npm run build') + '!');
@@ -97,11 +91,11 @@ async function addBackend(app) {
   const pathToBackend = path.join(backendFolder, 'index.js');
   const backendToImport = url.pathToFileURL(pathToBackend) + '?' + Date.now();
   let backendDefaultFunc;
+  console.log(app.router.stack.map(x => x.name));
   let stackCopy = [...app.router.stack];
   let middleWareIndex = stackCopy.findIndex(({ name }) => name === 'basicMiddleware');
   if (middleWareIndex >= 0) { stackCopy = stackCopy.slice(middleWareIndex); }
   app.router.stack.splice(0, Infinity);
-  app.use((_req, res) => res.sendFile(path.join(baseDir, 'index.html')));
   if (fs.existsSync(pathToBackend)) {
     backendDefaultFunc = (await import(backendToImport)).default;
     backendDefaultFunc(app);
