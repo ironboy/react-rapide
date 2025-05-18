@@ -20,7 +20,7 @@ export default class DBQueryMaker {
     // copy the connection to an instance property for convenience
     this.db = this.constructor.db;
     // for react-rapide, so it can close the db connection
-    globalThis.openDbFromQueryMaker = db;
+    globalThis.openDbFromQueryMaker = this.db;
   }
 
   // Make a query to the database, as a prepared statement and
