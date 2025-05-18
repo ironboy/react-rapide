@@ -117,6 +117,7 @@ async function addBackend(app) {
     { ignoreInitial: true }
   ).on('all', (_event, path) => {
     if (!path.replaceAll('\\', '/').includes('/backend')) { return; }
+    if (path.replaceAll('\\', '/').includes('/databases/')) { return; }
     addBackend(app);
   });
   chokidarInitDone = true;
