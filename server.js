@@ -88,12 +88,6 @@ export default async function createServer(type = 'dev', restart = false) {
     // Start up the server
     currentServerType = type;
     currentServer = app.listen(port, () => {
-      if (restart) {
-        console.log(c.gray(new Date().toLocaleTimeString())
-          + c.cyan(' [rr] ') + 'server restarted.');
-        console.log(backendToImport);
-        return;
-      }
       process.stdout.write('\x1Bc'); // clear console
       let timeTaken = Date.now() - startTime;
       type === 'dev' && console.log(
@@ -104,6 +98,11 @@ export default async function createServer(type = 'dev', restart = false) {
         + c.cyan('http://localhost:' + port + '/'));
       console.log(c.green('  ➜ ') + c.white(c.bold('Extra:  '))
         + c.cyan('React Rapide installed') + '\n');
+      if (restart) {
+        console.log(c.gray(new Date().toLocaleTimeString())
+          + c.cyan(' [rr] ') + 'server restarted.');
+        console.log(backendToImport);
+      }
     });
   } catch (e) { console.log(e); }
 }
@@ -113,8 +112,9 @@ async function restartServer() {
   console.log("HERE");
   currentViteDevServer && await currentViteDevServer.close();
   console.log("THERE");
-  currentServer.close(() => createServer(currentServerType, true));
+  currentServer.close();
   console.log('everywhere');
+  createServer(currentServerType, true);
 }
 
 // Some basic middleware for both the  dev and preview server
