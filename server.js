@@ -110,10 +110,7 @@ export default async function createServer(type = 'dev', restart = false) {
 
 // Restart the server
 async function restartServer() {
-  currentViteDevServer && await currentViteDevServer.close();
-  setTimeout(() => {
-    currentServer.close(() => createServer(currentServerType, true));
-  }, 1000);
+  currentServer.close(() => createServer(currentServerType, true));
 }
 
 // Some basic middleware for both the  dev and preview server
