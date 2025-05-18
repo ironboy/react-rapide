@@ -153,6 +153,7 @@ async function runCommand(command) {
   }
 
   // Now write the real main (see above)
+  await sleep(2000);
   if (mainContent) {
     fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), mainContent, 'utf-8');
     fs.writeFileSync(path.join(undoFolder, 'src', 'mainREAL.tsx'), oldMainContent, 'utf-8');
