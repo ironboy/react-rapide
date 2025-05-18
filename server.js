@@ -119,6 +119,12 @@ async function addBackend(app) {
   if (fs.existsSync(backendFolder)) {
     let tempFolder = path.join(import.meta.dirname, 'tempBackends', Date.now() + '');
     fs.cpSync(backendFolder, tempFolder, { recursive: true });
+
+    // for some reason this causes windows to lock the db file even though it seems
+    // to use the  one in the original folder (calculated from globalThis.orgBackendFolder)
+    // so we try to get around this by deleting the db file right after copying it...
+    fs.rmSync(path.join(tempFolder, 'databases'), { recursive: true, force: true });
+
     globalThis.orgBackendFolder = backendFolder;
     backendFolder = tempFolder;
     oldBackendTemp = tempFolder;
