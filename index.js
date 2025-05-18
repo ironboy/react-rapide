@@ -19,7 +19,7 @@ const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.st
 const commands = commandBranches.map(x => x.split('command-')[1].split(/\d{1,}-/)[1]).filter(x => x);
 const defaultPostDo = {
   patchPackages: 'auto',
-  replace: { files: [['index.html']], folders: [['public'], ['src'], ['sass']] },
+  replace: { files: [['index.html']], folders: [['public'], ['src'], ['sass'], ['backend']] },
   message: 'All done!'
 };
 
