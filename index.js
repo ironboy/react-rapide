@@ -165,7 +165,9 @@ async function runCommand(command) {
   // (in some strange way - new images doesn't show etc...)
   // let us force a server restart by "touching" vite.config (rewrite it)
   let content = fs.readFileSync(path.join(baseDir, 'vite.config.ts'), 'utf-8');
-  fs.writeFileSync(path.join(baseDir, 'vite.config.ts'), content, 'utf-8');
+  setTimeout(() => {
+    fs.writeFileSync(path.join(baseDir, 'vite.config.ts'), content, 'utf-8');
+  }, 1000);
 
   // explicitely exit
   process.exit();
