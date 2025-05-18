@@ -101,7 +101,7 @@ async function addBackend(app) {
   }
   // use chokidar to watch for changes to the backend folder
   !chokidarInitDone && chokidar.watch(
-    backendFolder,
+    baseDir,
     { ignoreInitial: true }
   ).on('all', (event, path) => {
     console.log(event, path);
