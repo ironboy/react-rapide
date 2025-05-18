@@ -13,8 +13,7 @@ import chokidar from 'chokidar';
 let currentServer;
 let currentViteDevServer;
 let currentServerType;
-
-let chokMem = [];
+let chokidarInitDone = false;
 
 export default async function createServer(type = 'dev', restart = false) {
   try {
@@ -40,10 +39,14 @@ export default async function createServer(type = 'dev', restart = false) {
     if (fs.existsSync(pathToBackend)) {
       backendDefaultFunc = (await import(backendToImport)).default;
       backendDefaultFunc(app);
-      chokidar.watch(backendFolder, { ignoreInitial: true }).on('all', (event, _path) => {
-        chokMem.push({ event, _path });
-        console.log(chokMem);
+      // use chokidar to watch for changes to the backend folder
+      !chokidarInitDone && chokidar.watch(
+        backendFolder,
+        { ignoreInitial: true }
+      ).on('all', () => {
+        restartServer();
       });
+      chokidarInitDone = true;
     }
 
     // Create the vite dev server
