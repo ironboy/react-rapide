@@ -56,7 +56,7 @@ export default async function createServer(type = 'dev') {
       process.stdout.write('\x1Bc'); // clear console
       console.log('');
       console.log(c.bold('No dist folder found.'));
-      console.log('Create it by running ' + c.green('npm run build') + '!');
+      console.log('  ' + c.green('➜ ') + 'Create it by running ' + c.green('npm run build') + '!');
       console.log('');
       process.exit();
     }
@@ -68,7 +68,7 @@ export default async function createServer(type = 'dev') {
         res.sendFile(path.join(pathToDist, 'index.html'));
       }
     });
-    addBasicMiddleware();
+    addBasicMiddleware(app);
   }
 
   // Start up the server
