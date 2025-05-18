@@ -9,6 +9,9 @@ import {
 } from 'vite';
 import c from 'chalk';
 
+let currentServer;
+let currentServerType;
+
 export default async function createServer(type = 'dev') {
 
   const startTime = Date.now();
@@ -82,6 +85,13 @@ export default async function createServer(type = 'dev') {
       + c.cyan('React Rapide installed') + '\n');
   });
 
+  currentServer = app;
+  currentServerType = type;
+}
+
+// Restart the server
+function restartServer() {
+  currentServer.close(() => createServer(currentServerType));
 }
 
 // Some baseic middleware for both the  dev and preview server
@@ -93,6 +103,9 @@ function addBasicMiddleware(app) {
       }
       else if (req.url === '/api/react-rapide-kill-server') {
         process.exit();
+      }
+      else if (req.url === '/api/react-rapide-restart-server') {
+        restartServer();
       }
       else {
         res.status(404);
