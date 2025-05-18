@@ -90,6 +90,7 @@ export default async function createServer(type = 'dev', restart = false) {
       if (restart) {
         console.log(c.gray(new Date().toLocaleTimeString())
           + c.cyan(' [rr] ') + 'server restarted.');
+        console.log(backendToImport);
         return;
       }
       process.stdout.write('\x1Bc'); // clear console
@@ -114,7 +115,7 @@ async function restartServer() {
   }, 1000);
 }
 
-// Some baseic middleware for both the  dev and preview server
+// Some basic middleware for both the  dev and preview server
 function addBasicMiddleware(app) {
   app.use((req, res, next) => {
     if (req.url.startsWith('/api/')) {
