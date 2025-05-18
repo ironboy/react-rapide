@@ -11,7 +11,6 @@ import c from 'chalk';
 import chokidar from 'chokidar';
 
 let currentServer;
-let currentServerType;
 let chokidarInitDone = false;
 
 export default async function createServer(type = 'dev', restart = false) {
@@ -32,21 +31,10 @@ export default async function createServer(type = 'dev', restart = false) {
 
     // Create the express server
     const app = express();
+    currentServer = app;
 
     // check for middleware/server in local folder - add if it exists
-    let backendDefaultFunc;
-    if (fs.existsSync(pathToBackend)) {
-      backendDefaultFunc = (await import(backendToImport)).default;
-      backendDefaultFunc(app);
-      // use chokidar to watch for changes to the backend folder
-      !chokidarInitDone && chokidar.watch(
-        backendFolder,
-        { ignoreInitial: true }
-      ).on('all', (event, path) => {
-        reloadBackend();
-      });
-      chokidarInitDone = true;
-    }
+    await addBackend(app);
 
     // Create the vite dev server
     if (type === 'dev') {
@@ -83,9 +71,8 @@ export default async function createServer(type = 'dev', restart = false) {
     }
 
     // Start up the server
-    currentServerType = type;
-    currentServer = app.listen(port, () => {
-      process.stdout.write('\x1Bc'); // clear console
+    app.listen(port, () => {
+      //process.stdout.write('\x1Bc'); // clear console
       let timeTaken = Date.now() - startTime;
       type === 'dev' && console.log(
         c.green(c.bold('  VITE ') + 'v' + viteVersion)
@@ -101,13 +88,26 @@ export default async function createServer(type = 'dev', restart = false) {
         console.log(backendToImport);
         console.log(backendDefaultFunc + '');
       }
-      console.log(app.router.stack);
     });
   } catch (e) { console.log(e); }
 }
 
 // Restart the server
-async function reloadBackend() {
+async function addBackend(app) {
+  let backendDefaultFunc;
+  console.log(" I AM ADD BACKEND", app.router.stack);
+  if (fs.existsSync(pathToBackend)) {
+    backendDefaultFunc = (await import(backendToImport)).default;
+    backendDefaultFunc(app);
+    // use chokidar to watch for changes to the backend folder
+    !chokidarInitDone && chokidar.watch(
+      backendFolder,
+      { ignoreInitial: true }
+    ).on('all', (event, path) => {
+      addBackend(app);
+    });
+    chokidarInitDone = true;
+  }
 }
 
 // Some basic middleware for both the  dev and preview server
@@ -122,7 +122,7 @@ function addBasicMiddleware(app) {
       }
       else if (req.url === '/api/react-rapide-reload-stack') {
         res.json({ status: 'Reloading backend...' });
-        reloadBackend;
+        addBackend(currentServer);
       }
       else {
         res.status(404);
