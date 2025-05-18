@@ -11,8 +11,12 @@ export default class DBQueryMaker {
 
   // Create a db connection (if not existing already)
   constructor({ dbPath }) {
+    console.log("I ALSO RUN AGAIN");
     //  connect to the db if not done already by another instance
-    this.constructor.db = this.constructor.db || betterSqlite3(PathFinder.relToAbs('../' + dbPath));
+    let dbAbsPath = globalThis.orgBackendFolder ? // from react-rapide
+      path.join(globalThis.orgBackendFolder, dbPath) :
+      PathFinder.relToAbs('../' + dbPath);
+    this.constructor.db = this.constructor.db || betterSqlite3(dbAbsPath);
     // copy the connection to an instance property for convenience
     this.db = this.constructor.db;
   }
