@@ -1,7 +1,6 @@
+import type Product from '../interfaces/Product';
 import { useParams, Link } from 'react-router-dom';
-import Product from '../interfaces/Product';
 import products from '../json/products.json';
-
 
 ProductDetailsPage.route = {
   path: '/products/:slug',
