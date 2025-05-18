@@ -74,6 +74,11 @@ export default async function createServer(type = 'dev', restart = false) {
   // Start up the server
   currentServerType = type;
   currentServer = app.listen(port, () => {
+    if (restart) {
+      console.log('');
+      console.log('  ' + new Date().toLocaleTimeString() + c.cyan('[rr]') + ' server restarted.');
+      return;
+    }
     process.stdout.write('\x1Bc'); // clear console
     let timeTaken = Date.now() - startTime;
     type === 'dev' && console.log(
@@ -84,10 +89,6 @@ export default async function createServer(type = 'dev', restart = false) {
       + c.cyan('http://localhost:' + port + '/'));
     console.log(c.green('  ➜ ') + c.white(c.bold('Extra:  '))
       + c.cyan('React Rapide installed') + '\n');
-    if (restart) {
-      console.log('');
-      console.log('  ' + new Date().toLocaleTimeString() + c.cyan('[rr]') + ' server restarted.');
-    }
   });
 }
 
