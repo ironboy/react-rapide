@@ -72,7 +72,8 @@ export default async function createServer(type = 'dev') {
   }
 
   // Start up the server
-  app.listen(port, () => {
+  currentServerType = type;
+  currentServer = app.listen(port, () => {
     process.stdout.write('\x1Bc'); // clear console
     let timeTaken = Date.now() - startTime;
     type === 'dev' && console.log(
@@ -84,9 +85,6 @@ export default async function createServer(type = 'dev') {
     console.log(c.green('  ➜ ') + c.white(c.bold('Extra:  '))
       + c.cyan('React Rapide installed') + '\n');
   });
-
-  currentServer = app;
-  currentServerType = type;
 }
 
 // Restart the server
