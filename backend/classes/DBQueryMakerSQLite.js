@@ -34,6 +34,19 @@ export default class DBQueryMaker {
     try {
       const preparedStatement = this.db.prepare(sql);
       result = preparedStatement[isSelect ? 'all' : 'run'](parameters);
+      if (isSelect) {
+        for (let row of result) {
+          for (let key in row) {
+            let val = row[key];
+            if (typeof val === 'string' && val.startsWith('JSON:')) {
+              try {
+                row[key] = JSON.parse(val.slice(5));
+              }
+              catch (_e) { }
+            }
+          }
+        }
+      }
     }
     catch (error) { result = { error: error + '' }; }
     // log method, route, query, parameters and result
