@@ -17,88 +17,89 @@ let currentServerType;
 let chokCount = 0;
 
 export default async function createServer(type = 'dev', restart = false) {
-  console.log("HI");
-  const startTime = Date.now();
-  const baseDir = import.meta.dirname.split('node_modules')[0];
-  const backendFolder = path.join(basedDir, 'backend');
-  const pathToBackend = path.join(backendFolder, 'index.js');
-  const backendToImport = url.pathToFileURL(pathToBackend);
+  try {
+    const startTime = Date.now();
+    const baseDir = import.meta.dirname.split('node_modules')[0];
+    const backendFolder = path.join(basedDir, 'backend');
+    const pathToBackend = path.join(backendFolder, 'index.js');
+    const backendToImport = url.pathToFileURL(pathToBackend);
 
-  // Find free ports
-  // (one for the server and one for
-  //  Vite HMR - hot module reload - using web socket)
-  let port = type === 'dev' ? 5173 : 4173;
-  while (!await isFreePort(port)) { port++; }
-  let hmrPort = 27018;
-  while (!await isFreePort(hmrPort)) { hmrPort++; }
+    // Find free ports
+    // (one for the server and one for
+    //  Vite HMR - hot module reload - using web socket)
+    let port = type === 'dev' ? 5173 : 4173;
+    while (!await isFreePort(port)) { port++; }
+    let hmrPort = 27018;
+    while (!await isFreePort(hmrPort)) { hmrPort++; }
 
-  // Create the express server
-  const app = express();
+    // Create the express server
+    const app = express();
 
-  // check for middleware/server in local folder - add if it exists
-  let backendDefaultFunc;
-  if (fs.existsSync(pathToBackend)) {
-    backendDefaultFunc = (await import(backendToImport)).default;
-    backendDefaultFunc(app);
-    chokidar.watch(backendFolder).on('all', (_event, _path) => {
-      console.log(chokCount++, _event, _path);
-    });
-  }
+    // check for middleware/server in local folder - add if it exists
+    let backendDefaultFunc;
+    if (fs.existsSync(pathToBackend)) {
+      backendDefaultFunc = (await import(backendToImport)).default;
+      backendDefaultFunc(app);
+      chokidar.watch(backendFolder).on('all', (_event, _path) => {
+        console.log(chokCount++, _event, _path);
+      });
+    }
 
-  // Create the vite dev server
-  if (type === 'dev') {
-    const viteDevServer = await createViteServer({
-      server: { middlewareMode: true, hmr: { port: hmrPort } },
-      host: '0.0.0.0',
-      appType: 'spa',
-      hmr: { port }
-    });
+    // Create the vite dev server
+    if (type === 'dev') {
+      const viteDevServer = await createViteServer({
+        server: { middlewareMode: true, hmr: { port: hmrPort } },
+        host: '0.0.0.0',
+        appType: 'spa',
+        hmr: { port }
+      });
 
-    addBasicMiddleware(app);
+      addBasicMiddleware(app);
 
-    // Add the vite dev server as middleware
-    app.use(viteDevServer.middlewares);
-    currentViteDevServer = viteDevServer;
-  }
+      // Add the vite dev server as middleware
+      app.use(viteDevServer.middlewares);
+      currentViteDevServer = viteDevServer;
+    }
 
-  // Create the preview server
-  if (type === 'preview') {
-    let pathToDist = path.join(baseDir, 'dist');
-    if (!fs.existsSync(pathToDist)) {
+    // Create the preview server
+    if (type === 'preview') {
+      let pathToDist = path.join(baseDir, 'dist');
+      if (!fs.existsSync(pathToDist)) {
+        process.stdout.write('\x1Bc'); // clear console
+        console.log('');
+        console.log(c.bold('No dist folder found.'));
+        console.log('  ' + c.green('➜ ') + 'Create it by running ' + c.green('npm run build') + '!');
+        console.log('');
+        process.exit();
+      }
+      addBasicMiddleware(app);
+      app.use(express.static(pathToDist));
+      app.use((_req, res, _next) => {
+        // answer with index page on all non-existant routes (SPA behavior)
+        res.sendFile(path.join(pathToDist, 'index.html'));
+      });
+    }
+
+    // Start up the server
+    currentServerType = type;
+    currentServer = app.listen(port, () => {
+      if (restart) {
+        console.log(c.gray(new Date().toLocaleTimeString())
+          + c.cyan(' [rr] ') + 'server restarted.');
+        return;
+      }
       process.stdout.write('\x1Bc'); // clear console
-      console.log('');
-      console.log(c.bold('No dist folder found.'));
-      console.log('  ' + c.green('➜ ') + 'Create it by running ' + c.green('npm run build') + '!');
-      console.log('');
-      process.exit();
-    }
-    addBasicMiddleware(app);
-    app.use(express.static(pathToDist));
-    app.use((_req, res, _next) => {
-      // answer with index page on all non-existant routes (SPA behavior)
-      res.sendFile(path.join(pathToDist, 'index.html'));
+      let timeTaken = Date.now() - startTime;
+      type === 'dev' && console.log(
+        c.green(c.bold('  VITE ') + 'v' + viteVersion)
+        + c.gray('  ready in ') + c.white(c.bold(timeTaken) + ' ms') + '\n'
+      );
+      console.log(c.green('  ➜ ') + c.white(c.bold('Local:  '))
+        + c.cyan('http://localhost:' + port + '/'));
+      console.log(c.green('  ➜ ') + c.white(c.bold('Extra:  '))
+        + c.cyan('React Rapide installed') + '\n');
     });
-  }
-
-  // Start up the server
-  currentServerType = type;
-  currentServer = app.listen(port, () => {
-    if (restart) {
-      console.log(c.gray(new Date().toLocaleTimeString())
-        + c.cyan(' [rr] ') + 'server restarted.');
-      return;
-    }
-    process.stdout.write('\x1Bc'); // clear console
-    let timeTaken = Date.now() - startTime;
-    type === 'dev' && console.log(
-      c.green(c.bold('  VITE ') + 'v' + viteVersion)
-      + c.gray('  ready in ') + c.white(c.bold(timeTaken) + ' ms') + '\n'
-    );
-    console.log(c.green('  ➜ ') + c.white(c.bold('Local:  '))
-      + c.cyan('http://localhost:' + port + '/'));
-    console.log(c.green('  ➜ ') + c.white(c.bold('Extra:  '))
-      + c.cyan('React Rapide installed') + '\n');
-  });
+  } catch (e) { console.log(e); }
 }
 
 // Restart the server
