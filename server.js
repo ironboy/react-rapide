@@ -40,8 +40,7 @@ export default async function createServer(type = 'dev', restart = false) {
     if (fs.existsSync(pathToBackend)) {
       backendDefaultFunc = (await import(backendToImport)).default;
       backendDefaultFunc(app);
-      chokidar.watch(backendFolder).on('all', (event, _path) => {
-        if (event !== 'change') { return; }
+      chokidar.watch(backendFolder, { ignoreInitial: true }).on('all', (event, _path) => {
         chokMem.push({ event, _path });
         console.log(chokMem);
       });
