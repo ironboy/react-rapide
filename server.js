@@ -36,7 +36,7 @@ export default async function createServer(type = 'dev') {
       if (app.router.stack.length < 2) {
         res.send(/*html*/`<!DOCTYPE html>
           <html><body>
-            <script>setTimeout(()=>location.reload(),1000)</script>
+            <script>setTimeout(()=>location.reload(),500)</script>
           </body></html>
         `);
       }
