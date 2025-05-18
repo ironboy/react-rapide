@@ -14,6 +14,8 @@ let currentServer;
 let currentViteDevServer;
 let currentServerType;
 
+let chokCount = 0;
+
 export default async function createServer(type = 'dev', restart = false) {
 
   const startTime = Date.now();
@@ -39,7 +41,7 @@ export default async function createServer(type = 'dev', restart = false) {
     backendDefaultFunc = (await import(backendToImport)).default;
     backendDefaultFunc(app);
     chokidar.watch(backendFolder).on('all', (_event, _path) => {
-      console.log(_event, _path);
+      console.log(chokCount++, _event, _path);
     });
   }
 
