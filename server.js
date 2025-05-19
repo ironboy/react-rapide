@@ -21,8 +21,8 @@ export default async function createServer(type = 'dev') {
       watchFor,
       { ignoreInitial: true }
     ).on('all', (event) => {
-      if (event === 'add') {
-        setTimeout(() => fs.existsSync(tellFrontend) && fs.rmSync(watchFor), 3000);
+      if (event === 'add' || event === 'change') {
+        setTimeout(() => fs.existsSync(watchFor) && fs.rmSync(watchFor), 3000);
         worker = startWorker(type, workerPath);
       }
     });
