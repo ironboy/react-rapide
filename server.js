@@ -16,5 +16,6 @@ export default function createServer(type = 'dev') {
       watch: serverFolderPath,
       ext: '.js'
     });
+    setTimeout(() => console.log("FOLDER TO WATCH", serverFolderPath), 1000);
   } catch (e) { console.log(e); }
 }
