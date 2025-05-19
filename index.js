@@ -185,7 +185,7 @@ function replaceFolder(target, org, ...folderName) {
   ) {
     // send signal to server to remove backend folder if not needed
     // we can't do it here because db:s need to be closed etc.
-    fs.writeFileSync(path.join(target, '__remove_me.txt'), 'REMOVE ME', 'utf-8');
+    // fs.writeFileSync(path.join(target, '__remove_me.txt'), 'REMOVE ME', 'utf-8');
   }
   if (!fs.existsSync(org)) { return; }
   !undo && fs.existsSync(target) && fs.cpSync(target, undoFolderTarget, file ? {} : { recursive: true });

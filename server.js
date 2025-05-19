@@ -15,35 +15,11 @@ let chokidarInitDone = false;
 let baseDir;
 let chokidarTimeout;
 let oldBackendTemp;
-let removeBackendFolderInterval;
-let removeFilePath;
 
 export default async function createServer(type = 'dev') {
   try {
     const startTime = Date.now();
     baseDir = import.meta.dirname.split('node_modules')[0];
-    removeFilePath = path.join(baseDir, 'backend', '__remove_me.txt');
-
-    if (!removeBackendFolderInterval) {
-      removeBackendFolderInterval = setInterval(() => {
-
-        if (fs.existsSync(removeFilePath)) {
-          fs.rmSync(removeFilePath);
-          try {
-            globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
-          }
-          catch (_e) { }
-          try {
-            globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
-          }
-          catch (_e) { }
-          try {
-            fs.rmSync(path.join(baseDir, 'backend'), { recursive: true, force: true });
-          }
-          catch (_e) { }
-        }
-      }, 3000);
-    }
 
     // Find free ports
     // (one for the server and one for
@@ -140,7 +116,7 @@ async function addBackend(app) {
   }
 
   // copy the whole backend to a temp folder - since we do not want cached imports
-  if (fs.existsSync(backendFolder) && !fs.existsSync(removeFilePath)) {
+  if (fs.existsSync(backendFolder)) {
     let tempFolder = path.join(import.meta.dirname, 'tempBackends', Date.now() + '');
     fs.cpSync(backendFolder, tempFolder, { recursive: true });
 
