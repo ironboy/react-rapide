@@ -7,7 +7,10 @@ import {
   // workerData,
 } from 'worker_threads';
 
-chokidar.watch(path.join(import.meta.dirname), '_rapide_run.txt', { ignoreInitial: true }).on('all', (event, path) => {
+chokidar.watch(
+  path.join(import.meta.dirname, '_rapide_run.txt'),
+  { ignoreInitial: true }
+).on('all', (event, path) => {
   console.log("YEAH");
 });
 
