@@ -12,6 +12,7 @@ export default async function createServer(type = 'dev') {
   try {
     let workerPath = import.meta.dirname;
     workerPath = workerPath.slice(0, workerPath.lastIndexOf('temp'));
+    workerPath = path.join(workerPath, 'serverWorker.js');
     fs.copyFileSync(path.join(import.meta.dirname, 'serverWorker.js'), workerPath);
     const baseDir = import.meta.dirname.split('node_modules')[0];
     let worker = startWorker(type, workerPath);
