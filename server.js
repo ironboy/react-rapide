@@ -13,8 +13,8 @@ export default function createServer(type = 'dev') {
     fs.cpSync(path.join(import.meta.dirname, 'server2.js'), serverPath);
     nodemon({
       script: serverPath,
-      watch: serverFolderPath,
-      ext: '.js'
+      watch: [serverFolderPath],
+      ext: 'js'
     });
     setTimeout(() => console.log("FOLDER TO WATCH", serverFolderPath), 1000);
   } catch (e) { console.log(e); }
