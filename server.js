@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 import chokidar from 'chokidar';
 import {
@@ -11,11 +12,13 @@ export default async function createServer(type = 'dev') {
   try {
     const baseDir = import.meta.dirname.split('node_modules')[0];
     let worker = startWorker(type);
+    let watchFor = path.join(baseDir, '_react_rapide_done.txt');
     chokidar.watch(
-      path.join(baseDir, '_rapide_run.txt'),
+      watchFor,
       { ignoreInitial: true }
     ).on('all', (event) => {
-      if (event === 'unlink') {
+      if (event === 'add') {
+        fs.rmSync(watchFor);
         worker = startWorker(type);
       }
     });

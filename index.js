@@ -158,6 +158,9 @@ async function runCommand(command) {
     fs.writeFileSync(path.join(undoFolder, 'src', 'mainREAL.tsx'), oldMainContent, 'utf-8');
   }
 
+  // write a file that acts as a message to the server to restart
+  fs.writeFileSync(path.join(baseDir, '_react_rapide_done.txt'), 'done', 'utf-8');
+
   log(c.green(c.bold(postDo.message)));
   log('');
 
