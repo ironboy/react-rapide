@@ -82,7 +82,7 @@ async function createServer(type = 'dev') {
     if (type === 'preview') {
       let pathToDist = path.join(baseDir, 'dist');
       if (!fs.existsSync(pathToDist)) {
-        //process.stdout.write('\x1Bc'); // clear console
+        process.stdout.write('\x1Bc'); // clear console
         console.log('');
         console.log(c.bold('No dist folder found.'));
         console.log('  ' + c.green('➜ ') + 'Create it by running ' + c.green('npm run build') + '!');
@@ -99,7 +99,7 @@ async function createServer(type = 'dev') {
 
     // Start up the server
     app.listen(port, () => {
-      process.stdout.write('\x1Bc'); // clear console
+      // process.stdout.write('\x1Bc'); // clear console
       let timeTaken = Date.now() - startTime;
       type === 'dev' && console.log(
         c.green(c.bold('  VITE ') + 'v' + viteVersion)
