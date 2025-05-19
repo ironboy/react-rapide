@@ -8,10 +8,10 @@ else {
 let sleep = (ms: any) => new Promise(res => setTimeout(res, ms));
 (async function () {
   while (true) {
-    sleep(200);
+    sleep(1000);
     try {
-      let t = await (await fetch('/_react_rapide.txt')).text();
-      if (t === 'done') { location.reload(); }
+      let t = await (await fetch('/index.html')).text();
+      console.log(t);
     }
     catch (_e) { }
   }
