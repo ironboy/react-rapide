@@ -25,11 +25,15 @@ export default async function createServer(type = 'dev') {
     if (!removeBackendFolderInterval) {
       const removeMeFilePath = path.join(baseDir, 'backend', '__remove_me.txt');
       removeBackendFolderInterval = setInterval(() => {
-        // globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
-        // globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
+
         if (fs.existsSync(removeMeFilePath)) {
           fs.rmSync(removeMeFilePath);
-          console.log("OH YEAH!");
+          globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
+          globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
+          try {
+            fs.rmSync(path.join(baseDir, 'backend'), { recursive: true, force: true });
+          }
+          catch (_e) { }
         }
       }, 3000);
     }
