@@ -1,8 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import nodemon from 'nodemon';
+import { createServer as cServer } from './server2.js';
 
 export default function createServer(type = 'dev') {
+  if (type === 'preview') {
+    cServer('preview');
+    return;
+  }
   try {
     let rrFolder = import.meta.dirname;
     rrFolder = rrFolder.slice(0, rrFolder.lastIndexOf('temp'));
@@ -17,6 +22,5 @@ export default function createServer(type = 'dev') {
       watch: [serverFolderPath],
       ext: 'js',
     });
-    setTimeout(() => console.log("FOLDER TO WATCH", serverFolderPath), 1000);
   } catch (e) { console.log(e); }
 }
