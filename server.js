@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-// import chokidar from 'chokidar';
+import chokidar from 'chokidar';
 import {
   Worker,
   // isMainThread,
@@ -16,16 +16,16 @@ export default async function createServer(type = 'dev') {
     fs.copyFileSync(path.join(import.meta.dirname, 'serverWorker.js'), workerPath);
     const baseDir = import.meta.dirname.split('node_modules')[0];
     let worker = startWorker(type, workerPath);
-    let watchFor = path.join(baseDir, '_react_rapide_done.txt');
-    setInterval(() => {
-      if (fs.existsSync(watchFor)) {
-        fs.rmSync(watchFor);
-        let tellFrontend = path.join(baseDir, 'public', '_react_rapide.txt');
-        fs.writeFileSync(tellFrontend, 'done', 'utf-8');
-        setTimeout(() => fs.existsSync(tellFrontend) && fs.rmSync(tellFrontend), 3000);
+    let watchFor = path.join(baseDir, 'public', '_react_rapide.txt');
+    chokidar.watch(
+      watchFor,
+      { ignoreInitial: true }
+    ).on('all', (event) => {
+      if (event === 'add') {
+        setTimeout(() => fs.existsSync(tellFrontend) && fs.rmSync(watchFor), 3000);
         worker = startWorker(type, workerPath);
       }
-    }, 500);
+    });
   }
   catch (e) { console.log(e); }
 }
