@@ -8,10 +8,10 @@ else {
 let sleep = (ms: any) => new Promise(res => setTimeout(res, ms));
 (async function () {
   while (true) {
-    sleep(1000);
+    sleep(200);
     try {
       let t = await (await fetch('/index.html')).text();
-      console.log(t);
+      if (t.includes('/src/main')) { location.reload(); }
     }
     catch (_e) { }
   }
