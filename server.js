@@ -7,11 +7,12 @@ import {
   // workerData,
 } from 'worker_threads';
 
+const baseDir = import.meta.dirname.split('node_modules')[0];
 chokidar.watch(
-  path.join(import.meta.dirname, '_rapide_run.txt'),
+  path.join(baseDir, '_rapide_run.txt'),
   { ignoreInitial: true }
 ).on('all', (event, path) => {
-  console.log("YEAH");
+  console.log("YEAH", event, path);
 });
 
 export default async function createServer(type = 'dev') {
