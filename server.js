@@ -153,7 +153,7 @@ async function addBackend(app) {
       // globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
       let removeMeFilePath = path.join(baseDir, 'backend', '__remove_me.txt');
       fs.existsSync(removeMeFilePath) && fs.rmSync(removeMeFilePath);
-      setTimeout(() => console.log("OH YEAH!", _path), 1000);
+      setTimeout(() => console.log("OH YEAH!", _path), 5000);
     }
   });
   chokidarInitDone = true;
