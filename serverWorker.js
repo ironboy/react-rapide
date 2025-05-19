@@ -12,7 +12,7 @@ import chokidar from 'chokidar';
 import {
   // Worker,
   // isMainThread,
-  // parentPort,
+  parentPort,
   workerData
 } from 'worker_threads';
 
@@ -23,6 +23,9 @@ let chokidarTimeout;
 let oldBackendTemp;
 
 createServer(workerData);
+parentPort.on('message', mess => {
+  mess === 'exit' && process.exit();
+});
 
 async function createServer(type = 'dev') {
   try {
@@ -182,4 +185,4 @@ function addBasicMiddleware(app) {
     }
     else { next(); }
   });
-}
+};
