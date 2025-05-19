@@ -143,17 +143,17 @@ async function addBackend(app) {
   !chokidarInitDone && chokidar.watch(
     baseDir,
     { ignoreInitial: true }
-  ).on('all', (_event, path) => {
-    if (!path.replaceAll('\\', '/').includes('/backend')) { return; }
-    if (path.replaceAll('\\', '/').includes('/databases/')) { return; }
+  ).on('all', (_event, _path) => {
+    if (!_path.replaceAll('\\', '/').includes('/backend')) { return; }
+    if (_path.replaceAll('\\', '/').includes('/databases/')) { return; }
     clearTimeout(chokidarTimeout);
     chokidarTimeout = setTimeout(() => addBackend(app), 500);
-    if (path.includes('backend/__remove_me.txt')) {
+    if (_path.includes('backend/__remove_me.txt')) {
       // globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
       // globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
       let removeMeFilePath = path.join(baseDir, 'backend', '__remove_me.txt');
       fs.rmSync(removeMeFilePath);
-      setTimeout(() => console.log("OH YEAH!", path), 1000);
+      setTimeout(() => console.log("OH YEAH!", _path), 1000);
     }
   });
   chokidarInitDone = true;
