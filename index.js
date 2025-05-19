@@ -158,17 +158,22 @@ async function runCommand(command) {
     //fs.writeFileSync(path.join(undoFolder, 'src', 'mainREAL.tsx'), oldMainContent, 'utf-8');
   }
 
-  // write a file that acts as a message to the server to restart
-  fs.writeFileSync(path.join(baseDir, 'public', '_react_rapide.txt'), 'done', 'utf-8');
-
   log(c.green(c.bold(postDo.message)));
   log('');
+
+  // Make nodemon restart the dev server
+  let rrFolder = import.meta.dirname;
+  rrFolder = rrFolder.slice(0, rrFolder.lastIndexOf('temp'));
+  let serverPath = path.join(rrFolder, 'server', 'server2.js');
+  let sContent = fs.readFileSync(serverPath, 'utf-8');
+  fs.writeFileSync(serverPath, sContent, 'utf-8');
+
 
   // Because of problems seen in Windows with the Vite server caching public
   // (in some strange way - new images doesn't show etc...)
   // let us force a server restart by "touching" vite.config (rewrite it)
-  let content = fs.readFileSync(path.join(baseDir, 'vite.config.ts'), 'utf-8');
-  fs.writeFileSync(path.join(baseDir, 'vite.config.ts'), content, 'utf-8');
+  // let content = fs.readFileSync(path.join(baseDir, 'vite.config.ts'), 'utf-8');
+  // fs.writeFileSync(path.join(baseDir, 'vite.config.ts'), content, 'utf-8');
 
   // explicitely exit
   process.exit();
