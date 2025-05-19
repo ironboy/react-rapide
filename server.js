@@ -17,18 +17,15 @@ export default async function createServer(type = 'dev') {
     const baseDir = import.meta.dirname.split('node_modules')[0];
     let worker = startWorker(type, workerPath);
     let watchFor = path.join(baseDir, '_react_rapide_done.txt');
-    chokidar.watch(
-      watchFor,
-      { ignoreInitial: true, usePolling: true }
-    ).on('all', (event) => {
-      if (event === 'add') {
+    setInterval(() => {
+      if (fs.existsSync(watchFor)) {
         fs.rmSync(watchFor);
         let tellFrontend = path.join(baseDir, 'public', '_react_rapide.txt');
         fs.writeFileSync(tellFrontend, 'done', 'utf-8');
         setTimeout(() => fs.existsSync(tellFrontend) && fs.rmS(tellFrontend), 3000);
         worker = startWorker(type, workerPath);
       }
-    });
+    }, 500);
   }
   catch (e) { console.log(e); }
 }
