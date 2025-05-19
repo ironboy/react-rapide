@@ -8,7 +8,6 @@ import { execSync } from 'child_process';
 import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js';
 import autoGenerateRoutes from './auto-generate-routes.js';
 import createServer from './server.js';
-console.log(createServer + '');
 
 const log = (...x) => console.log(...x);
 const dirname = import.meta.dirname;
