@@ -117,7 +117,11 @@ async function addBackend(app) {
 
   // copy the whole backend to a temp folder - since we do not want cached imports
   if (fs.existsSync(backendFolder)) {
-    let tempFolder = path.join(import.meta.dirname, 'tempBackends', Date.now() + '');
+    let tempBackends = path.join(import.meta.dirname, '..', 'tempBackends');
+    if (!fs.existsSync(tempBackends)) {
+      fs.mkdirSync(tempBackends);
+    }
+    let tempFolder = path.join(tempBackends, Date.now() + '');
     fs.cpSync(backendFolder, tempFolder, { recursive: true });
 
     // remove the tempfolder db just to be sure noone connects to it by mistake!
