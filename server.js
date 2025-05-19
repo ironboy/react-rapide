@@ -1,3 +1,5 @@
 export default function createServer(type = 'dev') {
-  console.log(import.meta.dirname);
+  let rrFolder = import.meta.dirname;
+  rrFolder = rrFolder.slice(0, rrFolder.lastIndexOf('temp'));
+  console.log(rrFolder);
 }
