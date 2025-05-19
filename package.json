@@ -31,7 +31,8 @@
     "chokidar": "^4.0.3",
     "cli-select": "^1.1.2",
     "express": "^5.1.0",
-    "find-free-ports": "^3.1.1"
+    "find-free-ports": "^3.1.1",
+    "nodemon": "^3.1.10"
   },
   "engines": {
     "node": ">=20.11.0"
