@@ -158,7 +158,6 @@ async function runCommand(command) {
     fs.writeFileSync(path.join(undoFolder, 'src', 'mainREAL.tsx'), oldMainContent, 'utf-8');
   }
 
-  await sleep(1500);
   log(c.green(c.bold(postDo.message)));
   log('');
 
@@ -184,13 +183,11 @@ function replaceFolder(target, org, ...folderName) {
     folderName[0] === 'backend' && folderName.length === 1 &&
     !fs.existsSync(org) && fs.existsSync(target)
   ) {
-    // first close db connections if they exist
-    globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
-    globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
-    console.log('globalThis.openDbFromQueryMaker', globalThis.openDbFromQueryMaker);
-    console.log('globalThis.openDbFromSessionStore', globalThis.openDbFromSessionStore);
-    // remove backend folder if not needed
-    setTimeout(() => fs.rmSync(target, { recursive: true, force: true }), 1000);
+    // send signal to server to remove backend folder if not needed
+    // for later...
+    // the server (another process could close the db connections before doing this)
+    // globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
+    //  globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
   }
   if (!fs.existsSync(org)) { return; }
   !undo && fs.existsSync(target) && fs.cpSync(target, undoFolderTarget, file ? {} : { recursive: true });
