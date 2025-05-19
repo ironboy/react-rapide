@@ -143,6 +143,15 @@ async function runCommand(command) {
     fs.writeFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), mainRapide, 'utf-8');
     fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), mainRapide, 'utf-8');
     await sleep(2000);
+    // if now window is open in a browser call the same endpoint as
+    // mainRapide would have done...
+    for (let port = 5173; port <= 5193; port++) {
+      try {
+        fetch(`http://localhost:${port}/rapideSaysQuitNow`);
+      }
+      catch (_e) { }
+    }
+    await sleep(1000);
   }
 
   for (let folder of ((postDo.replace || {}).folders || [])) {
