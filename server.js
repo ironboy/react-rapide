@@ -23,7 +23,9 @@ export default async function createServer(type = 'dev') {
     ).on('all', (event) => {
       if (event === 'add') {
         fs.rmSync(watchFor);
-        fs.writeFileSync(path.join(baseDir, 'public', '_react_rapide.txt'), 'done', 'utf-8');
+        let tellFrontend = path.join(baseDir, 'public', '_react_rapide.txt');
+        fs.writeFileSync(tellFrontend, 'done', 'utf-8');
+        setTimeout(() => fs.existsSync(tellFrontend) && fs.rm(tellFrontend), 3000);
         worker = startWorker(type, workerPath);
       }
     });
