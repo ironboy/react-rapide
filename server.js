@@ -15,11 +15,24 @@ let chokidarInitDone = false;
 let baseDir;
 let chokidarTimeout;
 let oldBackendTemp;
+let removeBackendFolderInterval;
 
 export default async function createServer(type = 'dev') {
   try {
     const startTime = Date.now();
     baseDir = import.meta.dirname.split('node_modules')[0];
+
+    if (!removeBackendFolderInterval) {
+      const removeMeFilePath = path.join(baseDir, 'backend', '__remove_me.txt');
+      removeBackendFolderInterval = setInterval(() => {
+        // globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
+        // globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
+        if (fs.existsSync(removeMeFilePath)) {
+          fs.rmSync(removeMeFilePath);
+          console.log("OH YEAH!");
+        }
+      }, 3000);
+    }
 
     // Find free ports
     // (one for the server and one for
@@ -148,14 +161,6 @@ async function addBackend(app) {
     if (_path.replaceAll('\\', '/').includes('/databases/')) { return; }
     clearTimeout(chokidarTimeout);
     chokidarTimeout = setTimeout(() => addBackend(app), 500);
-    // globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
-    // globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
-    let removeMeFilePath = path.join(baseDir, 'backend', '__remove_me.txt');
-    console.log(removeMeFilePath, fs.existsSync(removeMeFilePath));
-    if (fs.existsSync(removeMeFilePath)) {
-      fs.rmSync(removeMeFilePath);
-      setTimeout(() => console.log("OH YEAH!", _path), 5000);
-    }
   });
   chokidarInitDone = true;
   app.router.stack.splice(Infinity, 0, ...stackCopy);
