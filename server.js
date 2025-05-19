@@ -31,10 +31,11 @@ export default async function createServer(type = 'dev') {
 }
 
 function startWorker(type, workerPath) {
-  console.log("HEY", workerPath);
   const worker = new Worker(workerPath, {
     workerData: type
   });
-  worker.on('exit', () => console.log('The worker has exited...'));
+  worker.on('exit', () => {
+    console.log('The worker has exited...');
+  });
   return worker;
 }
