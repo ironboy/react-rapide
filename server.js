@@ -10,8 +10,11 @@ import {
 
 export default async function createServer(type = 'dev') {
   try {
+    const workerPath = import.meta.dirname;
+    workerPath = workerPath.slice(0, workerPath.lastIndexOf('temp'));
+    fs.copyFileSync(path.join(import.meta.dirname, 'serverWorker.js'), workerPath);
     const baseDir = import.meta.dirname.split('node_modules')[0];
-    let worker = startWorker(type);
+    let worker = startWorker(type, workerPath);
     let watchFor = path.join(baseDir, '_react_rapide_done.txt');
     chokidar.watch(
       watchFor,
@@ -26,8 +29,7 @@ export default async function createServer(type = 'dev') {
   catch (e) { console.log(e); }
 }
 
-function startWorker(type) {
-  const workerPath = path.join(import.meta.dirname, 'serverWorker.js');
+function startWorker(type, workerPath) {
   console.log("HEY", workerPath);
   const worker = new Worker(workerPath, {
     workerData: type
