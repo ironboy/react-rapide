@@ -23,6 +23,7 @@ export default async function createServer(type = 'dev') {
     ).on('all', (event) => {
       if (event === 'add') {
         fs.rmSync(watchFor);
+        fs.writeFileSync(path.join(baseDir, 'public', '_react_rapide.txt'), 'done', 'utf-8');
         worker = startWorker(type, workerPath);
       }
     });
