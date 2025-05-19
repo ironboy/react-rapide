@@ -24,6 +24,7 @@ let oldBackendTemp;
 
 createServer(workerData);
 parentPort.on('message', mess => {
+  console.log("I EXIT NOW");
   mess === 'exit' && process.exit();
 });
 
