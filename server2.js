@@ -15,6 +15,7 @@ let oldBackendTemp;
 
 createServer('dev');
 console.log("WHY AM I RUNNING server2");
+throw new Error('hepp');
 process.exit();
 export async function createServer(type = 'dev') {
   try {
