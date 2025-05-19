@@ -22,7 +22,7 @@ let oldBackendTemp;
 
 createServer(workerData);
 
-async function createServer(type = 'dev') {
+export default async function createServer(type = 'dev') {
   try {
     const startTime = Date.now();
     baseDir = import.meta.dirname.split('node_modules')[0];
