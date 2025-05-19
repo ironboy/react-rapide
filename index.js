@@ -146,10 +146,7 @@ async function runCommand(command) {
     // if now window is open in a browser call the same endpoint as
     // mainRapide would have done...
     for (let port = 5173; port <= 5193; port++) {
-      try {
-        fetch(`http://localhost:${port}/rapideSaysQuitNow`);
-      }
-      catch (_e) { }
+      fetch(`http://localhost:${port}/rapideSaysQuitNow`).catch(_e => { });
     }
     await sleep(1000);
   }
