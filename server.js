@@ -10,7 +10,7 @@ import {
 export default async function createServer(type = 'dev') {
   try {
     const baseDir = import.meta.dirname.split('node_modules')[0];
-    let worker = startWorker();
+    let worker = startWorker(type);
     chokidar.watch(
       path.join(baseDir, '_rapide_run.txt'),
       { ignoreInitial: true }
@@ -19,14 +19,14 @@ export default async function createServer(type = 'dev') {
         worker.postMessage('exit');
       }
       if (event === 'unlink') {
-        worker = startWorker();
+        worker = startWorker(type);
       }
     });
   }
   catch (e) { console.log(e); }
 }
 
-function startWorker() {
+function startWorker(type) {
   const worker = new Worker(path.join(import.meta.dirname, 'serverWorker.js'), {
     workerData: type
   });
