@@ -29,7 +29,7 @@ export default async function createServer(type = 'dev') {
 function startWorker(type) {
   const workerPath = path.join(import.meta.dirname, 'serverWorker.js');
   console.log("HEY", workerPath);
-  const worker = new Worker(workerPath), {
+  const worker = new Worker(workerPath, {
     workerData: type
   });
   worker.on('exit', () => console.log('The worker has exited...'));
