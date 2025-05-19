@@ -14,7 +14,8 @@ let baseDir;
 let oldBackendTemp;
 
 createServer('dev');
-
+console.log("WHY AM I RUNNING server2");
+process.exit();
 export async function createServer(type = 'dev') {
   try {
     const startTime = Date.now();
