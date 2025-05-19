@@ -28,8 +28,14 @@ export default async function createServer(type = 'dev') {
 
         if (fs.existsSync(removeMeFilePath)) {
           fs.rmSync(removeMeFilePath);
-          globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
-          globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
+          try {
+            globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
+          }
+          catch (_e) { }
+          try {
+            globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
+          }
+          catch (_e) { }
           try {
             fs.rmSync(path.join(baseDir, 'backend'), { recursive: true, force: true });
           }
