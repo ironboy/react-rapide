@@ -191,7 +191,7 @@ function replaceFolder(target, org, ...folderName) {
   }
   if (!fs.existsSync(org)) { return; }
   !undo && fs.existsSync(target) && fs.cpSync(target, undoFolderTarget, file ? {} : { recursive: true });
-  !file && fs.existsSync(target) && fs.rmSync({ recursive: true, force: true });
+  !file && fs.existsSync(target) && fs.rmSync(target, { recursive: true, force: true });
   fs.cpSync(org, target, file ? { force: true } : { recursive: true });
   !undo && !file && log(c.bold('Replacing the ' + c.blue(folderName[folderName.length - 1]) + '-folder'));
   !undo && file && log(c.bold('Replacing the file ' + c.blue(folderName[folderName.length - 1])));
