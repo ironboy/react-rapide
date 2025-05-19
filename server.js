@@ -148,6 +148,11 @@ async function addBackend(app) {
     if (path.replaceAll('\\', '/').includes('/databases/')) { return; }
     clearTimeout(chokidarTimeout);
     chokidarTimeout = setTimeout(() => addBackend(app), 500);
+    if (path.includes('backend/__remove_me.txt')) {
+      // globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
+      // globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
+      console.log("OH YEAH!", path);
+    }
   });
   chokidarInitDone = true;
   app.router.stack.splice(Infinity, 0, ...stackCopy);
