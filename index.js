@@ -171,11 +171,13 @@ async function runCommand(command) {
   log('');
 
   // Make nodemon restart the dev server
-  let rrFolder = import.meta.dirname;
-  rrFolder = rrFolder.slice(0, rrFolder.lastIndexOf('temp'));
-  let serverPath = path.join(rrFolder, 'server', 'server2.js');
-  let sContent = fs.readFileSync(serverPath, 'utf-8');
-  fs.writeFileSync(serverPath, sContent, 'utf-8');
+  if (command === 'dev') {
+    let rrFolder = import.meta.dirname;
+    rrFolder = rrFolder.slice(0, rrFolder.lastIndexOf('temp'));
+    let serverPath = path.join(rrFolder, 'server', 'server2.js');
+    let sContent = fs.readFileSync(serverPath, 'utf-8');
+    fs.writeFileSync(serverPath, sContent, 'utf-8');
+  }
 
   // Because of problems seen in Windows with the Vite server caching public
   // (in some strange way - new images doesn't show etc...)
