@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import chokidar from 'chokidar';
+// import chokidar from 'chokidar';
 import {
   Worker,
   // isMainThread,
@@ -22,7 +22,7 @@ export default async function createServer(type = 'dev') {
         fs.rmSync(watchFor);
         let tellFrontend = path.join(baseDir, 'public', '_react_rapide.txt');
         fs.writeFileSync(tellFrontend, 'done', 'utf-8');
-        setTimeout(() => fs.existsSync(tellFrontend) && fs.rmS(tellFrontend), 3000);
+        setTimeout(() => fs.existsSync(tellFrontend) && fs.rmSync(tellFrontend), 3000);
         worker = startWorker(type, workerPath);
       }
     }, 500);
