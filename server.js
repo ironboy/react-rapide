@@ -13,7 +13,8 @@ export default function createServer(type = 'dev') {
     fs.cpSync(path.join(import.meta.dirname, 'server2.js'), serverPath);
     nodemon({
       script: serverPath,
-      watch: serverFolderPath
+      watch: serverFolderPath,
+      ext: '.js'
     });
   } catch (e) { console.log(e); }
 }
