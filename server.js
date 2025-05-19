@@ -17,7 +17,7 @@ export default async function createServer(type = 'dev') {
     const baseDir = import.meta.dirname.split('node_modules')[0];
     let worker = startWorker(type, workerPath);
     let watchFor = path.join(baseDir, '_react_rapide_done.txt');
-    chokidar.watch(
+    /*chokidar.watch(
       watchFor,
       { ignoreInitial: true }
     ).on('all', (event) => {
@@ -28,7 +28,7 @@ export default async function createServer(type = 'dev') {
         setTimeout(() => fs.existsSync(tellFrontend) && fs.rmSync(tellFrontend), 3000);
         worker = startWorker(type, workerPath);
       }
-    });
+    });*/
   }
   catch (e) { console.log(e); }
 }
