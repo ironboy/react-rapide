@@ -152,7 +152,7 @@ async function addBackend(app) {
       // globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
       // globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
       let removeMeFilePath = path.join(baseDir, 'backend', '__remove_me.txt');
-      fs.rmSync(removeMeFilePath);
+      fs.existsSync(removeMeFilePath) && fs.rmSync(removeMeFilePath);
       setTimeout(() => console.log("OH YEAH!", _path), 1000);
     }
   });
