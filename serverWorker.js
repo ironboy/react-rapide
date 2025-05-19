@@ -14,7 +14,7 @@ import {
   // isMainThread,
   // parentPort,
   workerData
-} from ('worker_threads');
+} from 'worker_threads';
 
 let currentServer;
 let chokidarInitDone = false;
