@@ -151,7 +151,9 @@ async function addBackend(app) {
     if (path.includes('backend/__remove_me.txt')) {
       // globalThis.openDbFromQueryMaker && globalThis.openDbFromQueryMaker.close();
       // globalThis.openDbFromSessionStore && globalThis.openDbFromSessionStore.close();
-      console.log("OH YEAH!", path);
+      let removeMeFilePath = path.join(baseDir, 'backend', '__remove_me.txt');
+      fs.rmSync(removeMeFilePath);
+      setTimeout(() => console.log("OH YEAH!", path), 1000);
     }
   });
   chokidarInitDone = true;
