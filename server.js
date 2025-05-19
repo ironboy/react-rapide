@@ -1,11 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import nodemon from 'nodemon';
-import { createServer as cServer } from './server2.js';
+import { createServer as cServer } from './server3.js';
 
 export default function createServer(type = 'dev') {
-  console.log("WHY AM I RUNNING?");
-  process.exit();
   if (type === 'preview') {
     cServer('preview');
     return;

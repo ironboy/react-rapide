@@ -13,8 +13,6 @@ let currentServer;
 let baseDir;
 let oldBackendTemp;
 
-createServer('dev');
-
 export async function createServer(type = 'dev') {
   try {
     const startTime = Date.now();

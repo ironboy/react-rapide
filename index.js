@@ -172,7 +172,6 @@ async function runCommand(command) {
   log('');
 
   // Make nodemon restart the dev server
-  console.log("COMMAND", command);
   if (command === 'dev') {
     let rrFolder = import.meta.dirname;
     rrFolder = rrFolder.slice(0, rrFolder.lastIndexOf('temp'));
