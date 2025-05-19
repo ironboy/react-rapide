@@ -8,25 +8,19 @@ import {
   version as viteVersion
 } from 'vite';
 import c from 'chalk';
-import chokidar from 'chokidar';
 import {
   // Worker,
   // isMainThread,
-  parentPort,
+  // parentPort,
   workerData
 } from 'worker_threads';
 
 let currentServer;
-let chokidarInitDone = false;
 let baseDir;
-let chokidarTimeout;
+let exit = false;
 let oldBackendTemp;
 
 createServer(workerData);
-parentPort.on('message', mess => {
-  console.log("I EXIT NOW");
-  mess === 'exit' && process.exit();
-});
 
 async function createServer(type = 'dev') {
   try {
@@ -47,6 +41,7 @@ async function createServer(type = 'dev') {
 
     // middleware if no other middleware
     app.use(function always(req, res, next) {
+      if (req.url === '/rapideSaysQuitNow') { process.exit(); }
       if (app.router.stack.length < 2) {
         if (req.url.includes('@') || req.url.includes('.')) {
           res.set('Content-Type', 'application/javascript');
@@ -151,17 +146,6 @@ async function addBackend(app) {
     backendDefaultFunc = (await import(backendToImport)).default;
     typeof backendDefaultFunc === 'function' && backendDefaultFunc(app);
   }
-  // use chokidar to watch for changes to the backend folder
-  !chokidarInitDone && chokidar.watch(
-    baseDir,
-    { ignoreInitial: true }
-  ).on('all', (_event, _path) => {
-    if (!_path.replaceAll('\\', '/').includes('/backend')) { return; }
-    if (_path.replaceAll('\\', '/').includes('/databases/')) { return; }
-    clearTimeout(chokidarTimeout);
-    chokidarTimeout = setTimeout(() => addBackend(app), 500);
-  });
-  chokidarInitDone = true;
   app.router.stack.splice(Infinity, 0, ...stackCopy);
 }
 

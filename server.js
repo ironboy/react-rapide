@@ -15,9 +15,6 @@ export default async function createServer(type = 'dev') {
       path.join(baseDir, '_rapide_run.txt'),
       { ignoreInitial: true }
     ).on('all', (event) => {
-      if (event === 'add') {
-        worker.postMessage('exit');
-      }
       if (event === 'unlink') {
         worker = startWorker(type);
       }
@@ -30,5 +27,6 @@ function startWorker(type) {
   const worker = new Worker(path.join(import.meta.dirname, 'serverWorker.js'), {
     workerData: type
   });
+  worker.on('exit', () => console.log('The worker has exited...'));
   return worker;
 }
