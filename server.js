@@ -23,7 +23,7 @@ export default async function createServer(type = 'dev') {
     ).on('all', (event) => {
       if (event === 'add') {
         fs.rmSync(watchFor);
-        worker = startWorker(type);
+        worker = startWorker(type, workerPath);
       }
     });
   }
