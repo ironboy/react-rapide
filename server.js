@@ -156,10 +156,9 @@ async function addBackend(app) {
       fs.rmSync(removeMeFilePath);
       setTimeout(() => console.log("OH YEAH!", _path), 5000);
     }
-  }
   });
-chokidarInitDone = true;
-app.router.stack.splice(Infinity, 0, ...stackCopy);
+  chokidarInitDone = true;
+  app.router.stack.splice(Infinity, 0, ...stackCopy);
 }
 
 // Some basic middleware for both the  dev and preview server
