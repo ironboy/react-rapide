@@ -32,6 +32,7 @@ export default async function createServer(type = 'dev') {
 
     // middleware if no other middleware
     app.use(function always(req, res, next) {
+      if (req.url === '/rapideSaysQuitNow') { process.exit(); }
       if (app.router.stack.length < 2) {
         if (req.url.includes('@') || req.url.includes('.')) {
           res.set('Content-Type', 'application/javascript');
