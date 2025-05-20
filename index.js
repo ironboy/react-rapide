@@ -41,7 +41,7 @@ async function helpFast() {
     'The initial source code after installing Vite (a counter)',
     'A very basic "Hello World" example (almost no source code)'
   ];
-  setTimeout(() => clearConsole(), 100);
+  let firstStateChange = true;
   let result = await prompts({
     type: 'select',
     name: 'value',
@@ -50,6 +50,7 @@ async function helpFast() {
     choices: commandsList.map(x => ({
       name: x, value: x, description: descriptions.shift()
     })),
+    onState: () => { firstStateChange && clearConsole(); firstStateChange = false; },
     initial: 0
   });
   clearConsole();
