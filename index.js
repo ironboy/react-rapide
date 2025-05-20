@@ -3,7 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import c from 'chalk';
 import url from 'url';
-import cliSelect from 'cli-select';
 import prompts from 'prompts';
 import { execSync } from 'child_process';
 import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js';
@@ -42,21 +41,6 @@ async function helpFast() {
     choices: commandsList,
     initial: 1
   });
-  //log(c.blue(c.bold(('Available commands:'))));
-  /*let result = await cliSelect({
-    values: commandsList,
-    valueRenderer: (value, selected) => {
-      if (selected) {
-        return c.bold(c.green(value));
-      }
-      return c.bold(value);
-    },
-    selected: '> ',
-    unselected: '  ',
-    defaultValue: 1
-  }).catch(_e => { });
-  */
-
   clearConsole();
   let { value } = result || {};
   value && runCommand(value);
@@ -102,7 +86,7 @@ async function autoRoutes() {
 }
 
 async function runCommand(command) {
-  // clearConsole();
+  clearConsole();
   let mainRapide = fs.readFileSync(path.join(dirname, './main-rapide.tsx'), 'utf-8');
   // log(c.green(c.bold(('REACT RAPIDE' + (command === 'helpFast' ? '' : ': ' + command)))));
   if (command === 'helpFast') { helpFast(); return; }
