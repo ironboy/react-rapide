@@ -41,7 +41,6 @@ async function helpFast() {
     message: c.bold('Available Commands:'),
     choices: commandsList.map(x => ({ name: x, value: x, description: 'Yo man' })),
     initial: 1
-
   });
   clearConsole();
   let { value } = result || {};
