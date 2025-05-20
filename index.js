@@ -38,7 +38,7 @@ async function helpFast() {
     type: 'select',
     name: 'value',
     message: c.bold(c.green('REACT RAPIDE') + ' - Available Commands:'),
-    choices: commandsList,
+    choices: commandsList.map(x => ({ name: x, value: x })),
     initial: 1
   });
   clearConsole();
