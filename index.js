@@ -88,7 +88,7 @@ async function autoRoutes() {
 async function runCommand(command) {
   clearConsole();
   let mainRapide = fs.readFileSync(path.join(dirname, './main-rapide.tsx'), 'utf-8');
-  // log(c.green(c.bold(('REACT RAPIDE' + (command === 'helpFast' ? '' : ': ' + command)))));
+  log(c.green(c.bold(('REACT RAPIDE' + (command === 'helpFast' ? '' : ': ' + command)))));
   if (command === 'helpFast') { helpFast(); return; }
   if (command === 'help') { await help(); return; }
   if (command === 'undo') { undo(); return; }
