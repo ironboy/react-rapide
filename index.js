@@ -34,13 +34,19 @@ async function helpFast() {
     'auto-routes',
     ...commands
   ];
+  let descriptions = [
+    'Show help about commands',
+    'Build a routes.ts file (when using decentralized routing)'
+  ];
   let result = await prompts({
     type: 'select',
     name: 'value',
-    hint: 'This is a hint',
+    hint: ' ',
     message: c.bold('Available Commands:'),
-    choices: commandsList.map(x => ({ name: x, value: x, description: 'Yo man' })),
-    initial: 1
+    choices: commandsList.map(x => ({
+      name: x, value: x, description: descriptions.shift()
+    })),
+    initial: 0
   });
   clearConsole();
   let { value } = result || {};
