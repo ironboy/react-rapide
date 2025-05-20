@@ -36,15 +36,15 @@ async function helpFast() {
   ];
   let descriptions = [
     'Show help about commands',
-    'Build a routes.ts file (when using decentralized routing)',
-    'The initial src code after installing Vite',
-    'An (almost) empty "Hello World" example'
+    'Build the src/routes.ts file (for use with decentralized routing)',
+    'The initial source code after installing Vite (a counter)',
+    'A very basic "Hello World" example (almost no source code)'
   ];
   let result = await prompts({
     type: 'select',
     name: 'value',
     hint: ' ',
-    message: c.bold('Available Commands:'),
+    message: ' ',
     choices: commandsList.map(x => ({
       name: x, value: x, description: descriptions.shift()
     })),
