@@ -142,6 +142,7 @@ async function runCommand(command) {
     mainContent = fs.readFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), 'utf-8');
     fs.writeFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), mainRapide, 'utf-8');
     fs.writeFileSync(path.join(baseDir, 'src', 'main.tsx'), mainRapide, 'utf-8');
+    process.exit();
     await sleep(2000);
     // if now window is open in a browser call the same endpoint as
     // mainRapide would have done...
