@@ -33,20 +33,14 @@ async function helpFast() {
   let commandsList = [
     '',
     'help',
-    'undo',
+    // 'undo', - turn off for now
     'auto-routes',
     ...commands
   ];
-  log('');
-  log(c.bold('Run any command by choosing it here'));
-  log(c.bold('or by typing ' + c.green('npm run rr') + c.blue(' command')));
-  // log('');
-  // log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
-  log('');
   let result = await prompts({
     type: 'select',
     name: 'value',
-    message: 'Availabel commands',
+    message: 'REACT RAPIDE - Available Commands:',
     choices: commandsList.map(x => ({ name: x, value: x })),
     initial: 1
   });
@@ -181,8 +175,10 @@ async function runCommand(command) {
   let rrFolder = import.meta.dirname;
   rrFolder = rrFolder.slice(0, rrFolder.lastIndexOf('temp'));
   let serverPath = path.join(rrFolder, 'server', 'server2.js');
-  let sContent = fs.readFileSync(serverPath, 'utf-8');
-  fs.writeFileSync(serverPath, sContent, 'utf-8');
+  if (fs.existsSync(serverPath)) {
+    let sContent = fs.readFileSync(serverPath, 'utf-8');
+    fs.writeFileSync(serverPath, sContent, 'utf-8');
+  }
 
   // Because of problems seen in Windows with the Vite server caching public
   // (in some strange way - new images doesn't show etc...)
