@@ -44,7 +44,7 @@ style.textContent = `
   }
 
   div.mTop {
-    padding-top: 18px;
+    padding-top: 12px;
   }
 `;
 
