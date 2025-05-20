@@ -8,6 +8,7 @@ import { execSync } from 'child_process';
 import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js';
 import autoGenerateRoutes from './auto-generate-routes.js';
 import createServer from './server.js';
+import { clear } from 'console';
 
 const log = (...x) => console.log(...x);
 const dirname = import.meta.dirname;
@@ -40,6 +41,7 @@ async function helpFast() {
     'The initial source code after installing Vite (a counter)',
     'A very basic "Hello World" example (almost no source code)'
   ];
+  setTimeout(() => clearConsole(), 100);
   let result = await prompts({
     type: 'select',
     name: 'value',
