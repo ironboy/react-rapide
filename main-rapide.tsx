@@ -50,7 +50,7 @@ document.querySelector('#root')!.innerHTML = `
   ${reactSvg}
   <div class="text">
     <div>Rapide<span class="dots"></div>
-    <div><b>Installing</b>[[command]]</<div>
+    <div><b>Installing</b> [[command]]</<div>
   </div>
 `;
 

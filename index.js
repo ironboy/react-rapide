@@ -101,7 +101,7 @@ async function autoRoutes() {
 async function runCommand(command) {
   clearConsole();
   let mainRapide = fs.readFileSync(path.join(dirname, './main-rapide.tsx'), 'utf-8');
-  mainRapide.replaceAll('[[command]]', command);
+  mainRapide = mainRapide.replaceAll('[[command]]', command);
   command !== 'helpFast' && log(c.green(c.bold(('REACT RAPIDE: ' + command))));
   if (command === 'helpFast') { helpFast(); return; }
   if (command === 'help') { await help(); return; }
