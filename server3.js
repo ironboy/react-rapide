@@ -13,7 +13,7 @@ let currentServer;
 let baseDir;
 let oldBackendTemp;
 
-// 2025-5-20
+// 2025-05-20
 // This is a pure copy of server2.js,
 // but without a call to createServer.
 // This is for the preview server.
