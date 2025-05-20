@@ -45,8 +45,8 @@ async function helpFast() {
   let result = await prompts({
     type: 'select',
     name: 'value',
-    hint: ' ',
-    message: ' ',
+    hint: 'Choose using arrow keys + ENTER',
+    message: c.bold(c.green('REACT-RAPIDE ') + 'Available Commands:'),
     choices: commandsList.map(x => ({
       name: x, value: x, description: descriptions.shift()
     })),
