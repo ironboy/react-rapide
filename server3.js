@@ -13,7 +13,22 @@ let currentServer;
 let baseDir;
 let oldBackendTemp;
 
-export async function createServer(type = 'dev') {
+// 2025-5-20
+// This is a pure copy of server2.js,
+// but without a call to createServer.
+// This is for the preview server.
+// Refactoring should be fairly simple.
+// But keep in mind that files are deleted directly
+// after being run for code in the app branch
+// but code in the main branch...
+// So server2.js is copied to keep the file
+// existant and available for nodemon
+// If we want to refactor so that server2.js
+// imports from server3.js, then server3.js needs
+// to be copied too...
+// Not superimportant right now.
+
+export async function createServer(type = 'preview') {
   try {
     const startTime = Date.now();
     baseDir = import.meta.dirname.split('node_modules')[0];
