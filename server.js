@@ -9,6 +9,11 @@ export default function createServer(type = 'dev') {
     return;
   }
   try {
+    /// backendFolderPath - the backend folder in the project
+    //  serverFolderPath - a temp folder with a copy of the scripts that start the backend
+    let baseFolder = import.meta.dirname;
+    baseFolder = baseFolder.slice(0, baseFolder.lastIndexOf('node_modules'));
+    let backendFolderPath = path.join(baseFolder, 'backend');
     let rrFolder = import.meta.dirname;
     rrFolder = rrFolder.slice(0, rrFolder.lastIndexOf('temp'));
     let serverFolderPath = path.join(rrFolder, 'server');
@@ -19,8 +24,8 @@ export default function createServer(type = 'dev') {
     nodemon({
       ignoreRoot: [],
       script: serverPath,
-      watch: [serverFolderPath],
-      ext: 'js',
+      watch: [serverFolderPath, backendFolderPath],
+      ext: 'js, json'
     });
   } catch (e) { console.log(e); }
 }
