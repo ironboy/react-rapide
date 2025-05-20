@@ -24,7 +24,6 @@ const defaultPostDo = {
   message: 'All done!'
 };
 
-log('');
 await runCommand(arg).catch(_e => { });
 log('');
 
