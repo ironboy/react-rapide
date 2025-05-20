@@ -42,6 +42,10 @@ style.textContent = `
     top: 20px;
     left: 50px;
   }
+
+  div.mTop {
+    margin-top: 8px;
+  }
 `;
 
 document.querySelector('head')!.append(style);
@@ -50,7 +54,7 @@ document.querySelector('#root')!.innerHTML = `
   ${reactSvg}
   <div class="text">
     <div>Rapide<span class="dots"></div>
-    <div><b>Installing</b> [[command]]</<div>
+    <div style="mTop"><b>Installing</b> [[command]]</<div>
   </div>
 `;
 
