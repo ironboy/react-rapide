@@ -31,17 +31,16 @@ log('');
 async function helpFast() {
   ;
   let commandsList = [
-    '',
     'help',
-    // 'undo', - turn off for now
+    // 'undo', - turn off for now (not working with backend folder)
     'auto-routes',
     ...commands
   ];
   let result = await prompts({
     type: 'select',
     name: 'value',
-    message: c.green('REACT RAPIDE - Available Commands:'),
-    choices: commandsList.map(x => ({ name: x, value: x })),
+    message: 'REACT RAPIDE - Available Commands:',
+    choices: commandsList
     initial: 1
   });
   //log(c.blue(c.bold(('Available commands:'))));
