@@ -39,7 +39,7 @@ async function helpFast() {
   let result = await prompts({
     type: 'select',
     name: 'value',
-    message: 'REACT RAPIDE - Available Commands:',
+    message: c.bold(c.green('REACT RAPIDE') + ' - Available Commands:'),
     choices: commandsList,
     initial: 1
   });
