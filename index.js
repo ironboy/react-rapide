@@ -36,7 +36,7 @@ async function helpFast() {
     ...commands
   ];
   let descriptions = [
-    'Show help about commands',
+    'Show help about React Rapide (a scaffolding & learning by example system)',
     'Build the src/routes.ts file (for use with decentralized routing)',
     'The initial source code after installing Vite (a counter)',
     'A very basic "Hello World" example (almost no source code)'
@@ -46,7 +46,7 @@ async function helpFast() {
     type: 'select',
     name: 'value',
     hint: 'Choose using arrow keys + ENTER',
-    message: c.bold(c.green('REACT-RAPIDE ') + 'Available Commands:'),
+    message: c.bold(c.green('REACT-RAPIDE ') + 'Available Commands:' + '\nTest a new line'),
     choices: commandsList.map(x => ({
       name: x, value: x, description: descriptions.shift()
     })),
