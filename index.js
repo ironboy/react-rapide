@@ -37,7 +37,7 @@ async function helpFast() {
   let result = await prompts({
     type: 'select',
     name: 'value',
-    hint: '',
+    hint: 'This is a hint',
     message: c.bold('Available Commands:'),
     choices: commandsList.map(x => ({ name: x, value: x, description: 'Yo man' })),
     initial: 1
