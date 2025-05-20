@@ -47,7 +47,7 @@ async function helpFast() {
     name: 'value',
     hint: ' ',
     message: c.bold(c.green('REACT-RAPIDE ')
-      + '\nScaffolding and learning by examples for Vite+React+TS'),
+      + '\n  Scaffolding & Learning by Examples for Vite+React+TS'),
     choices: commandsList.map(x => ({
       name: x, value: x, description: descriptions.shift() || 'Install example'
     })),
