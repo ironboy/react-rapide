@@ -36,7 +36,9 @@ async function helpFast() {
   ];
   let descriptions = [
     'Show help about commands',
-    'Build a routes.ts file (when using decentralized routing)'
+    'Build a routes.ts file (when using decentralized routing)',
+    'The initial src code after installing Vite',
+    'An (almost) empty "Hello World" example'
   ];
   let result = await prompts({
     type: 'select',
