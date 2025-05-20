@@ -20,7 +20,9 @@ export default function createServer(type = 'dev') {
     fs.rmSync(serverFolderPath, { recursive: true, force: true });
     fs.mkdirSync(serverFolderPath);
     let serverPath = path.join(rrFolder, 'server', 'server2.js');
+    let serverPath2 = path.join(rrFolder, 'server', 'server3.js');
     fs.cpSync(path.join(import.meta.dirname, 'server2.js'), serverPath);
+    fs.cpSync(path.join(import.meta.dirname, 'server3.js'), serverPath2);
     nodemon({
       ignoreRoot: [],
       script: serverPath,
