@@ -4,6 +4,7 @@ import path from 'path';
 import c from 'chalk';
 import url from 'url';
 import cliSelect from 'cli-select';
+import prompts from 'prompts';
 import { execSync } from 'child_process';
 import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js';
 import autoGenerateRoutes from './auto-generate-routes.js';
@@ -39,11 +40,18 @@ async function helpFast() {
   log('');
   log(c.bold('Run any command by choosing it here'));
   log(c.bold('or by typing ' + c.green('npm run rr') + c.blue(' command')));
+  // log('');
+  // log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
   log('');
-  log(c.bold(c.green('For more info see the help: ') + 'npm run rr help'));
-  log('');
-  log(c.blue(c.bold(('Available commands:'))));
-  let result = await cliSelect({
+  let result = await prompts({
+    type: 'select',
+    name: 'value',
+    message: 'Availabel commands',
+    choices: commandsList.map(x => ({ name: x, value: x })),
+    initial: 1
+  });
+  //log(c.blue(c.bold(('Available commands:'))));
+  /*let result = await cliSelect({
     values: commandsList,
     valueRenderer: (value, selected) => {
       if (selected) {
@@ -55,6 +63,8 @@ async function helpFast() {
     unselected: '  ',
     defaultValue: 1
   }).catch(_e => { });
+  */
+
   clearConsole();
   let { value } = result || {};
   value && runCommand(value);
