@@ -9,6 +9,17 @@ import {
 } from 'vite';
 import c from 'chalk';
 
+// 2025-05-20:
+// Note on the fact that the backend code is copied to a temp folder:
+// There was a previous version using Chokidar
+// to detect changes to the backend folder and run addBackend again
+// This is the reason for the backend being copied to a temp folder
+// Since imports are cached this is a workaround - new paths, new imports.
+// So the idea was to hot reload the server code on changes in backend
+// This was removed when nodemon and a complete server shutdown
+// was deemed necessary for react-rapide cleanups between examples.
+// We might reintroduce it but not super important right now...
+
 let currentServer;
 let baseDir;
 let oldBackendTemp;
