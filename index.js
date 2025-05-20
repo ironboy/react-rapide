@@ -40,7 +40,7 @@ async function helpFast() {
     type: 'select',
     name: 'value',
     message: 'REACT RAPIDE - Available Commands:',
-    choices: commandsList
+    choices: commandsList,
     initial: 1
   });
   //log(c.blue(c.bold(('Available commands:'))));
