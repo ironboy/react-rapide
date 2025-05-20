@@ -200,6 +200,13 @@ function replaceFolder(target, org, ...folderName) {
     // remove backend folder if not needed
     fs.rmSync(target, { recursive: true, force: true });
   }
+  if (
+    folderName[0] === 'sass' && folderName.length === 1 &&
+    !fs.existsSync(org) && fs.existsSync(target)
+  ) {
+    // remove sass folder if not needed
+    fs.rmSync(target, { recursive: true, force: true });
+  }
   if (!fs.existsSync(org)) { return; }
   !undo && fs.existsSync(target) && fs.cpSync(target, undoFolderTarget, file ? {} : { recursive: true });
   fs.existsSync(target) && fs.rmSync(target, file ? {} : { recursive: true, force: true });
