@@ -126,38 +126,28 @@ async function addBackend(app) {
     fs.rmSync(oldBackendTemp, { recursive: true, force: true });
   }
 
-  // copy the whole backend to a temp folder - since we do not want cached imports
+  // set a global variable used by the backend
+  // might not be necessary anymore since this was when we copied the backend code
+  // but kept for legacy reasons -  since used by the backend!
   if (fs.existsSync(backendFolder)) {
-    let tempBackends = path.join(import.meta.dirname, '..', 'tempBackends');
-    if (!fs.existsSync(tempBackends)) {
-      fs.mkdirSync(tempBackends);
-    }
-    let tempFolder = path.join(tempBackends, Date.now() + '');
-    fs.cpSync(backendFolder, tempFolder, { recursive: true });
-
-    // remove the tempfolder db just to be sure noone connects to it by mistake!
-    fs.rmSync(path.join(tempFolder, 'databases'), { recursive: true, force: true });
-
     globalThis.orgBackendFolder = backendFolder;
-    backendFolder = tempFolder;
-    oldBackendTemp = tempFolder;
   }
 
   const pathToBackend = path.join(backendFolder, 'index.js');
   const backendToImport = url.pathToFileURL(pathToBackend);
   let backendDefaultFunc;
-  let stackCopy = [...app.router.stack];
-  let middleWareIndex = stackCopy.findIndex(({ name }) => name === 'basicMiddleware');
-  if (middleWareIndex >= 0) { stackCopy = stackCopy.slice(middleWareIndex); }
-  app.router.stack.splice(1, Infinity);
+
+  // add the backend (that in turn will add middleware and routes)
   if (fs.existsSync(pathToBackend)) {
     backendDefaultFunc = (await import(backendToImport)).default;
     typeof backendDefaultFunc === 'function' && backendDefaultFunc(app);
   }
-  app.router.stack.splice(Infinity, 0, ...stackCopy);
 }
 
 // Some basic middleware for both the  dev and preview server
+// note - the routes me not work if we have a real backend added
+// (since it might catch all api-routes and have its own cactch alL)
+// so mostly here for examples with no real backend
 function addBasicMiddleware(app) {
   app.use(function basicMiddleware(req, res, next) {
     if (req.url.startsWith('/api/')) {
