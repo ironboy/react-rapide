@@ -173,7 +173,7 @@ async function runCommand(command) {
   let serverPath = path.join(rrFolder, 'server', 'server2.js');
   if (fs.existsSync(serverPath)) {
     let sContent = fs.readFileSync(serverPath, 'utf-8');
-    //fs.writeFileSync(serverPath, sContent, 'utf-8');
+    fs.writeFileSync(serverPath, sContent, 'utf-8');
   }
 
   // Because of problems seen in Windows with the Vite server caching public
