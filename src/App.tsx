@@ -20,8 +20,9 @@ export default function App() {
   return <>
     <h1>Animals I like...</h1>
     <p>
-      <strong>Note: </strong>
-      Now we have three components in our app: App, Animal and SpeciesPhoto.
+      <b>Note: </b><br />
+      Now we have 3 components in our React app:<br />
+      <i>App</i>, <i>Animal</i> and <i>SpeciesPhoto</i>.
     </p>
     {animals
       .filter(({ species }) => species !== 'snake')
