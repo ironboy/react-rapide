@@ -1,6 +1,6 @@
+import useFetchJsonArray from './utils/useFetchJsonArray';
 import Animal from './Animal';
 import Note from './Note';
-import animalsJson from './json/animals.json';
 
 export interface AnimalData {
   species: string;
@@ -9,12 +9,12 @@ export interface AnimalData {
 
 export default function App() {
 
-  // Use the data from the json file
-  const animals: AnimalData[] = animalsJson;
+  // Fetch the animlas from a url returning json
+  let animals = useFetchJsonArray<AnimalData>('/json/animals.json');
 
   // Se what happens if you comment out the line with filter
   //  and/or the line with sort below!
-  return <>
+  return !animals.length ? null : <>
     <h1>Animals I like...</h1>
     <Note />
     {animals
