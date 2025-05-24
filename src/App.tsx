@@ -1,4 +1,5 @@
 import Animal from './Animal';
+import Note from './Note';
 
 export interface AnimalData {
   species: string,
@@ -19,11 +20,7 @@ export default function App() {
   //  and/or the line with sort below!
   return <>
     <h1>Animals I like...</h1>
-    <p>
-      <b>Note: </b><br />
-      Now we have 3 components in our React app:<br />
-      <i>App</i>, <i>Animal</i> and <i>SpeciesPhoto</i>.
-    </p>
+    <Note />
     {animals
       .filter(({ species }) => species !== 'snake')
       .sort((a, b) => a.species > b.species ? 1 : -1)

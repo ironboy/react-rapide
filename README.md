@@ -1,1 +1,1 @@
-A second example of how to use the array methods filter, sort and map.
+An example of how to divide your app into components
