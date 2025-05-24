@@ -1,1 +1,1 @@
-An example of how to load data from a json file.
+An example of how to load data from a json url using fetch.
