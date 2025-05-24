@@ -1,1 +1,1 @@
-An example of how to divide your app into components
+An example of how to divide your app into components.
