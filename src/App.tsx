@@ -1,7 +1,14 @@
+import Animal from './Animal';
+
+export interface AnimalData {
+  species: string,
+  description: string;
+}
+
 export default function App() {
 
   // An array of objects is a very common data structure
-  const animals = [
+  const animals: AnimalData[] = [
     { species: 'rabbit', description: 'fluffy' },
     { species: 'snake', description: 'smart' },
     { species: 'dog', description: 'loyal' },
@@ -12,16 +19,14 @@ export default function App() {
   //  and/or the line with sort below!
   return <>
     <h1>Animals I like...</h1>
+    <p>
+      <strong>Note: </strong>
+      Now we have three components in our app: App, Animal and SpeciesPhoto.
+    </p>
     {animals
       .filter(({ species }) => species !== 'snake')
       .sort((a, b) => a.species > b.species ? 1 : -1)
-      .map(({ species, description }, i) => <section key={i}>
-        <img
-          src={'/images/' + species + 's.jpg'}
-          alt={'A photo of ' + species + 's.'}
-        />
-        <h2>{species.slice(0, 1).toUpperCase() + species.slice(1)}s</h2>
-        <p>I like {species}s. They are so {description}!</p>
-      </section>)}
+      .map((props, i) => <Animal key={i} {...props} />)
+    }
   </>;
 }
