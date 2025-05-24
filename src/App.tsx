@@ -1,4 +1,4 @@
-import useFetchJsonArray from './utils/useFetchJsonArray';
+import useFetchJsonArray from './utils/useFetchJson';
 import Animal from './Animal';
 import Note from './Note';
 
@@ -10,11 +10,11 @@ export interface AnimalData {
 export default function App() {
 
   // Fetch the animlas from a url returning json
-  let animals = useFetchJsonArray<AnimalData>('/json/animals.json');
+  let animals = useFetchJsonArray<AnimalData[]>('/json/animals.json');
 
   // Se what happens if you comment out the line with filter
   //  and/or the line with sort below!
-  return !animals.length ? null : <>
+  return animals && <>
     <h1>Animals I like...</h1>
     <Note />
     {animals

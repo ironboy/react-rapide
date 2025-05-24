@@ -6,12 +6,12 @@ interface InProgress {
 
 const inProgress: InProgress = {};
 
-export default function useFetchJsonArray<DataType>(url: string) {
-  let [fetchedArray, setFetchedArray] = useState<DataType[]>([]);
+export default function useFetchJson<DataType>(url: string, options = {}) {
+  let [fetchedArray, setFetchedArray] = useState<DataType>();
   useEffect(() => {
     (async () => {
       if (!inProgress[url]) {
-        inProgress[url] = fetch(url).then(url => url.json());
+        inProgress[url] = fetch(url, options).then(url => url.json());
       }
       setFetchedArray(await inProgress[url]);
       delete inProgress[url];
