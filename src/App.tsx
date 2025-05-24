@@ -1,5 +1,6 @@
 import Animal from './Animal';
 import Note from './Note';
+import animalsJson from './json/animals.json';
 
 export interface AnimalData {
   species: string;
@@ -8,13 +9,8 @@ export interface AnimalData {
 
 export default function App() {
 
-  // An array of objects is a very common data structure
-  const animals: AnimalData[] = [
-    { species: 'rabbit', description: 'fluffy' },
-    { species: 'snake', description: 'smart' },
-    { species: 'dog', description: 'loyal' },
-    { species: 'cat', description: 'cheeky' }
-  ];
+  // Use the data from the json file
+  const animals: AnimalData[] = animalsJson;
 
   // Se what happens if you comment out the line with filter
   //  and/or the line with sort below!
