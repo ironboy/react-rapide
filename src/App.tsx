@@ -2,7 +2,7 @@ import Animal from './Animal';
 import Note from './Note';
 
 export interface AnimalData {
-  species: string,
+  species: string;
   description: string;
 }
 
