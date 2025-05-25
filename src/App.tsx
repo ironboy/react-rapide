@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useFetchJsonArray from './utils/useFetchJson';
 import Animal from './Animal';
 import Select from './Select';
@@ -14,6 +14,18 @@ export default function App() {
   // State variables
   const [filterCategory, setFilterCategory] = useState('All');
   const [sortOrder, setSortOrder] = useState('a-z');
+
+  useEffect(() => {
+    function mouseOverAnimal(e: Event) {
+      let target = e.target as HTMLElement;
+      if (!target.closest('section')) { return; }
+      target.style.display = 'none';
+    }
+    document.body.addEventListener('onmouseover', mouseOverAnimal);
+    return () => {
+
+    };
+  }, []);
 
   // Fetch the animals from an url returning json
   const animals = useFetchJsonArray<AnimalData[]>('/json/animals.json');
