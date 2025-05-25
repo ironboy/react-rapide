@@ -66,6 +66,7 @@ label {
   span {
     display: inline-block;
     min-width: 100px;
+    font-weight: bold;
   }
 
   select {
