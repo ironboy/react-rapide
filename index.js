@@ -250,6 +250,7 @@ function patchPackage(target, org, patch) {
     pTargetJson[type] = pTargetJson[type] || {};
     let toAdd = patch[type];
     for (let key in toAdd) {
+      console.log("TEMP DEBUG", key);
       anythingChanged = true;
       pTargetJson[type][key] = toAdd[key];
       let mess = c.bold('npm install ');
