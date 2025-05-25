@@ -234,6 +234,10 @@ function patchPackage(target, org, patch) {
       let td = pTargetJson[type] = pTargetJson[type] || {};
       let od = pOrgJson[type] = pOrgJson[type] || {};
       for (let key in od) {
+
+        // Do not add find-free-ports (it is part of react-rapide already)
+        if (key.includes('find-free-ports')) { continue; }
+
         if (!td[key]) {
           // non-existant
           patch[type][key] = od[key];
@@ -250,7 +254,6 @@ function patchPackage(target, org, patch) {
     pTargetJson[type] = pTargetJson[type] || {};
     let toAdd = patch[type];
     for (let key in toAdd) {
-      console.log("TEMP DEBUG", key);
       anythingChanged = true;
       pTargetJson[type][key] = toAdd[key];
       let mess = c.bold('npm install ');
