@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useFetchJsonArray from './utils/useFetchJson';
 import Animal from './Animal';
+import Select from './Select';
 
 export interface AnimalData {
   species: string;
@@ -18,23 +19,24 @@ export default function App() {
   const animals = useFetchJsonArray<AnimalData[]>('/json/animals.json');
 
   return animals && <>
-    <h1>Animals I like...</h1>
-    <label>
-      <select onChange={e => setFilterCategory(e.target.value)}>
-        {['All', 'Mammals', 'Reptilia'].map(x => <option>{x}</option>)}
-      </select>
-    </label>
-    <label>
-      <select onChange={e => setSortOrder(e.target.value)}>
-        {['a-z', 'z-a'].map(x => <option>{x}</option>)}
-      </select>
-    </label>
-    {animals
-      .filter(({ category }) =>
-        filterCategory === 'All' || category === filterCategory)
-      .sort((a, b) => (sortOrder === 'a-z' ? 1 : -1)
-        * (a.species > b.species ? 1 : -1))
-      .map((props, i) => <Animal key={i} {...props} />)
+    <h1>Animals</h1>
+    <Select {...{
+      label: 'Category',
+      values: ['All', 'Mammals', 'Reptilia'],
+      setter: setFilterCategory
+    }} />
+    <Select {...{
+      label: 'Sort',
+      values: ['a-z', 'z-a'],
+      setter: setSortOrder
+    }} />
+    {
+      animals
+        .filter(({ category }) =>
+          filterCategory === 'All' || category === filterCategory)
+        .sort((a, b) => (sortOrder === 'a-z' ? 1 : -1)
+          * (a.species > b.species ? 1 : -1))
+        .map((props, i) => <Animal key={i} {...props} />)
     }
   </>;
 }
