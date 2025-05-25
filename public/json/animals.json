@@ -1,18 +1,22 @@
 [
   {
     "species": "rabbit",
-    "description": "fluffy"
+    "description": "fluffy",
+    "category": "Mammals"
   },
   {
     "species": "snake",
-    "description": "smart"
+    "description": "smart",
+    "category": "Reptilia"
   },
   {
     "species": "dog",
-    "description": "loyal"
+    "description": "loyal",
+    "category": "Mammals"
   },
   {
     "species": "cat",
-    "description": "cheeky"
+    "description": "cheeky",
+    "category": "Mammals"
   }
 ]
