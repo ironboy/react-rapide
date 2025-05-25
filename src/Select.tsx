@@ -5,7 +5,7 @@ export default function Select(
   return <label>
     <span>{label}:</span>
     <select onChange={e => setter(e.target.value)}>
-      {values.map(x => <option>{x}</option>)}
+      {values.map((x, i) => <option key={i}>{x}</option>)}
     </select>
   </label>;
 };
