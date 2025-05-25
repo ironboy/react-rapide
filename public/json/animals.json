@@ -18,5 +18,10 @@
     "species": "cat",
     "description": "cheeky",
     "category": "Mammals"
+  },
+  {
+    "species": "frog",
+    "description": "jumpy",
+    "category": "Reptilia"
   }
 ]
