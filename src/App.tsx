@@ -9,7 +9,7 @@ export interface AnimalData {
 
 export default function App() {
 
-  // Fetch the animlas from an url returning json
+  // Fetch the animals from an url returning json
   const animals = useFetchJsonArray<AnimalData[]>('/json/animals.json');
 
   // Se what happens if you comment out the line with filter
