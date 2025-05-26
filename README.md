@@ -1,1 +1,1 @@
-Creates an almost empty src folder. (Removes the counter example installed by Vite.)
+An example of using the hooks useState and useEffect.

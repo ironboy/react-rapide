@@ -8,6 +8,31 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  margin: 20px;
+/* Button */
+button {
+  position: absolute;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* Digital Clock */
+.digital-clock {
+  height: 45vh;
+  padding-top: 45vh;
+  text-align: center;
+
+  span {
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px 20px;
+    font-size: 50px;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    display: inline-block;
+  }
 }
