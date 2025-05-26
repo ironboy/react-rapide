@@ -17,6 +17,8 @@ button {
   font-size: 20px;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   border-radius: 20px;
+  width: 150px;
+  text-align: center;
   cursor: pointer;
 }
 
