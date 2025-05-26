@@ -17,11 +17,11 @@ export default function App() {
 
   useEffect(() => {
     function mouseOverAnimal(e: Event) {
-      let target = e.target as HTMLElement;
-      if (!target.closest('section')) { return; }
-      target.style.display = 'none';
+      const section = (e.target as HTMLElement).closest('section');
+      if (!section) { return; }
+      section.classList.add('hepp');
     }
-    document.body.addEventListener('onmouseover', mouseOverAnimal);
+    document.body.addEventListener('mouseover', mouseOverAnimal);
     return () => {
 
     };
