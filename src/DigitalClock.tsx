@@ -13,7 +13,8 @@ export default function DigitalClock() {
       setTime(new Date().toLocaleTimeString('no-NO'));
     }, 1000);
     // Important: Clean up after yourself
-    // The function we return will run when the component unmoints
+    // The function we return will run
+    // when the component unmounts - is removed from the DOM
     return () => clearInterval(interval);
   }, []);
 
