@@ -14,7 +14,7 @@ export default function DigitalClock() {
     }, 1000);
     // Important: Clean up after yourself
     // The function we return will run
-    // when the component unmounts - is removed from the DOM
+    // when the component unmounts, i.e. is removed from the DOM
     return () => clearInterval(interval);
   }, []);
 
