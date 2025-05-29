@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import clockAnimation from './utils/clockAnimation';
 
-
 export default function AnalogClock() {
 
   const canvasRef = useRef(null);
