@@ -1,4 +1,4 @@
-import { AnalogClockProps, AnalogSettingsProps }
+import type { AnalogClockProps, AnalogSettingsProps }
   from "./interfaces/AnalogClock";
 
 function niceLabel(x: string) {
