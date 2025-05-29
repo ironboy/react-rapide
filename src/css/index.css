@@ -1,3 +1,5 @@
+@import 'analog-clock.css';
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -11,6 +13,7 @@
 /* Button */
 button {
   position: absolute;
+  z-index: 1;
   padding: 10px 20px;
   background-color: black;
   color: white;
@@ -20,6 +23,10 @@ button {
   width: 150px;
   text-align: center;
   cursor: pointer;
+}
+
+button:nth-child(2) {
+  left: 170px;
 }
 
 /* Digital Clock */

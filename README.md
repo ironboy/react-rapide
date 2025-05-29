@@ -1,1 +1,1 @@
-An example of using the hooks useState and useEffect.
+An example of using the hooks useState, useEffect and useRef.
