@@ -9,7 +9,7 @@ export default function AnalogClock() {
     const requestAnimationFrameHolder =
       clockAnimation({ canvas: canvasRef.current });
     return () => cancelAnimationFrame(requestAnimationFrameHolder.latest);
-  });
+  }, []);
 
   return <div className="clock-container-outer">
     <div className="clock-container">

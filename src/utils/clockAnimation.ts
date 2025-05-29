@@ -11,7 +11,7 @@ export default function clockAnimation({
   borderColor = '#800000',
   lineColor = '#000000',
   largeColor = '#800000',
-  secondColor = '#ff7f50',
+  secondColor = '#ff7f50'
 }) {
   const now = new Date();
   const context = (canvas as never as HTMLCanvasElement)
