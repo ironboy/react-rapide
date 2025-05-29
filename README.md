@@ -1,1 +1,1 @@
-An example of using the hooks useState, useEffect and useRef.
+Building on previous clock examples. TS interfaces and settings.
