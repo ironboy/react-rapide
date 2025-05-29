@@ -29,6 +29,10 @@ button:nth-child(2) {
   left: 170px;
 }
 
+button.clock-settings {
+  top: 70px;
+}
+
 /* Digital Clock */
 .digital-clock {
   height: 45vh;

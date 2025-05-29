@@ -38,3 +38,31 @@ button {
   background-color: #f4f4f4;
   position: relative;
 }
+
+.analog-settings {
+  position: absolute;
+  z-index: 2;
+  top: 60px;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: #eee;
+
+  label span {
+    display: inline-block;
+    width: 120px;
+  }
+
+  div {
+    margin: 5px 0;
+  }
+
+  .close-analog-settings {
+    margin: 15px 0 0;
+    text-align: center;
+    border-radius: 20px;
+    padding: 5px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+  }
+}

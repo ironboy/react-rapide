@@ -2,20 +2,17 @@
 // https://github.com/thegirlcoderr/animated-clock
 // (slightly modified from JS to TS and with sweeping seconds)
 
+import type { AnalogClockAnimationArgs } from "../interfaces/AnalogClock";
 
 const requestAnimationFrameHolder = { latest: 0 };
 
 export default function clockAnimation({
-  canvas = null,
-  faceColor = '#f4f4f4',
-  borderColor = '#800000',
-  lineColor = '#000000',
-  largeColor = '#800000',
-  secondColor = '#ff7f50',
-}) {
+  canvas, faceColor, borderColor,
+  lineColor, largeColor, secondColor
+}: AnalogClockAnimationArgs) {
+
   const now = new Date();
-  const context = (canvas as never as HTMLCanvasElement)
-    .getContext('2d') as CanvasRenderingContext2D;
+  const context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   // setting up canvas
   context.save(); // this will save the default state
@@ -114,7 +111,9 @@ export default function clockAnimation({
   // Remember the latest call to requestAnimationFrame
   // so we can cancel it (in a useEffect in AnalogClock.tsx)
   requestAnimationFrameHolder.latest =
-    requestAnimationFrame(() => clockAnimation({ canvas }));
+    requestAnimationFrame(() => clockAnimation(
+      { canvas, faceColor, borderColor, lineColor, largeColor, secondColor }
+    ));
 
   return requestAnimationFrameHolder;
 }
