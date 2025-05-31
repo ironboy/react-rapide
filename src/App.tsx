@@ -8,8 +8,8 @@ export default function App() {
     { species: 'cat', description: 'cheeky' }
   ];
 
-  // Se what happens if you comment out the line with filter
-  //  and/or the line with sort below!
+  // See what happens if you comment out the line with filter
+  // and/or the line with sort below!
   return <>
     <h1>Animals I like...</h1>
     {animals
