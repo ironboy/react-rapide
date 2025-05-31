@@ -1,5 +1,6 @@
 import type Product from '../interfaces/Product';
 import { useParams, Link } from 'react-router-dom';
+import NotFoundPage from './NotFoundPage';
 import products from '../json/products.json';
 
 ProductDetailsPage.route = {
@@ -8,12 +9,21 @@ ProductDetailsPage.route = {
 };
 
 export default function ProductDetailsPage() {
+
   // read the slug from the route parameter :slug
   const { slug } = useParams();
+
   // find the correct product based on its slug
-  const { id, name, quantity, price$, description } =
-    (products as Product[])
-      .find(x => x.slug === slug) as Product;
+  const product = (products as Product[])
+    .find(x => x.slug === slug) as Product;
+
+  // if no product found, show 404
+  if (!product) {
+    return <NotFoundPage />;
+  }
+
+  // destructure the properties of the product
+  const { id, name, quantity, price$, description } = product;
 
   return <article className="product">
     <h2>{name}</h2>
