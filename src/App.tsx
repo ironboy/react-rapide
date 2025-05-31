@@ -11,9 +11,7 @@ export default function App() {
 
   // Fetch the animals from an url returning json
   const animals = useFetchJsonArray<AnimalData[]>('/json/animals.json');
-
-  // Se what happens if you comment out the line with filter
-  //  and/or the line with sort below!
+  
   return animals && <>
     <h1>Animals I like...</h1>
     <Note />
