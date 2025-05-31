@@ -1,4 +1,4 @@
-import useFetchJsonArray from './utils/useFetchJson';
+import useFetchJson from './utils/useFetchJson';
 import Animal from './Animal';
 import Note from './Note';
 
@@ -10,7 +10,7 @@ export interface AnimalData {
 export default function App() {
 
   // Fetch the animals from an url returning json
-  const animals = useFetchJsonArray<AnimalData[]>('/json/animals.json');
+  const animals = useFetchJson<AnimalData[]>('/json/animals.json');
   
   return animals && <>
     <h1>Animals I like...</h1>
