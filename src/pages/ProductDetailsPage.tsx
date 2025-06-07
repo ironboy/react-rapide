@@ -1,6 +1,7 @@
 import type Product from '../interfaces/Product';
 import { Row, Col } from 'react-bootstrap';
 import { Link, useLoaderData } from 'react-router-dom';
+import NotFoundPage from './NotFoundPage';
 import Image from '../parts/Image';
 import productsLoader from '../utils/productsLoader';
 
@@ -11,8 +12,16 @@ ProductDetailsPage.route = {
 };
 
 export default function ProductDetailsPage() {
-  const { id, name, quantity, price$, description } =
+
+  const product =
     useLoaderData().products[0] as Product;
+
+  // if no product found, show 404
+  if (!product) {
+    return <NotFoundPage />;
+  }
+
+  const { id, name, quantity, price$, description } = product;
 
   return <article className="product-details">
     <Row>
