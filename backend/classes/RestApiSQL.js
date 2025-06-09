@@ -65,6 +65,7 @@ export default class RestApi {
       const { body } = req;
       this.stripRoleField(table, body);
       delete body.id; // id:s should be set by the db
+      this.replaceValueWithSessionId(req, body);
       const result = await this.db.query(req.method, req.url,/*sql*/`
         INSERT INTO ${table} (${Object.keys(body).join(', ')})
         VALUES (${Object.keys(body).map(x => ':' + x).join(', ')})
@@ -105,6 +106,7 @@ export default class RestApi {
       let { body } = req;
       this.stripRoleField(table, body);
       delete body.id; // id:s should be set in the route
+      this.replaceValueWithSessionId(req, body);
       const result = await this.db.query(req.method, req.url,/*sql*/`
         UPDATE ${table}
         SET ${Object.keys(body).map(x => x + '= :' + x).join(', ')}
@@ -131,6 +133,14 @@ export default class RestApi {
     /*this.app.all(this.prefix + '{*splat}', (_req, res) => {
       this.sendJsonResponse(res, { error: 'No such route exists in the REST-api' });
     });*/
+  }
+
+  replaceValueWithSessionId(req, body) {
+    for (let x in body) {
+      if (body[x] === this.settings.valueToReplaceWithSessionId) {
+        body[x] = req.sessionID;
+      }
+    }
   }
 
 }

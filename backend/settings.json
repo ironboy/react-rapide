@@ -21,6 +21,7 @@
   "userTableName": "users",
   "userNameField": "email",
   "userRoleField": "role",
+  "valueToReplaceWithSessionId": "__sid",
   "bcryptRounds": 12,
   "passwordOkRegEx": "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",
   "passwordOkIf": "minimum eight characters, at least one letter and one number",

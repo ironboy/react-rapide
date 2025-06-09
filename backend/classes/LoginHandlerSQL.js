@@ -27,7 +27,8 @@ export default class LoginHandler {
     this.app.use(session({
       secret: this.sessionSecret,
       resave: false,
-      saveUninitialized: false,
+      // set sessions even when not logged in / nothing stored in sessions
+      saveUninitialized: true,
       cookie: { secure: 'auto' },
       store: sessionStore(this.restApi.settings, session)
     }));
