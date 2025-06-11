@@ -4,6 +4,7 @@ import RestSearch from "./RestSearchSQL.js";
 import Acl from './Acl.js';
 import catchExpressJsonErrors from "../helpers/catchExpressJsonErrors.js";
 import PasswordChecker from '../helpers/PasswordChecker.js';
+import addSpecialRoutes from './RestApiSQLSpecialRoutes.js';
 
 // import the correct version of the DBQueryMaker
 const DBQueryMaker =
@@ -27,6 +28,11 @@ export default class RestApi {
     PasswordChecker.addMiddleware(app, this.prefix, settings);
     // add login routes
     new LoginHandler(this);
+    // special routes
+    // not within the automatic REST api
+    // because of special checks etc
+    this.addSpecialRoutes = addSpecialRoutes;
+    this.addSpecialRoutes();
     // add post, get, put and delete routes
     this.addPostRoutes();   // C
     this.addGetRoutes();    // R

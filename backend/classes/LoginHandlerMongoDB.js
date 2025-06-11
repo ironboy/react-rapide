@@ -27,7 +27,11 @@ export default class LoginHandler {
     this.app.use(session({
       secret: this.sessionSecret,
       resave: false,
-      saveUninitialized: false,
+      // create a session if if not logged in/
+      // not storing anything in session
+      // (needed for the shop to work with session ids
+      // for carts)
+      saveUninitialized: true,
       cookie: { secure: 'auto' },
       store: sessionStore(this.restApi.settings, session)
     }));
