@@ -10,10 +10,10 @@ export default function addSpecialRoutes() {
 
     updateOrderWithUserId(req);
 
-    const { productId, quantity } = req.body || {};
+    let { productId, quantity, add } = req.body || {};
 
     // check that the body contains productId and quantity
-    if (typeof productId !== 'number' || typeof quantity !== 'number' || productId < 1 || quantity < 0) {
+    if (typeof productId !== 'number' || typeof quantity !== 'number' || productId < 1) {
       res.json({ error: 'The request body must contain productId and quantity as numbers!' });
       return;
     }
@@ -32,7 +32,7 @@ export default function addSpecialRoutes() {
       orderId = (await this.db.query('', '',
         'INSERT INTO orders (sessionId, userId) VALUES (:sessionId, :userId)',
         { sessionId, userId }
-      )).lastInsertRowId;
+      )).lastInsertRowid;
       // todo: note MySQL probably returns the new id differently
       // for now this only works with SQLite!
     }
@@ -42,6 +42,15 @@ export default function addSpecialRoutes() {
       'SELECT * FROM orderLines WHERE orderId = :orderId AND productId = :productId ',
       { orderId, productId }
     ))[0];
+
+    // if the line exists and body.add === true then calculate new quantity
+    // (add works as - add/subtract if negative from existinig quantity)
+    if (add && orderLine) {
+      quantity = orderLine.quantity + quantity;
+    }
+
+    // quantity can never be lower than 0
+    if (quantity < 0) { quantity = 0; }
 
     // if the line exists change to quantity or delete if quantity 0
     if (orderLine) {
@@ -131,7 +140,6 @@ export default function addSpecialRoutes() {
   });
 
 }
-
 
 
 // update orders with user id if we have a logged in user
