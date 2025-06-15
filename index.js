@@ -136,7 +136,7 @@ async function runCommand(command) {
   // Wait a while to make the vite dev server understand this
   // then at the end after all other copying copy the real src/main.tsx
   // (when all other files are in place)
-  let mainContent, oldMainContent;
+  let mainContent;
   if (((postDo.replace || {}).folders || []).find(x => x.length === 1 && x[0] === 'src')) {
     oldMainContent = !fs.existsSync(path.join(baseDir, 'src', 'main.tsx')) ? '' : fs.readFileSync(path.join(baseDir, 'src', 'main.tsx'), 'utf-8');
     mainContent = fs.readFileSync(path.join(remoteBaseDir, 'src', 'main.tsx'), 'utf-8');
@@ -166,6 +166,20 @@ async function runCommand(command) {
 
   log(c.green(c.bold(postDo.message)));
   log('');
+
+  // Make sure we ignore the live db in git
+  let ignoreDb = `# Ignore the database being run
+  # since SQLite might change it during runtime
+  # + sessions will be stored in it in some examples
+  # if the live.db is missing the backend will create it
+  # from template.db
+  backend/databases/live.sqlite3`;
+  let gitIgnore = path.join(baseDir, '.gitignore');
+  let gitIgnoreContents = fs.readFileSync(gitIgnore, 'utf-8');
+  if (!gitIgnoreContents.includes(ignoreDb)) {
+    gitIgnoreContents = ignoreDb + '\n\n' + gitIgnoreContents;
+    fs.writeFileSync(gitIgnore, gitIgnoreContents, 'utf-8');
+  }
 
   // Make nodemon restart the dev server
   let rrFolder = import.meta.dirname;
