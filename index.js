@@ -169,11 +169,11 @@ async function runCommand(command) {
 
   // Make sure we ignore the live db in git
   let ignoreDb = `# Ignore the database being run
-  # since SQLite might change it during runtime
-  # + sessions will be stored in it in some examples
-  # if the live.db is missing the backend will create it
-  # from template.db
-  backend/databases/live.sqlite3`;
+# since SQLite might change it during runtime
+# + sessions will be stored in it in some examples
+# if the live.db is missing the backend will create it
+# from template.db
+backend/databases/live.sqlite3`;
   let gitIgnore = path.join(baseDir, '.gitignore');
   let gitIgnoreContents = fs.readFileSync(gitIgnore, 'utf-8');
   if (!gitIgnoreContents.includes(ignoreDb)) {
