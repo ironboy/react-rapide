@@ -18,7 +18,7 @@ export default function NotImplementedModal(
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Not implemented yet.</Modal.Title>
+          <Modal.Title>Not implemented yet...</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {message}
