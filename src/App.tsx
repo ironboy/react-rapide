@@ -1,4 +1,5 @@
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useLangRedirect } from './utils/routeLocalize';
 import Header from "./partials/Header";
 import Main from './partials/Main';
 import Footer from './partials/Footer';
@@ -9,8 +10,11 @@ const showBootstrapBreakpoints = true;
 
 export default function App() {
 
-  // scroll to top when the route changes
-  useLocation();
+  // redirect to the correct language
+  useLangRedirect();
+
+  // scroll to top of the page (app is run on ever)
+  useNavigate();
   window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
   return <>

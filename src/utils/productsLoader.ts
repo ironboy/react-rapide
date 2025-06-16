@@ -1,5 +1,6 @@
 export default async function productsLoader({ params }: any) {
-  let url = '/api/products';
+  if (!['en', 'sv', 'no'].includes(params.lang)) { return []; }
+  let url = `/api/${params.lang}/products`;
   if (params.slug) { url += '?slug=' + params.slug; }
   return {
     products:

@@ -8,7 +8,7 @@ export interface SortOption {
 
 export function getHelpers(productsJson: any) {
 
-  const products = productsJson as Product[];
+  const products = (productsJson || []) as Product[];
 
   const categories = [
     'All (' + products.length + ')',

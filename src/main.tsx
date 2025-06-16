@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider }
   from 'react-router-dom';
 import '../sass/index.scss';
-import routes from './routes';
+import { routes } from './utils/routeLocalize';
 import App from './App';
 
 // Create a router using settings/content from 'routes.tsx'

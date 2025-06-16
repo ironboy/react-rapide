@@ -9,13 +9,11 @@ export default function Header() {
   // (we use this to close it after a click/selection)
   const [expanded, setExpanded] = useState(false);
 
-
-
   //  get the current route
   const pathName = useLocation().pathname;
   const currentRoute = routes
-    .slice().sort((a, b) => a.path.length > b.path.length ? -1 : 1)
-    .find(x => pathName.indexOf(x.path.split(':')[0]) === 0);
+    .slice().sort((a, b) => (a.pathNoLang + '').length > (b.pathNoLang + '').length ? -1 : 1)
+    .find(x => pathName.indexOf((x.pathNoLang + '').split(':')[0]) === 0);
   // function that returns true if a menu item is 'active'
   const isActive = (path: string) =>
     path === currentRoute?.path || path === currentRoute?.parent;
@@ -36,10 +34,10 @@ export default function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {routes.filter(x => x.menuLabel).map(
-              ({ menuLabel, path }, i) =>
+              ({ menuLabel, pathNoLang }, i) =>
                 <Nav.Link
-                  as={Link} key={i} to={path}
-                  className={isActive(path) ? 'active' : ''}
+                  as={Link} key={i} to={pathNoLang + ''}
+                  className={isActive(pathNoLang + '') ? 'active' : ''}
                   /* close menu after selection*/
                   onClick={() => setTimeout(() => setExpanded(false), 200)}
                 >{menuLabel}</Nav.Link>
