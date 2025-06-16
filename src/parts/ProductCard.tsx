@@ -1,18 +1,9 @@
 import type Product from '../interfaces/Product';
 import { useNavigate } from 'react-router-dom';
 import { useStateContext } from '../utils/useStateObject';
+import { addToCart } from '../utils/addToCart';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import Image from './Image';
-
-async function buy(e: React.MouseEvent, productId: number, setState: Function) {
-  e.stopPropagation();
-  await fetch('/api/change-product-in-cart', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ productId, quantity: 1, add: true })
-  });
-  setState('showShoppingCart', true);
-}
 
 export default function ProductCard(
   { id, name, quantity, price$, slug }: Product
@@ -39,7 +30,11 @@ export default function ProductCard(
           </strong>
         </Card.Text>
         <Button variant="primary w-100">More info</Button>
-        <Button variant="primary me-5 mt-3 w-100" onClick={e => buy(e, id, setState)}>Buy</Button>
+        <Button
+          variant="primary me-5 mt-3 w-100"
+          onClick={e => { e.stopPropagation(); addToCart(id, setState); }}>
+          Buy
+        </Button>
       </Col>
       <Col className="mb-n2">
         <Card.Img
