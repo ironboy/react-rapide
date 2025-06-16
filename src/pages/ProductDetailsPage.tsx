@@ -1,9 +1,11 @@
 import type Product from '../interfaces/Product';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { Link, useLoaderData } from 'react-router-dom';
 import NotFoundPage from './NotFoundPage';
 import Image from '../parts/Image';
 import productsLoader from '../utils/productsLoader';
+import addToCart from '../utils/addToCart';
+import { useStateContext } from '../utils/useStateObject';
 
 ProductDetailsPage.route = {
   path: '/products/:slug',
@@ -12,6 +14,8 @@ ProductDetailsPage.route = {
 };
 
 export default function ProductDetailsPage() {
+
+  const [_state, setState] = useStateContext();
 
   const product =
     useLoaderData().products[0] as Product;
@@ -58,10 +62,15 @@ export default function ProductDetailsPage() {
     </Row >
     <Row>
       <Col>
-        <Link to="/" className="btn btn-primary float-end">
+        <Link to="/" className="btn btn-primary" style={{ minWidth: '25%' }}>
           Back to the product list
         </Link>
+        <Button
+          className="btn btn-primary float-end w-25"
+          onClick={() => addToCart({ productId: id, setState })}>
+          Buy
+        </Button>
       </Col>
     </Row>
   </article >;
-}
+};

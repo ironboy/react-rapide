@@ -14,7 +14,7 @@ const connection = host && await mysql.createPool({
 
 export default class DBQueryMaker {
 
-  log = true; // debug log all queries to the db
+  log = false; // debug log all queries to the db
 
   // Create a db connection (if not existing already)
   constructor() {

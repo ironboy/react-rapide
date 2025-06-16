@@ -82,7 +82,7 @@ export default function addSpecialRoutes() {
     ));
 
     if (cart.length === 0) {
-      res.json({ status: 'The cart is empty' });
+      res.json({ status: 'The cart is empty.' });
     }
     else {
       res.json(cart);
@@ -102,7 +102,7 @@ export default function addSpecialRoutes() {
       { sessionId, userId }
     ))[0]?.id;
     if (!orderId) {
-      res.json({ status: 'The cart is empty' });
+      res.json({ status: 'The cart is empty.' });
     }
     else {
       // return the order / "cart"
@@ -111,7 +111,7 @@ export default function addSpecialRoutes() {
         { orderId }
       ));
       if (cart.length === 0) {
-        res.json({ status: 'The cart is empty' });
+        res.json({ status: 'The cart is empty.' });
       }
       else {
         res.json(cart);
@@ -136,7 +136,7 @@ export default function addSpecialRoutes() {
         { orderId }
       );
     }
-    res.json({ status: 'The cart is empty' });
+    res.json({ status: 'The cart is empty.' });
   });
 
 }

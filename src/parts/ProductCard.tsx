@@ -1,15 +1,17 @@
 import type Product from '../interfaces/Product';
 import { useNavigate } from 'react-router-dom';
 import { useStateContext } from '../utils/useStateObject';
-import { addToCart } from '../utils/addToCart';
+import addToCart from '../utils/addToCart';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import Image from './Image';
 
 export default function ProductCard(
   { id, name, quantity, price$, slug }: Product
 ) {
+
   const navigate = useNavigate();
   const [_state, setState] = useStateContext();
+
   return <Card
     className="mb-4 border-0"
     role="button" /*sets the cursor to pointer*/
@@ -32,7 +34,7 @@ export default function ProductCard(
         <Button variant="primary w-100">More info</Button>
         <Button
           variant="primary me-5 mt-3 w-100"
-          onClick={e => { e.stopPropagation(); addToCart(id, setState); }}>
+          onClick={e => { e.stopPropagation(); addToCart({ productId: id, setState }); }}>
           Buy
         </Button>
       </Col>

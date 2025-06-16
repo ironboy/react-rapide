@@ -12,6 +12,7 @@ export default function Main() {
   });
 
   const [state, setter] = stateAndSetter;
+  (globalThis as any).stateSetter = setter;
 
   return <main className="mt-5">
     <Container className="mt-5 mb-4">

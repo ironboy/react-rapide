@@ -9,6 +9,8 @@ export default function Header() {
   // (we use this to close it after a click/selection)
   const [expanded, setExpanded] = useState(false);
 
+
+
   //  get the current route
   const pathName = useLocation().pathname;
   const currentRoute = routes
@@ -45,6 +47,12 @@ export default function Header() {
           </Nav>
         </Navbar.Collapse>
       </Container>
+      <div className="cart-icon-in-menu">
+        <i
+          className="cart-icon bi bi-bag-heart-fill"
+          onClick={() => (globalThis as any).stateSetter('showShoppingCart', true)}
+        ></i>
+      </div>
     </Navbar>
-  </header>;
+  </header >;
 }
