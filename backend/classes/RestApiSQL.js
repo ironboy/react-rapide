@@ -86,20 +86,22 @@ export default class RestApi {
       const { table } = req.params;
       const { error, sqlWhere, parameters } = RestSearch.parse(req);
       if (error) { this.sendJsonResponse(res, { error }); return; }
+      const selectFrom = this.convertToLangJsonAware(req.lang, `SELECT * FROM ${table}`);
       const result = await this.db.query(req.method, req.url,/*sql*/`
-        SELECT * FROM ${table}
+        ${selectFrom}
         ${sqlWhere}
-      `, parameters);
+        `, parameters);
       this.sendJsonResponse(res, result);
     });
 
     // get a post by id in a table
     this.app.get(this.prefix + ':table/:id', async (req, res) => {
       const { table, id } = req.params;
+      const selectFrom = this.convertToLangJsonAware(req.lang, `SELECT * FROM ${table}`);
       const result = await this.db.query(req.method, req.url,/*sql*/`
-        SELECT * FROM ${table}
-        WHERE id = :id
-      `, { id });
+        ${selectFrom}
+        WHERE id = : id
+        `, { id });
       this.sendJsonResponse(res, result, true);
     });
   }
@@ -114,8 +116,8 @@ export default class RestApi {
       const result = await this.db.query(req.method, req.url,/*sql*/`
         UPDATE ${table}
         SET ${Object.keys(body).map(x => x + '= :' + x).join(', ')}
-        WHERE id = :id
-      `, { id, ...body });
+        WHERE id = : id
+        `, { id, ...body });
       this.sendJsonResponse(res, result);
     });
   }
@@ -126,10 +128,28 @@ export default class RestApi {
       const { table, id } = req.params;
       const result = await this.db.query(req.method, req.url,/*sql*/`
         DELETE FROM ${table}
-        WHERE id = :id
-      `, { id });
+        WHERE id = : id
+        `, { id });
       this.sendJsonResponse(res, result);
     });
+  }
+
+  convertToLangJsonAware(lang, sqlPart) {
+    if (sqlPart.endsWith('products')) {
+      sqlPart = `
+        SELECT id, COALESCE(
+          JSON_EXTRACT(name, '$.${lang}'),
+          JSON_EXTRACT(name, '$.en')
+        ) as name,
+        COALESCE(
+          JSON_EXTRACT(description, '$.${lang}'),
+          JSON_EXTRACT(description, '$.en')
+        ) as description,
+        quantity, price$, slug, categories
+        FROM products
+      `;
+    }
+    return sqlPart;
   }
 
   addCatchAllRoute() {
@@ -139,4 +159,4 @@ export default class RestApi {
     });*/
   }
 
-}
+};
