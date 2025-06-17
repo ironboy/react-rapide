@@ -33,9 +33,16 @@ export function useLangRedirect() {
   useEffect(() => {
     let lang = currentLang(true);
     if (lang === 'missing') {
-      const afterProtocol = location.href.split('://')[1];
-      const route = afterProtocol.substring(afterProtocol.indexOf('/'));
+      const route = routeWithoutLang();
       navigate('/en' + route, { replace: true });
     }
   }, []);
+}
+
+export function routeWithoutLang() {
+  const afterProtocol = location.href.split('://')[1];
+  let route = afterProtocol.substring(afterProtocol.indexOf('/'));
+  route = route.replace(/^(\/)[a-z]{2}\//, '$1');
+  console.log("HEPP ROUTE", route);
+  return route;
 }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { routes } from '../utils/routeLocalize';
+import LanguageChooser from '../parts/LanguageChooser';
 
 export default function Header() {
 
@@ -44,6 +45,7 @@ export default function Header() {
                 >{menuLabel}</Nav.Link>
             )}
           </Nav>
+          <LanguageChooser />
         </Navbar.Collapse>
       </Container>
       <div className="cart-icon-in-menu">

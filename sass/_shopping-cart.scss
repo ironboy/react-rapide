@@ -2,9 +2,13 @@
   position: fixed;
   top: 8px;
   right: 80px;
-  color: white;
+  color: #eee;
   font-size: 35px;
   cursor: pointer;
+
+  &:hover {
+    color: #fff;
+  }
 
   @media (min-width: 768px) {
     right: 10px;
