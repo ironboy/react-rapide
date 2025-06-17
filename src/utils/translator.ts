@@ -1,3 +1,5 @@
+import { currentLang } from "./routeLocalize";
+
 interface Translations {
   [key: string]: { [lang: string]: string; };
 }
@@ -9,8 +11,10 @@ interface TranslationEntry {
   length: number;
 }
 
+const baseLang = 'en';
+const priceRegex = /^[\$€£¥₹₽]/;
+const translationMap = new WeakMap<Text, { [lang: string]: string; }>();
 let translationTable: Translations;
-
 let translationEntries: TranslationEntry[] = [];
 
 function normalize(text: string): string {
@@ -29,7 +33,6 @@ function longestTranslationsFirst(translations: Translations) {
 
 export function initializeTranslationEntries(translations: Translations): void {
   translationTable = longestTranslationsFirst(translations);
-  console.log(translationTable);
   translationEntries = Object.keys(translationTable).map(key => {
     const words = key.split(' ');
     const pattern = words.map(word =>
@@ -74,12 +77,9 @@ function translatePhrase(text: string, targetLang: string): string {
   return result;
 }
 
-const baseLang = 'en';
-const priceRegex = /^[\$€£¥₹₽]/;
-const translationMap = new WeakMap<Text, { [lang: string]: string; }>();
+export function translate() {
 
-export function translate(to = 'sv', getMissingEntries = false) {
-  const missingEntries: string[] = [];
+  const to = currentLang();
 
   document.body.normalize();
   fixSelects();
@@ -106,19 +106,8 @@ export function translate(to = 'sv', getMissingEntries = false) {
         }
       }
     }
-
-    if (getMissingEntries) {
-      if (!state[to]) {
-        missingEntries.push(state[baseLang]);
-      }
-    } else {
-      if (state[to]) {
-        el.textContent = state[to];
-      }
-    }
+    state[to] && (el.textContent = state[to]);
   });
-
-  return getMissingEntries ? missingEntries : true;
 }
 
 function fixSelects() {
