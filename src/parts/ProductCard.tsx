@@ -2,6 +2,7 @@ import type Product from '../interfaces/Product';
 import { useNavigate } from 'react-router-dom';
 import { useStateContext } from '../utils/useStateObject';
 import addToCart from '../utils/addToCart';
+import { currentLang } from '../utils/routeLocalize';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import Image from './Image';
 
@@ -15,7 +16,7 @@ export default function ProductCard(
   return <Card
     className="mb-4 border-0"
     role="button" /*sets the cursor to pointer*/
-    onClick={() => navigate('/products/' + slug)}
+    onClick={() => navigate(`/${currentLang()}/products/${slug}`)}
   >
     <Card.Body as={Row} className="pb-4">
       <Col className="mb-n5">

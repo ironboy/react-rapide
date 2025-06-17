@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import routes from '../routes';
+import { routes } from '../utils/routeLocalize';
 
 export default function Header() {
 
@@ -12,8 +12,9 @@ export default function Header() {
   //  get the current route
   const pathName = useLocation().pathname;
   const currentRoute = routes
-    .slice().sort((a, b) => (a.pathNoLang + '').length > (b.pathNoLang + '').length ? -1 : 1)
-    .find(x => pathName.indexOf((x.pathNoLang + '').split(':')[0]) === 0);
+    .slice().sort((a, b) =>
+      a.langPath.length > b.langPath.length ? -1 : 1)
+    .find(x => pathName.indexOf(x.langPath.split(':')[0]) === 0);
   // function that returns true if a menu item is 'active'
   const isActive = (path: string) =>
     path === currentRoute?.path || path === currentRoute?.parent;
@@ -34,10 +35,10 @@ export default function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {routes.filter(x => x.menuLabel).map(
-              ({ menuLabel, pathNoLang }, i) =>
+              ({ menuLabel, langPath }, i) =>
                 <Nav.Link
-                  as={Link} key={i} to={pathNoLang + ''}
-                  className={isActive(pathNoLang + '') ? 'active' : ''}
+                  as={Link} key={i} to={langPath}
+                  className={isActive(langPath + '') ? 'active' : ''}
                   /* close menu after selection*/
                   onClick={() => setTimeout(() => setExpanded(false), 200)}
                 >{menuLabel}</Nav.Link>

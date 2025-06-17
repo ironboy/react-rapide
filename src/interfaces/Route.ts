@@ -7,5 +7,8 @@ export default interface Route {
   menuLabel?: string;
   index?: number;
   parent?: string;
-  pathNoLang?: string;
+}
+
+export interface LangRoute extends Route {
+  langPath: string;
 }
