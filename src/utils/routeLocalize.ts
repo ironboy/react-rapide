@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import rawRoutes from '../routes';
 
 export const supportedLangs = ['en', 'sv', 'no'];
-let lang = 'en';
 
 export function currentLang(raw = false) {
   let lang = location.pathname.slice(1, 3);
