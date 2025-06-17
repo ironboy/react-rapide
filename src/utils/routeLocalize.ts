@@ -1,7 +1,6 @@
 import type { LangRoute } from '../interfaces/Route';
 import { useEffect } from 'react';
-import { useLocation, useNavigate, useParams }
-  from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import rawRoutes from '../routes';
 
 export const supportedLangs = ['en', 'sv', 'no'];

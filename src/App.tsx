@@ -1,8 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useLangRedirect } from './utils/routeLocalize';
-import useOnAnyRender from './utils/useOnAnyRender';
-import { translate } from './utils/translator';
-
 import Header from "./partials/Header";
 import Main from './partials/Main';
 import Footer from './partials/Footer';

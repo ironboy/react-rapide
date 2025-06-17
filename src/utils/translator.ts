@@ -77,7 +77,7 @@ function translatePhrase(text: string, targetLang: string): string {
   return result;
 }
 
-export function translate() {
+function translate() {
 
   const to = currentLang();
 

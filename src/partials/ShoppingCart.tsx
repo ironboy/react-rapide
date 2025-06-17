@@ -5,6 +5,7 @@ import addToCart from "../utils/addToCart";
 import emptyCart from "../utils/emptyCart";
 import Image from "../parts/Image";
 import NotImplementedModal from "../parts/NotImplementedModal";
+import { currentLang } from "../utils/routeLocalize";
 
 interface CartLine {
   productId: number,
@@ -22,7 +23,7 @@ export default function ShoppingCart({ show, hideMe }: { show: boolean; hideMe: 
   useEffect(() => {
     if (!show) { return; }
     (async () => {
-      setCartContents(await (await fetch('/api/cart')).json());
+      setCartContents(await (await fetch(`/api/${currentLang()}/cart`)).json());
     })();
   }, [show]);
 

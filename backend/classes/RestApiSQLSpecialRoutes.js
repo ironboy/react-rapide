@@ -4,6 +4,15 @@
 // (added as a instance method to the class in RestApiSQL,
 //  so we can use the properties from that class here)
 
+function getOrderSummarySelect(req) {
+  return `SELECT * FROM (SELECT id, created, productId, JSON_EXTRACT(productName, '$.${req.lang}')
+    AS productName, quantity, productPrice$, rowSum$, orderLineId FROM orderRowSums
+    UNION
+    SELECT *, null FROM orderTotals)
+    ORDER BY id, CASE WHEN productPrice$ IS NOT NULL THEN 0 ELSE 1 END, orderLineId
+  `;
+}
+
 export default function addSpecialRoutes() {
 
   this.app.post(this.prefix + 'change-product-in-cart', async (req, res) => {
@@ -77,7 +86,7 @@ export default function addSpecialRoutes() {
 
     // return the order / "cart"
     const cart = (await this.db.query('', '',
-      'SELECT * FROM orderSummaries WHERE id = :orderId',
+      getOrderSummarySelect(req),
       { orderId }
     ));
 
@@ -107,7 +116,7 @@ export default function addSpecialRoutes() {
     else {
       // return the order / "cart"
       const cart = (await this.db.query('', '',
-        'SELECT * FROM orderSummaries WHERE id = :orderId',
+        getOrderSummarySelect(req),
         { orderId }
       ));
       if (cart.length === 0) {
