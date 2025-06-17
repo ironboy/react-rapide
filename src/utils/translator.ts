@@ -127,3 +127,10 @@ function getTextNodes(el: Element = document.body) {
   }
   return children;
 }
+
+// Run the translator when the DOM changes
+const observer = new MutationObserver(translate);
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});

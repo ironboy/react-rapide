@@ -13,9 +13,6 @@ const showBootstrapBreakpoints = true;
 
 export default function App() {
 
-  // translate static content
-  useOnAnyRender(translate);
-
   // redirect to the correct language
   useLangRedirect();
 

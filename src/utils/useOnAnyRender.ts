@@ -29,6 +29,6 @@ const orgCreateElement = React.createElement;
 
 // Custom hook
 export default function useOnAnyRender(func: Function) {
-  !funcMem.includes(func) && funcMem.push(func);
+  !funcMem.find(x => x === func || x + '' === func + '') && funcMem.push(func);
   return function remover() { funcMem = funcMem.filter(x => x !== func); };
 }

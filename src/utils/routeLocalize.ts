@@ -7,9 +7,9 @@ import rawRoutes from '../routes';
 export const supportedLangs = ['en', 'sv', 'no'];
 let lang = 'en';
 
-export function currentLang() {
+export function currentLang(raw = false) {
   let lang = location.pathname.slice(1, 3);
-  if (!supportedLangs.includes(lang)) { lang = 'en'; }
+  if (!supportedLangs.includes(lang)) { lang = raw ? 'missing' : 'en'; }
   return lang;
 }
 
@@ -29,22 +29,15 @@ export const routes: LangRoute[] = rawRoutes.map(route => {
   };
 });
 
+// Redirect routes so that they always have a language part
 export function useLangRedirect() {
-  let location = useLocation();
-  let navigate = useNavigate();
-  let langParam = useParams().lang as string;
-
+  const navigate = useNavigate();
   useEffect(() => {
-    lang = supportedLangs.includes(langParam) ? langParam : lang;
-    // if the language doesn't match the url lang param, redirect
-    if (lang !== langParam) {
-      let loc = location.pathname;
-      // if there is a lang param in the location, remove it
-      if (loc.match(/^[a-z]{2}\//)) { loc = loc.slice(3); }
-      // calculate the correct redirect and perform it
-      let to = '/' + lang + loc;
-      if (to.endsWith('/')) { to = to.slice(0, -1); }
-      navigate(to, { replace: true });
+    let lang = currentLang(true);
+    if (lang === 'missing') {
+      const afterProtocol = location.href.split('://')[1];
+      const route = afterProtocol.substring(afterProtocol.indexOf('/'));
+      navigate('/en' + route, { replace: true });
     }
-  }, [langParam]);
+  }, []);
 }
