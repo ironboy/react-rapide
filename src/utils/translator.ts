@@ -79,11 +79,8 @@ function translatePhrase(text: string, targetLang: string): string {
 
 function translate() {
 
-  const to = currentLang();
-
-  document.body.normalize();
   fixSelects();
-
+  const to = currentLang();
   const textNodes = getTextNodes()
     .filter(x => x.textContent?.trim())
     .filter(x => !priceRegex.test(x.textContent || ''));
@@ -96,7 +93,6 @@ function translate() {
     if (!state[to]) {
       const originalText = state[baseLang];
       const phraseTranslation = translatePhrase(originalText, to);
-
       if (phraseTranslation !== originalText) {
         state[to] = phraseTranslation;
       } else {
@@ -106,7 +102,7 @@ function translate() {
         }
       }
     }
-    state[to] && (el.textContent = state[to]);
+    state[to] && state[to] !== el.textContent && (el.textContent = state[to]);
   });
 }
 
