@@ -73,7 +73,7 @@ export default function ShoppingCart({ show, hideMe }: { show: boolean; hideMe: 
           <table className="table table-primary table-sm table-striped">
             <tbody>
               {cartContents.map(
-                ({ productId, productName, quantity, productPrice$, rowSum$ }: CartLine, i: number) =>
+                ({ productId, productName, quantity, productPrice$, rowSum$ }: CartLine) =>
                   <tr key={productId} style={productId ? {} : { fontWeight: 'bold' }}>
                     {productId && <td>{!productId ? '' :
                       <Image
