@@ -26,10 +26,23 @@ export default function ShoppingCart({ show, hideMe }: { show: boolean; hideMe: 
     })();
   }, [show]);
 
+  // We are using uncontrolled input elements in the cart
+  // and sometimes React DOM diffing is a bit off on their values
+  // so we have also given them an attribute data-value
+  // that is reliable and change to that value if not in sync
+  useEffect(() => {
+    let inputs = [...document.querySelectorAll(
+      '.shopping-cart input[type="number"]')] as HTMLInputElement[];
+    for (let input of inputs) {
+      const correctValue = input.getAttribute('data-value') as string;
+      if (correctValue !== input.value) { input.value = correctValue; }
+    }
+  }, [cartContents]);
+
   async function quantityChange(e: ChangeEvent<HTMLInputElement>, productId: number) {
-    // get input element
+    // Get input element
     let input = e.target as HTMLInputElement;
-    // check that the value is within allowed range, otherwise change it
+    // Check that the value is within allowed range, otherwise change it
     let value = +input.value;
     let max = +(input.getAttribute('max') || 99);
     let min = +(input.getAttribute('min') || 1);
@@ -38,7 +51,7 @@ export default function ShoppingCart({ show, hideMe }: { show: boolean; hideMe: 
     if (value != +input.value && input.value !== '') {
       input.value = value + '';
     }
-    // update that cart
+    // Update that cart
     setCartContents(await addToCart({
       productId, relative: false, quantity: value
     }));
@@ -76,6 +89,7 @@ export default function ShoppingCart({ show, hideMe }: { show: boolean; hideMe: 
                         type="number"
                         min="1"
                         max="99"
+                        data-value={quantity}
                         defaultValue={quantity}
                         onChange={e => quantityChange(e, productId)}
                       />}
