@@ -148,8 +148,17 @@ export default function addSpecialRoutes() {
     res.json({ status: 'The cart is empty.' });
   });
 
-}
+  // currency exchange rates (usd base)
+  this.app.get('/api/exchange-rates', async (_req, res) => {
+    let filterTo = ['nok', 'sek'];
+    let all = await (await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json')).json();
+    for (let key in all.usd) {
+      filterTo.includes(key) || delete all.usd[key];
+    }
+    res.json(all);
+  });
 
+}
 
 // update orders with user id if we have a logged in user
 // and orders with no userId but matching sessionId

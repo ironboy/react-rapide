@@ -6,6 +6,7 @@ import Image from '../parts/Image';
 import productsLoader from '../utils/productsLoader';
 import addToCart from '../utils/addToCart';
 import { useStateContext } from '../utils/useStateObject';
+import priceFormatter from '../utils/priceFormatter';
 
 ProductDetailsPage.route = {
   path: '/products/:slug',
@@ -54,7 +55,7 @@ export default function ProductDetailsPage() {
             <span
               className="d-block d-sm-inline float-sm-end"
             >
-              ${price$.toFixed(2)}
+              {priceFormatter(price$)}
             </span>
           </Col>
         </Row>

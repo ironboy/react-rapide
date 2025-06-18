@@ -6,6 +6,7 @@ import emptyCart from "../utils/emptyCart";
 import Image from "../parts/Image";
 import NotImplementedModal from "../parts/NotImplementedModal";
 import { currentLang } from "../utils/routeLocalize";
+import priceFormatter from "../utils/priceFormatter";
 
 interface CartLine {
   productId: number,
@@ -69,7 +70,7 @@ export default function ShoppingCart({ show, hideMe }: { show: boolean; hideMe: 
                       />}
                     </td>}
                     <td colSpan={productId ? 1 : 2}>{productName}</td>
-                    <td className="text-end">{productId ? '$' + productPrice$.toFixed(2) : ''}</td>
+                    <td className="text-end">{productId ? priceFormatter(productPrice$) : ''}</td>
                     <td className="text-center">{productId ? '×' : ''}</td>
                     <td className="text-end">{!productId ? '' :
                       <input
@@ -82,7 +83,7 @@ export default function ShoppingCart({ show, hideMe }: { show: boolean; hideMe: 
                       />}
                     </td>
 
-                    <td className="text-end">${rowSum$.toFixed(2)}</td>
+                    <td className="text-end">{priceFormatter(rowSum$)}</td>
                     <td>{productId ?
                       <i
                         className="bi bi-trash3-fill"

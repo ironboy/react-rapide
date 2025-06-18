@@ -1,6 +1,7 @@
 import type Product from '../interfaces/Product';
 import { useNavigate } from 'react-router-dom';
 import { useStateContext } from '../utils/useStateObject';
+import priceFormatter from '../utils/priceFormatter';
 import addToCart from '../utils/addToCart';
 import { currentLang } from '../utils/routeLocalize';
 import { Card, Button, Row, Col } from 'react-bootstrap';
@@ -29,7 +30,7 @@ export default function ProductCard(
         <Card.Text>
           <strong>
             Price:
-            <span className="float-end">${price$.toFixed(2)}</span>
+            <span className="float-end"> {priceFormatter(price$)}</span>
           </strong>
         </Card.Text>
         <Button variant="primary w-100">More info</Button>

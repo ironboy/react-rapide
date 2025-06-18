@@ -1,4 +1,5 @@
 import { Nav, NavDropdown } from 'react-bootstrap';
+import { routeWithoutLang } from '../utils/routeLocalize';
 
 export default function LanguageChooser() {
 
@@ -9,7 +10,7 @@ export default function LanguageChooser() {
   ];
 
   function handleLanguageChange(lang: string) {
-    alert(lang);
+    location.replace(`/${lang}${routeWithoutLang()}`);
   }
 
   return <Nav>

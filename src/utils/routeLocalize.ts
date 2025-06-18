@@ -42,7 +42,9 @@ export function useLangRedirect() {
 export function routeWithoutLang() {
   const afterProtocol = location.href.split('://')[1];
   let route = afterProtocol.substring(afterProtocol.indexOf('/'));
-  route = route.replace(/^(\/)[a-z]{2}\//, '$1');
-  console.log("HEPP ROUTE", route);
+  route = route
+    .replace(/^(\/)[a-z]{2}\//, '/')
+    .replace(/^(\/)[a-z]{2}$/, '/');
+  route === '/' && (route = '');
   return route;
 }

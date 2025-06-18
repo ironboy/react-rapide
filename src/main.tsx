@@ -5,8 +5,8 @@ import { createBrowserRouter, RouterProvider }
   from 'react-router-dom';
 import '../sass/index.scss';
 import { routes } from './utils/routeLocalize';
-import { initializeTranslationEntries }
-  from './utils/translator';
+import { getTranslations } from './utils/translator';
+import { getExchangeRates } from './utils/priceFormatter';
 import App from './App';
 
 // Create a router using settings/content from 'routes.tsx'
@@ -20,11 +20,11 @@ const router = createBrowserRouter([
 ]);
 
 // First load the translations then start React
-let translations: any;
 (async () => {
-  // Read translations so they are ready before App start
-  translations = await (await fetch('/translations.json')).json();
-  initializeTranslationEntries(translations);
+  // Get translations and  exchange rates
+  // before the our React app starts
+  await getTranslations();
+  await getExchangeRates();
 
   // Create the React root element
   createRoot(document.querySelector('#root')!).render(

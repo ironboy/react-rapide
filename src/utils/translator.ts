@@ -31,7 +31,8 @@ function longestTranslationsFirst(translations: Translations) {
     .sort(([keyA], [keyB]) => keyB.length - keyA.length));
 }
 
-export function initializeTranslationEntries(translations: Translations): void {
+export async function getTranslations() {
+  const translations = await (await fetch('/translations.json')).json();
   translationTable = longestTranslationsFirst(translations);
   translationEntries = Object.keys(translationTable).map(key => {
     const words = key.split(' ');
