@@ -24,9 +24,23 @@ export default function ShoppingCart({ show, hideMe }: { show: boolean; hideMe: 
   useEffect(() => {
     if (!show) { return; }
     (async () => {
-      setCartContents(await (await fetch(`/api/${currentLang()}/cart`)).json());
+      const fetchedCart = await (await fetch(`/api/${currentLang()}/cart`)).json();
+      setCartContents(fetchedCart);
     })();
   }, [show]);
+
+  // We are using uncontrolled input elements in the cart
+  // and sometimes React DOM diffing is a bit off on their values
+  // so we have also given them an attribute data-value
+  // that is reliable and change to that value if not in sync
+  useEffect(() => {
+    let inputs = [...document.querySelectorAll(
+      '.shopping-cart input[type="number"]')] as HTMLInputElement[];
+    for (let input of inputs) {
+      const correctValue = input.getAttribute('data-value') as string;
+      if (correctValue !== input.value) { input.value = correctValue; }
+    }
+  }, [cartContents]);
 
   async function quantityChange(e: ChangeEvent<HTMLInputElement>, productId: number) {
     // get input element
@@ -55,13 +69,12 @@ export default function ShoppingCart({ show, hideMe }: { show: boolean; hideMe: 
         </Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-
         {cartContents.status ||
           <table className="table table-primary table-sm table-striped">
             <tbody>
               {cartContents.map(
                 ({ productId, productName, quantity, productPrice$, rowSum$ }: CartLine, i: number) =>
-                  <tr key={i} style={productId ? {} : { fontWeight: 'bold' }}>
+                  <tr key={productId} style={productId ? {} : { fontWeight: 'bold' }}>
                     {productId && <td>{!productId ? '' :
                       <Image
                         className="mb-0"
@@ -79,6 +92,7 @@ export default function ShoppingCart({ show, hideMe }: { show: boolean; hideMe: 
                         min="1"
                         max="99"
                         defaultValue={quantity}
+                        data-value={quantity}
                         onChange={e => quantityChange(e, productId)}
                       />}
                     </td>

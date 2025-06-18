@@ -10,6 +10,8 @@ export default function LanguageChooser() {
   ];
 
   function handleLanguageChange(lang: string) {
+    // We do a hard page reload when choosing language
+    // to avoid any race conditions React vs. translator
     location.replace(`/${lang}${routeWithoutLang()}`);
   }
 
