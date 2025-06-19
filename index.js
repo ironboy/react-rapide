@@ -290,6 +290,13 @@ function patchPackage(target, org, patch) {
       "test:run": "vitest run"
     });
     anythingChanged = true;
+    // also modify tsconfig.app.json
+    const conf = path.join(target, 'tsconfig.app.json');
+    if (fs.existsSync(conf)) {
+      const content = fs.readFileSync(conf, 'utf-8');
+      content = addTestingToTsConfig(content);
+      fs.writeFileSync(conf, content, 'utf-8');
+    }
   }
 
   if (!anythingChanged) { return false; }
@@ -355,4 +362,29 @@ function sleep(ms) {
 
 function clearConsole() {
   process.stdout.write('\x1Bc');
+}
+
+
+
+function addTestingToTsConfig(tsconfigContent) {
+  const config = JSON.parse(tsconfigContent);
+
+  if (!config.compilerOptions) { config.compilerOptions = {}; }
+  if (!config.compilerOptions.types) { config.compilerOptions.types = []; }
+
+  ["vitest/globals", "@testing-library/jest-dom"].forEach(type => {
+    if (!config.compilerOptions.types.includes(type)) {
+      config.compilerOptions.types.push(type);
+    }
+  });
+
+  if (!config.include) { config.include = []; }
+
+  ["src/**/*.test.tsx", "src/test/**/*"].forEach(pattern => {
+    if (!config.include.includes(pattern)) {
+      config.include.push(pattern);
+    }
+  });
+
+  return JSON.stringify(config, null, 2);
 }
