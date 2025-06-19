@@ -369,9 +369,9 @@ function clearConsole() {
 }
 
 
-
 function addTestingToTsConfig(tsconfigContent) {
-  const config = JSON.parse(tsconfigContent);
+  const cleanContent = tsconfigContent.replace(/\/\*[\s\S]*?\*\//g, '');
+  const config = JSON.parse(cleanContent);
 
   if (!config.compilerOptions) { config.compilerOptions = {}; }
   if (!config.compilerOptions.types) { config.compilerOptions.types = []; }
