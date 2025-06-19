@@ -297,7 +297,7 @@ function patchPackage(target, org, patch) {
     // Modify tsconfig.app.json
     const conf = path.join(target, 'tsconfig.app.json');
     if (fs.existsSync(conf)) {
-      const content = fs.readFileSync(conf, 'utf-8');
+      let content = fs.readFileSync(conf, 'utf-8');
       content = addTestingToTsConfig(content);
       fs.writeFileSync(conf, content, 'utf-8');
     }
