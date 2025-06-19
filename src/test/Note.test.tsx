@@ -6,11 +6,10 @@ describe('Note Component', () => {
   it('renders the note content correctly', () => {
     render(<Note />);
 
-    // Use getByText with a function when you want to
-    // find part of text, rather than the whole text in an element
-    expect(screen.getByText((content) =>
-      content.includes('Now we have 4 components in our React app:')
-    )).toBeInTheDocument();
+    // Use regular expressions for partial text matches
+    expect(
+      screen.getByText(/Now we have 4 components in our React app:/)
+    ).toBeInTheDocument();
   });
 
   it('displays all component names', () => {
