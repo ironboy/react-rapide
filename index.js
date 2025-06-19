@@ -283,14 +283,18 @@ function patchPackage(target, org, patch) {
 
   // Add test scripts if missing an there is a vite.config.ts file
   let scripts = pTargetJson.scripts;
-  if (path.join(org, 'vitest.config.js') && !scripts.test) {
-    Object.assign(scripts, {
-      "test": "vitest",
-      "test:ui": "vitest --ui",
-      "test:run": "vitest run"
-    });
-    anythingChanged = true;
-    // also modify tsconfig.app.json
+  if (path.join(org, 'vitest.config.js')) {
+
+    if (!scripts.test) {
+      Object.assign(scripts, {
+        "test": "vitest",
+        "test:ui": "vitest --ui",
+        "test:run": "vitest run"
+      });
+      anythingChanged = true;
+    }
+
+    // Modify tsconfig.app.json
     const conf = path.join(target, 'tsconfig.app.json');
     if (fs.existsSync(conf)) {
       const content = fs.readFileSync(conf, 'utf-8');
