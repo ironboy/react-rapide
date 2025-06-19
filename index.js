@@ -20,7 +20,10 @@ const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.st
 const commands = commandBranches.map(x => x.split('command-')[1].split(/\d{1,}-/)[1]).filter(x => x);
 const defaultPostDo = {
   patchPackages: 'auto',
-  replace: { files: [['index.html']], folders: [['public'], ['src'], ['sass'], ['backend']] },
+  replace: {
+    files: [['index.html'], ['vitest.config.ts']],
+    folders: [['public'], ['src'], ['sass'], ['backend']]
+  },
   message: 'All done!'
 };
 
@@ -277,6 +280,18 @@ function patchPackage(target, org, patch) {
     }
     pTargetJson[type] = { ...pTargetJson[type], ...patch[type] };
   }
+
+  // Add test scripts if missing an there is a vite.config.ts file
+  let scripts = pTargetJson.scripts;
+  if (path.join(org, 'vitest.config.js') && !scripts.test) {
+    Object.assign(scripts, {
+      "test": "vitest",
+      "test:ui": "vitest --ui",
+      "test:run": "vitest run"
+    });
+    anythingChanged = true;
+  }
+
   if (!anythingChanged) { return false; }
   fs.writeFileSync(pTarget, JSON.stringify(pTargetJson, null, '  '), 'utf-8');
   execSync('cd "' + target + '" && npm install && npm audit fix');
