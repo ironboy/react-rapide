@@ -40,7 +40,7 @@ describe('App Component User Interactions', () => {
     expect(screen.getByText('Digital')).toBeInTheDocument();
 
     // Switch to digital
-    fireEvent.click(typeButton);
+    fireEvent.click(screen.getByText('Digital'));
 
     // Should show the digital clock display - check for digits
     expect(screen.getByText(/\d{2}:\d{2}:\d{2}/)).toBeInTheDocument();
@@ -73,7 +73,7 @@ describe('Cross-Component Integration', () => {
 
     // Open settings and change a color
     fireEvent.click(screen.getByText('Set colors'));
-    const faceColorInput = screen.getByDisplayValue('#f4f4f4');
+    const faceColorInput = screen.getByLabelText('Face Color');
     fireEvent.change(faceColorInput, { target: { value: '#ff0000' } });
 
     // Close settings
@@ -85,6 +85,6 @@ describe('Cross-Component Integration', () => {
 
     // Settings should remember the color change
     fireEvent.click(screen.getByText('Set colors'));
-    expect(screen.getByDisplayValue('#ff0000')).toBeInTheDocument();
+    expect(screen.getByLabelText('Face Color')).toHaveValue('#ff0000');
   });
 });
