@@ -13,11 +13,12 @@ describe('App Component User Interactions', () => {
     const toggleButton = screen.getByText('Show clock');
     fireEvent.click(toggleButton);
 
-    // Now the clock controls should be visible
-    expect(screen.getByText('Digital')).toBeInTheDocument();
-
     // Button text should change
     expect(screen.getByText('Hide clock')).toBeInTheDocument();
+
+    // Now the clock controls should be visible in Digital mode
+    // with a Button/switch to make it analog
+    expect(screen.getByText('Analog')).toBeInTheDocument();
   });
 
   it('switches between digital and analog clock types', () => {
@@ -26,17 +27,22 @@ describe('App Component User Interactions', () => {
     // First show the clock
     fireEvent.click(screen.getByText('Show clock'));
 
-    // Initially shows "Digital" button (meaning analog is shown)
-    const typeButton = screen.getByText('Digital');
+    // Now the clock controls should be visible in Digital mode
+    // with a Button/switch to make it analog
+    const typeButton = screen.getByText('Analog');
     expect(typeButton).toBeInTheDocument();
 
-    // Click to switch to digital clock
+    // Click to switch to analog clock
     fireEvent.click(typeButton);
 
-    // Button should now show "Analog"
-    expect(screen.getByText('Analog')).toBeInTheDocument();
+    // Now the clock controls should be visible in Analog mode
+    // with a Button/switch to make it analog
+    expect(screen.getByText('Digital')).toBeInTheDocument();
 
-    // Should show the digital clock display
+    // Switch to digital
+    fireEvent.click(typeButton);
+
+    // Should show the digital clock display - check for digits
     expect(screen.getByText(/\d{2}:\d{2}:\d{2}/)).toBeInTheDocument();
   });
 
@@ -45,7 +51,6 @@ describe('App Component User Interactions', () => {
 
     // Show clock and switch to analog
     fireEvent.click(screen.getByText('Show clock'));
-    fireEvent.click(screen.getByText('Digital'));
     fireEvent.click(screen.getByText('Analog'));
 
     // Hide and show again
@@ -64,7 +69,7 @@ describe('Cross-Component Integration', () => {
 
     // Show clock and switch to analog
     fireEvent.click(screen.getByText('Show clock'));
-    fireEvent.click(screen.getByText('Digital'));
+    fireEvent.click(screen.getByText('Analog'));
 
     // Open settings and change a color
     fireEvent.click(screen.getByText('Set colors'));
