@@ -7,6 +7,7 @@ import productsLoader from '../utils/productsLoader';
 import addToCart from '../utils/addToCart';
 import { useStateContext } from '../utils/useStateObject';
 import priceFormatter from '../utils/priceFormatter';
+import { currentLang } from '../utils/routeLocalize';
 
 ProductDetailsPage.route = {
   path: '/products/:slug',
@@ -63,7 +64,7 @@ export default function ProductDetailsPage() {
     </Row >
     <Row>
       <Col>
-        <Link to="/" className="btn btn-primary" style={{ minWidth: '25%' }}>
+        <Link to={'/' + currentLang()} className="btn btn-primary" style={{ minWidth: '25%' }}>
           Back to the product list
         </Link>
         <Button
