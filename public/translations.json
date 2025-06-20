@@ -176,8 +176,8 @@
     "no": "Når vi ser fremover, ser vi The Good Grocery som en modell for ansvarlig detaljhandel, som inspirerer andre bedrifter til å prioritere mennesker og planet ved siden av fortjeneste. Gjennom utdanning, åpenhet og urokkelig forpliktelse til kvalitet bygger vi en fremtid der god mat og gode verdier er tilgjengelige for alle i vårt samfunn."
   },
   "Qty:": {
-    "sv": "Ant:",
-    "no": "Ant:"
+    "sv": "Mängd:",
+    "no": "Mängd:"
   },
   "Category:": {
     "sv": "Kategori:",
@@ -186,5 +186,33 @@
   "Sort by:": {
     "sv": "Sortera efter:",
     "no": "Sorter etter:"
+  },
+  "large": {
+    "sv": "stor",
+    "no": "stor"
+  },
+  "A can of 10": {
+    "sv": "burk (10)",
+    "no": "boks (10)"
+  },
+  "bundle": {
+    "sv": "knippe",
+    "no": "knippe"
+  },
+  "lb": {
+    "sv": "halvkilo",
+    "no": "halvkilo"
+  },
+  "4 lb": {
+    "sv": "2 kg",
+    "no": "2 kg"
+  },
+  "1 lb, canned": {
+    "sv": "halvkilo",
+    "no": "halvkilo"
+  },
+  "pot": {
+    "sv": "kruka",
+    "no": "potte"
   }
 }
