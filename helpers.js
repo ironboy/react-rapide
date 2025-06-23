@@ -50,7 +50,7 @@ export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
 }
 
 export async function getFolderOfBranch(folderPath, gitHubUser, repository, branch, token) {
-  //if (token) { branch = branch.replace(/^teacher-/, ''); }
+  if (token) { branch = branch.replace(/^teacher-/, ''); }
   const headers = token ? { 'Authorization': `token ${token}` } : {};
   const url = `https://github.com/${gitHubUser}/${repository}`
     + `/archive/${branch}.zip`;
