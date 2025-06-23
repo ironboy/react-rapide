@@ -1,1 +1,1 @@
-Using our own backend with React/Vite.
+A shopping cart with working backend.
