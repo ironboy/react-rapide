@@ -61,7 +61,7 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
   try {
     const data = Buffer.from(await (await fetch(url, { headers })).arrayBuffer());
     new AdmZip(data).extractAllTo(folderPath, true);
-    if (url.includes('teacher')) { console.log(fs.readdirSync(folderPath)); }
+    if (url.includes('teacher')) { console.log(fs.readdirSync(folderPath + '/' + repository)); }
   }
   catch (_e) { console.log(_e); return false; }
   return true;
