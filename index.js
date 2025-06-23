@@ -6,17 +6,25 @@ import url from 'url';
 import prompts from 'prompts';
 import { execSync } from 'child_process';
 import { getBranches, getReadMeOfBranch, getFolderOfBranch } from './helpers.js';
+import { teacherLogin, teacherLogout, decryptToken } from './auth.js';
 import autoGenerateRoutes from './auto-generate-routes.js';
 import createServer from './server.js';
-import { clear } from 'console';
 
 const log = (...x) => console.log(...x);
 const dirname = import.meta.dirname;
 const tempDir = path.join(dirname, '..');
-const rapideBaseDir = path.join(dirname, '..', '..');
+// const rapideBaseDir = path.join(dirname, '..', '..');
+const rapideBaseDir = dirname;
+const teacherTokenFile = path.join(rapideBaseDir, '.teacher-token');
 const undoFolder = path.join(rapideBaseDir, 'undoFiles');
 const arg = process.argv.slice(2)[0] || 'helpFast';
-const commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.startsWith('command-'));
+let commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.startsWith('command-'));
+if (fs.existsSync(teacherTokenFile)) {
+  const token = decryptToken(fs.readFileSync(teacherTokenFile, 'utf-8'));
+  let add = await getBranches('ironboy', 'react-rapide-teacher', (x) => x.startsWith('command-'), token);
+  add = add.map(x => x.replace(/(command-\d*-)/g, '$1teacher-'));
+  commandBranches = [...commandBranches, ...add];
+}
 const commands = commandBranches.map(x => x.split('command-')[1].split(/\d{1,}-/)[1]).filter(x => x);
 const defaultPostDo = {
   patchPackages: 'auto',
@@ -106,6 +114,8 @@ async function runCommand(command) {
   let mainRapide = fs.readFileSync(path.join(dirname, './main-rapide.tsx'), 'utf-8');
   mainRapide = mainRapide.replaceAll('[[command]]', command);
   command !== 'helpFast' && log(c.green(c.bold(('REACT RAPIDE: ' + command))));
+  if (command === 'teacher-login') { await teacherLogin(); return; }
+  if (command === 'teacher-logout') { await teacherLogin(); return; }
   if (command === 'helpFast') { helpFast(); return; }
   if (command === 'help') { await help(); return; }
   if (command === 'undo') { undo(); return; }
