@@ -143,7 +143,7 @@ export async function teacherLogin() {
 
 export async function teacherLogout() {
   if (fs.existsSync(teacherTokenFile)) {
-    fs.rmSync(teacherTokenFile);
+    fs.rmSync(teacherTokenFile, { force: true });
     console.log("DEBUG", fs.existsSyncSync(teacherTokenFile));
     log(c.yellow('Teacher access removed.'));
   } else {
