@@ -38,12 +38,10 @@ export async function getBranches(gitHubUser, repository, filter = () => true, t
 }
 
 export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
-  console.log("EARLY DEBUG", branch, token);
   if (token && branch.includes('teacher-')) { branch = branch.replace(/teacher-/, ''); repository += '-teacher'; }
   const headers = token ? { 'Authorization': `token ${token}` } : {};
   let variants = ['README.md', 'Readme.md', 'readme.md'];
   const url = `https://raw.githubusercontent.com/${gitHubUser}/${repository}/refs/heads/${branch}/`;
-  console.log("DEBUG url", url);
   let text = '';
   for (let variant of variants) {
     const response = await fetch(url + variant, { headers }).catch(_e => { });
