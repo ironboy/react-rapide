@@ -39,7 +39,7 @@ export async function getBranches(gitHubUser, repository, filter = () => true, t
 
 export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
   console.log("EARLY DEBUG", branch);
-  if (token && branch.startsWith('teacher-')) { branch = branch.replace(/teacher-/, ''); repository += '-teacher'; }
+  if (token && branch.includes('teacher-')) { branch = branch.replace(/teacher-/, ''); repository += '-teacher'; }
   const headers = token ? { 'Authorization': `token ${token}` } : {};
   let variants = ['README.md', 'Readme.md', 'readme.md'];
   const url = `https://raw.githubusercontent.com/${gitHubUser}/${repository}/refs/heads/${branch}/`;
@@ -53,7 +53,7 @@ export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
 }
 
 export async function getFolderOfBranch(folderPath, gitHubUser, repository, branch, token) {
-  if (token && branch.startsWith('teacher-')) { branch = branch.replace(/teacher-/, ''); repository += '-teacher'; }
+  if (token && branch.includes('teacher-')) { branch = branch.replace(/teacher-/, ''); repository += '-teacher'; }
   const headers = token ? { 'Authorization': `token ${token}` } : {};
   const url = `https://github.com/${gitHubUser}/${repository}`
     + `/archive/${branch}.zip`;
