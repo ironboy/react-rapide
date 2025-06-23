@@ -19,12 +19,16 @@ const teacherTokenFile = path.join(rapideBaseDir, '.teacher-token');
 const undoFolder = path.join(rapideBaseDir, 'undoFiles');
 const arg = process.argv.slice(2)[0] || 'helpFast';
 let commandBranches = await getBranches('ironboy', 'react-rapide', (x) => x.startsWith('command-'));
+
+let teacherToken;
 if (fs.existsSync(teacherTokenFile)) {
   const token = decryptToken(fs.readFileSync(teacherTokenFile, 'utf-8'));
+  teacherToken = token;
   let add = await getBranches('ironboy', 'react-rapide-teacher', (x) => x.startsWith('command-'), token);
   add = add.map(x => x.replace(/(command-\d*-)/g, '$1teacher-'));
   commandBranches = [...commandBranches, ...add];
 }
+
 const commands = commandBranches.map(x => x.split('command-')[1].split(/\d{1,}-/)[1]).filter(x => x);
 const defaultPostDo = {
   patchPackages: 'auto',
@@ -91,7 +95,7 @@ async function help() {
     if (!name) { continue; }
     log('');
     log(c.bold(c.green(name)));
-    log(await getReadMeOfBranch('ironboy', 'react-rapide', branch));
+    log(await getReadMeOfBranch('ironboy', 'react-rapide', branch, teacherToken));
   }
   log('');
 }
@@ -128,7 +132,7 @@ async function runCommand(command) {
     return;
   }
   let branch = commandBranches[index];
-  await getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', branch);
+  await getFolderOfBranch(tempDir, 'ironboy', 'react-rapide', branch, teacherToken);
   let baseDir = dirname.slice(0, dirname.lastIndexOf('node_modules'));
   while (baseDir.endsWith('/') || baseDir.endsWith('\\')) { baseDir = baseDir.slice(0, -1); }
   let remoteBaseDir = path.join(tempDir, 'react-rapide-' + branch);

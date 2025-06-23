@@ -37,22 +37,24 @@ export async function getBranches(gitHubUser, repository, filter = () => true, t
   return branches.filter(filter).sort();
 }
 
-export async function getReadMeOfBranch(gitHubUser, repository, branch, shortenTo = Infinity) {
+export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
+  const headers = token ? { 'Authorization': `token ${token}` } : {};
   let variants = ['README.md', 'Readme.md', 'readme.md'];
   const url = `https://raw.githubusercontent.com/${gitHubUser}/${repository}/refs/heads/${branch}/`;
   let text = '';
   for (let variant of variants) {
-    const response = await fetch(url + variant).catch(_e => { });
+    const response = await fetch(url + variant, { headers }).catch(_e => { });
     if (response.status === 200) { text = (await response.text()).slice(0, shortenTo); break; }
   }
   return text;
 }
 
-export async function getFolderOfBranch(folderPath, gitHubUser, repository, branch) {
+export async function getFolderOfBranch(folderPath, gitHubUser, repository, branch, token) {
+  const headers = token ? { 'Authorization': `token ${token}` } : {};
   const url = `https://github.com/${gitHubUser}/${repository}`
     + `/archive/${branch}.zip`;
   try {
-    const data = Buffer.from(await (await fetch(url)).arrayBuffer());
+    const data = Buffer.from(await (await fetch(url), { headers }).arrayBuffer());
     new AdmZip(data).extractAllTo(folderPath, true);
   }
   catch (_e) { console.log(_e); return false; }
