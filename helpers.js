@@ -42,7 +42,7 @@ export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
   const headers = token ? { 'Authorization': `token ${token}` } : {};
   let variants = ['README.md', 'Readme.md', 'readme.md'];
   const url = `https://raw.githubusercontent.com/${gitHubUser}/${repository}/refs/heads/${branch}/`;
-  console.warn("DEBUG url", url);
+  console.log("DEBUG url", url);
   let text = '';
   for (let variant of variants) {
     const response = await fetch(url + variant, { headers }).catch(_e => { });
