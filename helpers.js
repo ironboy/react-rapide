@@ -52,9 +52,11 @@ export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
 
 export async function getFolderOfBranch(folderPath, gitHubUser, repository, branch, token) {
   if (token && branch.includes('teacher-')) { branch = branch.replace(/teacher-/, ''); repository += '-teacher'; }
+
   const headers = token ? { 'Authorization': `token ${token}` } : {};
   const url = `https://github.com/${gitHubUser}/${repository}`
     + `/archive/${branch}.zip`;
+  console.log("DEBUG URL, url");
   try {
     const data = Buffer.from(await (await fetch(url, { headers })).arrayBuffer());
     new AdmZip(data).extractAllTo(folderPath, true);
