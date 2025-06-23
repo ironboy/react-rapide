@@ -1,1 +1,1 @@
-Using our own backend with React/Vite.
+The shopping cart site with translations.
