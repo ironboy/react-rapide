@@ -38,17 +38,14 @@ export async function getBranches(gitHubUser, repository, filter = () => true, t
 }
 
 export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
-  console.log("DEBUGGING getReadMe", branch, "token", token);
   const headers = token ? { 'Authorization': `token ${token}` } : {};
   let variants = ['README.md', 'Readme.md', 'readme.md'];
   const url = `https://raw.githubusercontent.com/${gitHubUser}/${repository}/refs/heads/${branch}/`;
   let text = '';
   for (let variant of variants) {
     const response = await fetch(url + variant, { headers }).catch(_e => { });
-    console.log("DEBUG response.states", response.status);
-    if (response.status === 200) { text = (await response.text()).slice(0, shortenTo); break; }
+    if (response.status === 200) { text = (await response.text()); break; }
   }
-  console.log("DEBUG TEXT", text);
   return text;
 }
 
