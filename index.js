@@ -138,7 +138,6 @@ async function runCommand(command) {
   let remoteBaseDir = path.join(tempDir, 'react-rapide-' + branch);
   if (remoteBaseDir.includes('teacher-')) {
     remoteBaseDir = path.join(tempDir, 'react-rapide-teacher-' + branch.replace(/teacher-/, ''));
-    console.log("YEAH I AM HERE", remoteBaseDir);
   }
   let func = (await import(url.pathToFileURL(path.join(remoteBaseDir, 'z-rapide.js')))).default;
   let result = func() || {};

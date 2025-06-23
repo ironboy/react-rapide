@@ -1,6 +1,5 @@
 import * as cheerio from 'cheerio';
 import AdmZip from 'adm-zip';
-import fs from 'fs';
 
 export async function getBranches(gitHubUser, repository, filter = () => true, token) {
   let page = 1;
@@ -57,11 +56,9 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
   const headers = token ? { 'Authorization': `token ${token}` } : {};
   const url = `https://github.com/${gitHubUser}/${repository}`
     + `/archive/${branch}.zip`;
-  console.log("DEBUG URL", url);
   try {
     const data = Buffer.from(await (await fetch(url, { headers })).arrayBuffer());
     new AdmZip(data).extractAllTo(folderPath, true);
-    if (url.includes('teacher')) { console.log(fs.readdirSync(folderPath)); }
   }
   catch (_e) { console.log(_e); return false; }
   return true;
