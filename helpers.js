@@ -1,6 +1,3 @@
-import { execSync } from 'child_process';
-import fs from 'fs';
-import path from 'path';
 import * as cheerio from 'cheerio';
 import AdmZip from 'adm-zip';
 
@@ -56,13 +53,8 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
     + `/archive/${branch}.zip`;
   try {
     const data = Buffer.from(await (await fetch(url)).arrayBuffer());
-    let fileName = repository + '-' + branch;
     new AdmZip(data).extractAllTo(folderPath, true);
   }
   catch (_e) { console.log(_e); return false; }
   return true;
-}
-
-function sleep(ms) {
-  return new Promise(res => setTimeout(res, ms));
 }
