@@ -48,6 +48,7 @@ export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
     console.log("DEBUG response.states", response.status);
     if (response.status === 200) { text = (await response.text()).slice(0, shortenTo); break; }
   }
+  console.log("DEBUG TEXT", text);
   return text;
 }
 
