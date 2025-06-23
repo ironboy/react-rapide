@@ -1,1 +1,1 @@
-An example of how to divide your app into components.
+Testing with Vitest of the app-with-components example.
