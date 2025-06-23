@@ -45,6 +45,7 @@ export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
   let text = '';
   for (let variant of variants) {
     const response = await fetch(url + variant, { headers }).catch(_e => { });
+    console.log("DEBUG response.states", response.status);
     if (response.status === 200) { text = (await response.text()).slice(0, shortenTo); break; }
   }
   return text;
