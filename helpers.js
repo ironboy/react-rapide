@@ -55,7 +55,7 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
   const url = `https://github.com/${gitHubUser}/${repository}`
     + `/archive/${branch}.zip`;
   try {
-    const data = Buffer.from(await (await fetch(url), { headers }).arrayBuffer());
+    const data = Buffer.from(await (await fetch(url, { headers })).arrayBuffer());
     new AdmZip(data).extractAllTo(folderPath, true);
   }
   catch (_e) { console.log(_e); return false; }
