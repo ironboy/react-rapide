@@ -38,8 +38,8 @@ export async function getBranches(gitHubUser, repository, filter = () => true, t
 }
 
 export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
+  if (token) { branch = branch.replace(/^teacher-/, '', repository += '-teacher'); }
   const headers = token ? { 'Authorization': `token ${token}` } : {};
-  if (token && repository === 'react-rapide') { repository = 'react-rapide-teacher'; }
   let variants = ['README.md', 'Readme.md', 'readme.md'];
   const url = `https://raw.githubusercontent.com/${gitHubUser}/${repository}/refs/heads/${branch}/`;
   let text = '';
@@ -51,7 +51,7 @@ export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
 }
 
 export async function getFolderOfBranch(folderPath, gitHubUser, repository, branch, token) {
-  if (token) { branch = branch.replace(/^teacher-/, ''); }
+  if (token) { branch = branch.replace(/^teacher-/, '', repository += '-teacher'); }
   if (token && repository === 'react-rapide') { repository = 'react-rapide-teacher'; }
   const headers = token ? { 'Authorization': `token ${token}` } : {};
   const url = `https://github.com/${gitHubUser}/${repository}`
