@@ -119,7 +119,7 @@ async function runCommand(command) {
   mainRapide = mainRapide.replaceAll('[[command]]', command);
   command !== 'helpFast' && log(c.green(c.bold(('REACT RAPIDE: ' + command))));
   if (command === 'teacher-login') { await teacherLogin(); return; }
-  if (command === 'teacher-logout') { await teacherLogin(); return; }
+  if (command === 'teacher-logout') { await teacherLogout(); return; }
   if (command === 'helpFast') { helpFast(); return; }
   if (command === 'help') { await help(); return; }
   if (command === 'undo') { undo(); return; }
