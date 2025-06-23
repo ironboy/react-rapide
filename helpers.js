@@ -42,6 +42,7 @@ export async function getReadMeOfBranch(gitHubUser, repository, branch, token) {
   const headers = token ? { 'Authorization': `token ${token}` } : {};
   let variants = ['README.md', 'Readme.md', 'readme.md'];
   const url = `https://raw.githubusercontent.com/${gitHubUser}/${repository}/refs/heads/${branch}/`;
+  console.warn("DEBUG url", url);
   let text = '';
   for (let variant of variants) {
     const response = await fetch(url + variant, { headers }).catch(_e => { });
@@ -55,7 +56,6 @@ export async function getFolderOfBranch(folderPath, gitHubUser, repository, bran
   const headers = token ? { 'Authorization': `token ${token}` } : {};
   const url = `https://github.com/${gitHubUser}/${repository}`
     + `/archive/${branch}.zip`;
-  console.warn("DEBUG url", url);
   try {
     const data = Buffer.from(await (await fetch(url, { headers })).arrayBuffer());
     new AdmZip(data).extractAllTo(folderPath, true);
