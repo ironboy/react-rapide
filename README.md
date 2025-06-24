@@ -1,1 +1,1 @@
-Creates an almost empty src folder. (Removes the counter example installed by Vite.)
+Data to use in your Wilde Frames asssignment.
