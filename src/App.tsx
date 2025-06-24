@@ -8,5 +8,16 @@ export default function App() {
       <li>A <a href="/css-example-display-frames/index.html">CSS-example of how to display frames, with mats</a>. Feel free to use the basic CSS structure, but integrate it with your own programming logic: <b>Do not</b> copyy and modify the CSS for each frame size.</li>
       <li>A <a href="/product-detail-fast-mockup.html">fast mockup of a animal/product detail page</a>, for inspiration/display purposes only. Do <b>not</b> use the HTML/CSS structure from this example, it is not React-friendly.</li>
     </ul>
+    <hr />
+    <h2>README FOR REZA:</h2>
+    <pre>
+      Hi Reza!
+
+      TO DO:
+      * This should install a little differenlty than other examples, not replacing the source folder or public folder entirely... rather just giving you the files you need.
+      * Integration of the data (currently JSON files only) into a backend similar to the one in our REST-api / shopping cart examples to be used in latter stages of the assignment.
+
+      /Thomas
+    </pre>
   </>;
 }
