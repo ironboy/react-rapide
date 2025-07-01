@@ -260,6 +260,18 @@ function patchPackage(target, org, patch) {
   let originalPackageContent = fs.readFileSync(pTarget, 'utf-8');
   let pTargetJson = JSON.parse(originalPackageContent);
   let pOrgJson = JSON.parse(fs.readFileSync(pOrg, 'utf-8'));
+
+  // add testing depedencies so we don't get warning on ts config
+  let dd = pOrgJson.devDependencies;
+  let testDeps = {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "vitest": "^3.2.4"
+  };
+  for (let key in testDeps) {
+    if (!dd[key]) { dd[key] = testDeps[key]; }
+  }
+
   if (patch === 'auto') {
     patch = {};
     for (let type of ['dependencies', 'devDependencies']) {
