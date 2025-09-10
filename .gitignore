@@ -29,3 +29,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# .NET
+bin
+obj
+Backend/_db.sqlite3
+backend-node
