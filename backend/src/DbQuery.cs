@@ -15,7 +15,33 @@ public static class DbQuery
         for (var i = 0; i < reader.FieldCount; i++)
         {
             var key = reader.GetName(i);
-            obj[key] = reader.GetString(i).TryToNum();
+            var value = reader.GetValue(i);
+
+            // Handle NULL values
+            if (value == DBNull.Value)
+            {
+                obj[key] = null;
+            }
+            // Handle JSON-prefixed strings
+            else if (value is string strValue && strValue.StartsWith("JSON:"))
+            {
+                try
+                {
+                    // Remove "JSON:" prefix and parse the JSON
+                    var jsonString = strValue.Substring(5);
+                    obj[key] = JSON.Parse(jsonString);
+                }
+                catch
+                {
+                    // If parsing fails, keep the original value and try to convert to number
+                    obj[key] = strValue.TryToNum();
+                }
+            }
+            else
+            {
+                // Normal handling - convert to string and try to parse as number
+                obj[key] = value.ToString().TryToNum();
+            }
         }
         return obj;
     }
