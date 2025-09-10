@@ -33,7 +33,7 @@ export default function startBackend(app) {
   const dbPath = path.join(import.meta.dirname, '_db.sqlite3');
 
   // Calculate db template path
-  const dbTemplatePath = path.join(import.meta.dirname, '..', 'db_template', '_db.sqlite3');
+  const dbTemplatePath = path.join(import.meta.dirname, 'db_template', '_db.sqlite3');
 
   // Copy the database from template folder to backend folder if it does not exist there
   fs.existsSync(dbPath) || fs.copyFileSync(dbTemplatePath, dbPath);
