@@ -3,6 +3,7 @@ global using System.Text.RegularExpressions;
 global using System.Text.Json;
 global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.Extensions.FileProviders;
+global using System.Globalization;
 
 // Nuget packages
 global using Microsoft.Data.Sqlite;

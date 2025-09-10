@@ -1,6 +1,7 @@
-// Extension methods for strings 
+// Extension methods for strings
 // (and one for objects that can be strings)
 namespace WebApp;
+
 public static partial class StringUtils
 {
     public static string Regplace(
@@ -25,7 +26,7 @@ public static partial class StringUtils
     public static object TryToNum(this string str)
     {
         return IsInt(str) ? Int64.Parse(str) :
-            IsDouble(str) ? Double.Parse(str) : str;
+            IsDouble(str) ? Double.Parse(str, CultureInfo.InvariantCulture) : str;
     }
 
     // This is an extension for objects, rather than strings:
