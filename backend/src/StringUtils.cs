@@ -25,8 +25,9 @@ public static partial class StringUtils
     // if it is possilbe - otherwise leave it as if
     public static object TryToNum(this string str)
     {
-        return IsInt(str) ? Int64.Parse(str) :
-            IsDouble(str) ? Double.Parse(str, CultureInfo.InvariantCulture) : str;
+        var numStr = str.Replace(',', '.');
+        return IsInt(numStr) ? Int64.Parse(numStr) :
+            IsDouble(numStr) ? Double.Parse(numStr, CultureInfo.InvariantCulture) : str;
     }
 
     // This is an extension for objects, rather than strings:
