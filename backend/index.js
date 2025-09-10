@@ -1,3 +1,7 @@
+// A Node.js based start up for the C#-based backend
+// (integrates with React Rapide that starts the index.js file in backend)
+// Allows the backend to start running as we start the Vite dev server!
+
 import fs from 'fs';
 import path from 'path';
 import { spawn } from 'child_process';
@@ -27,6 +31,12 @@ export default function startBackend(app) {
 
   // Calculate db path
   const dbPath = path.join(import.meta.dirname, '_db.sqlite3');
+
+  // Calculate db template path
+  const dbTemplatePath = path.join(import.meta.dirname, '..', 'db_template', '_db.sqlite3');
+
+  // Copy the database from template folder to backend folder if it does not exist there
+  fs.existsSync(dbPath) || fs.copyFileSync(dbTemplatePath, dbPath);
 
   // Port to start the backend on
   let startPort = 5001;

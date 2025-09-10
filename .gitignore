@@ -34,5 +34,5 @@ dist-ssr
 # .NET
 bin
 obj
-Backend/_db.sqlite3
+backend/_db.sqlite3
 backend-node
